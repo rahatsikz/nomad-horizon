@@ -9,8 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
+        mainBg: "var(--main-bg)",
+      },
+      backgroundColor: {
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
+        mainBg: "var(--main-bg)",
+      },
+      boxShadow: {
+        main: "var(--main-boxShadow)",
       },
     },
   },
