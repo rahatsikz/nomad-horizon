@@ -1,14 +1,14 @@
 export function HeroSection() {
   return (
-    <div className='relative isolate overflow-hidden dark:bg-gray-800 bg-slate-100 border-b dark:border-gray-700'>
+    <div className='relative isolate overflow-hidden bg-nomadGray border-b dark:border-gray-700'>
       <SquarePatttern />
       <HeroClipPathGradient />
       <div className='mx-auto px-6 pb-24 pt-10 sm:pb-32 lg:flex justify-center items-center lg:px-8 lg:py-40'>
-        <div className='mx-auto flex-shrink-0 lg:mx-0 lg:max-w-2xl lg:pt-8 text-center'>
+        <div className='mx-auto flex-shrink-0 lg:mx-0 lg:max-w-2xl text-center'>
           <h1 className='mt-10 text-4xl font-bold tracking-tight text-secondary sm:text-6xl'>
             Digital Services for Nomads Worldwide
           </h1>
-          <p className='mt-6 text-lg leading-8 dark:text-gray-300 text-gray-600'>
+          <p className='mt-6 text-lg leading-8 text-neutral'>
             Your ultimate hub for seamless internet connectivity and mobile
             solutions to expert laptop servicing, we ensure you stay productive
             and worry-free

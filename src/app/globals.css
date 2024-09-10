@@ -9,6 +9,8 @@
   --main-bg: rgb(253, 253, 253);
   --secondary: rgb(34, 40, 49);
   --primary: rgb(118, 171, 174);
+  --nomad-gray: rgb(241 245 249);
+  --neutral:rgb(75 85 99);
   --main-boxShadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.1);
   
 }
@@ -21,6 +23,8 @@
   --main-bg: rgb(34, 40, 49);
   --secondary: rgb(253, 253, 253);
   --primary: rgb(118, 171, 174);
+  --nomad-gray: rgb(31 41 55);
+  --neutral:rgb(156 163 175);
   --main-boxShadow:  0px 0px 4px 1px rgba(0, 0, 0, 0.1);
 
   }

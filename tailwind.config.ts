@@ -12,11 +12,15 @@ const config: Config = {
         primary: "var(--primary)",
         secondary: "var(--secondary)",
         mainBg: "var(--main-bg)",
+        neutral: "var(--neutral)",
+        nomadGray: "var(--nomad-gray)",
       },
       backgroundColor: {
         primary: "var(--primary)",
         secondary: "var(--secondary)",
         mainBg: "var(--main-bg)",
+        neutral: "var(--neutral)",
+        nomadGray: "var(--nomad-gray)",
       },
       boxShadow: {
         main: "var(--main-boxShadow)",
