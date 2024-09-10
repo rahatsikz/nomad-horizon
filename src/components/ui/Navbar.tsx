@@ -5,18 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { DropdownMenu } from "./DropdownMenu";
 import { usePathname } from "next/navigation";
 import Logo from "@/assets/svgs/logo";
-
-const navOptions = [
-  { label: "Home", route: "/" },
-  { label: "About", route: "/about" },
-  { label: "Contact", route: "/contact" },
-  { label: "Blog", route: "/blog" },
-];
-
-const loginRouteOptions = [
-  { label: "Register", route: "/register" },
-  { label: "Login", route: "/login" },
-];
+import { loginRouteOptions, navOptions } from "@/constant/global";
 
 export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
