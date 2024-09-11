@@ -81,3 +81,27 @@ export const dummyServices = [
     categoryId: 5,
   },
 ];
+
+export const dummyReview = [
+  {
+    id: crypto.randomUUID(),
+    name: "Emma Brooks",
+    city: "Vancouver, Canada",
+    review:
+      "Nomad Horizon has been a game-changer for my travels. The services are reliable, and I’ve never felt more connected while on the road. I highly recommend them to any digital nomad looking for convenience and efficiency!",
+  },
+  {
+    id: crypto.randomUUID(),
+    name: "Carlos Ramirez",
+    city: "Barcelona, Spain",
+    review:
+      "I love how easy it is to find services tailored to my nomadic lifestyle. The support team is excellent, and the offerings keep getting better. Nomad Horizon truly understands the needs of modern-day nomads.",
+  },
+  {
+    id: crypto.randomUUID(),
+    name: "Aisha Patel",
+    city: "Sydney, Australia",
+    review:
+      "From fast internet to mobile services, Nomad Horizon has everything I need to stay productive while traveling. Their platform is user-friendly and makes managing my resources stress-free!",
+  },
+];

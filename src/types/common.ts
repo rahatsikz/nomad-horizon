@@ -9,3 +9,12 @@ export type ServiceProps = {
   price: number;
   categoryId: number;
 };
+
+export type ReviewProps = {
+  id?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  name: string;
+  review: string;
+  city: string;
+};

@@ -29,8 +29,8 @@ export function Navbar() {
   }, []);
 
   return (
-    <div className='sticky top-0 left-0 z-10' ref={myRef}>
-      <nav className='relative flex justify-between items-center py-8 px-8 lg:px-16 z-50 bg-mainBg shadow dark:shadow-white'>
+    <header className='sticky top-0 left-0 z-10' ref={myRef}>
+      <nav className='relative flex justify-between items-center py-8 px-8 lg:px-16 z-50 bg-mainBg shadow dark:shadow-gray-50/10'>
         <Link href='/' className=''>
           <Logo />
         </Link>
@@ -101,6 +101,7 @@ export function Navbar() {
               <button
                 tabIndex={showMobileMenu ? 0 : -1}
                 onClick={() => console.log("Logout")}
+                className='text-secondary hover:text-primary transition-colors duration-300'
               >
                 Logout
               </button>
@@ -117,7 +118,7 @@ export function Navbar() {
           )}
         </ul>
       </div>
-    </div>
+    </header>
   );
 }
 

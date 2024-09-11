@@ -1,4 +1,4 @@
-import { ServiceProps } from "@/types/common";
+import { ReviewProps, ServiceProps } from "@/types/common";
 import Image from "next/image";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
@@ -51,6 +51,28 @@ export function CardVariantTwo({ data }: { data: ServiceProps }) {
           </h3>
           <p className='text-sm text-neutral'>{data.content}</p>
         </header>
+      </div>
+    </div>
+  );
+}
+
+export function TestimonialCard({ data }: { data: ReviewProps }) {
+  return (
+    <div className='overflow-hidden w-full bg-nomadGray shadow-main mx-4'>
+      <div className='relative p-6'>
+        <figure className='relative z-10'>
+          <blockquote className='p-6 text-lg leading-relaxed text-secondary'>
+            <p>{data?.review}</p>
+          </blockquote>
+          <figcaption className='flex items-center gap-4 p-6 pt-2 text-sm text-primary'>
+            <div className='flex flex-col gap-1'>
+              <span className='font-bold'>{data?.name}</span>
+              <cite className='not-italic'>
+                <span className='text-neutral'>{data?.city}</span>
+              </cite>
+            </div>
+          </figcaption>
+        </figure>
       </div>
     </div>
   );
