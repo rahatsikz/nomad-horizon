@@ -1,3 +1,4 @@
+import { Events } from "@/components/Homepage/Events";
 import { HeroSection } from "@/components/Homepage/HeroSection";
 import { Overview } from "@/components/Homepage/Overview";
 import { TopService, UpcomingService } from "@/components/Homepage/Services";
@@ -14,6 +15,7 @@ const Homepage = () => {
       <UpcomingService />
       <Testimonial />
       <Overview />
+      <Events />
       <h1>Homepage</h1>
     </div>
   );

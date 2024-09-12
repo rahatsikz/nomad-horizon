@@ -105,3 +105,24 @@ export const dummyReview = [
       "From fast internet to mobile services, Nomad Horizon has everything I need to stay productive while traveling. Their platform is user-friendly and makes managing my resources stress-free!",
   },
 ];
+
+export const dummyEvent = [
+  {
+    id: crypto.randomUUID(),
+    eventName: "Digital Nomad Summit",
+    eventDate: "2025-03-15",
+    location: "Lisbon, Portugal",
+    description:
+      "Join fellow nomads and remote professionals at the Digital Nomad Summit, where industry leaders discuss trends in remote work, digital services, and nomadic lifestyle tips.",
+    category: "Conferences",
+  },
+  {
+    id: crypto.randomUUID(),
+    eventName: "Remote Work & Tech Expo",
+    eventDate: "2025-06-20",
+    location: "Bali, Indonesia",
+    description:
+      "Explore the latest tools and services for digital nomads at the Remote Work & Tech Expo. Featuring product demos, networking opportunities, and hands-on workshops.",
+    category: "Exhibitions",
+  },
+];

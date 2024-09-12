@@ -18,7 +18,7 @@ export function Overview() {
           style={{ width: "100%", height: "auto" }}
           className='aspect-[4/3] object-cover'
         />
-        <div className='w-full flex flex-col justify-between text-lg leading-relaxed text-secondary p-8'>
+        <div className='w-full flex flex-col max-2xl:gap-4 2xl:justify-between text-lg leading-relaxed text-secondary p-8'>
           <p className='max-lg:line-clamp-5'>
             At Nomad Horizon, we specialize in offering digital services that
             cater to the unique needs of nomads and remote workers. Our platform
@@ -33,8 +33,7 @@ export function Overview() {
             Nomad Horizon ensures that you have the support and technology
             needed to thrive. Our mission is to provide dependable services,
             from fast and secure internet access to quick device repairs. With
-            us by your side, you can focus on your adventures and career without
-            the worry of losing connectivity or facing tech issues.
+            us by your side.
           </p>
           <p className='hidden xl:block'>
             No matter where you are in the world, we help you stay online, stay

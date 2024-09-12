@@ -18,3 +18,12 @@ export type ReviewProps = {
   review: string;
   city: string;
 };
+
+export type EventProps = {
+  id?: string;
+  eventName: string;
+  eventDate: string;
+  location: string;
+  description: string;
+  category: string;
+};

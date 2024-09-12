@@ -1,4 +1,5 @@
-import { ReviewProps, ServiceProps } from "@/types/common";
+import { CalendarIcon, MapIcon } from "@/assets/svgs/heroIcons";
+import { EventProps, ReviewProps, ServiceProps } from "@/types/common";
 import Image from "next/image";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
@@ -73,6 +74,25 @@ export function TestimonialCard({ data }: { data: ReviewProps }) {
             </div>
           </figcaption>
         </figure>
+      </div>
+    </div>
+  );
+}
+
+export function EventCard({ data }: { data: EventProps }) {
+  return (
+    <div className='overflow-hidden w-full p-6 space-y-3'>
+      <h2 className='text-secondary'>{data?.eventName}</h2>
+      <p className='text-neutral'>{data?.description}</p>
+      <div className='flex justify-between'>
+        <div className='flex items-center gap-2'>
+          <MapIcon />
+          <p className='mt-0.5 text-primary'> {data?.location}</p>
+        </div>
+        <div className='flex items-center gap-2'>
+          <CalendarIcon />
+          <p className='mt-0.5 text-primary'> {data?.eventDate}</p>
+        </div>
       </div>
     </div>
   );
