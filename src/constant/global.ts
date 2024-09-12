@@ -126,3 +126,36 @@ export const dummyEvent = [
     category: "Exhibitions",
   },
 ];
+
+export const dummyLatestNews = [
+  {
+    id: crypto.randomUUID(),
+    title: "New Digital Nomad Visa Options for 2024",
+    subtitle:
+      "Explore the latest visa opportunities that make remote work more accessible across different countries.",
+    date: "2024-09-10",
+
+    content:
+      "With more countries introducing digital nomad visas, 2024 brings new possibilities for remote workers. Discover which destinations are becoming more accessible for long-term stays, allowing you to live and work freely as a global citizen.",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Top Destinations for Digital Nomads in 2024",
+    subtitle:
+      "Uncover the most popular and emerging locations for remote work around the world.",
+    date: "2024-08-25",
+
+    content:
+      "From bustling cities to serene beach towns, here are the top destinations where digital nomads can thrive in 2024. Learn about the best places offering co-working spaces, fast internet, and a vibrant community of remote professionals.",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "5 Essential Gadgets for Remote Workers",
+    subtitle:
+      "Optimize your workflow with the latest tech tools every digital nomad needs.",
+    date: "2024-09-05",
+
+    content:
+      "Stay productive on the go with these essential gadgets designed for digital nomads. From portable Wi-Fi hotspots to noise-canceling headphones, we’ve got you covered with tools that enhance your remote work experience.",
+  },
+];

@@ -27,3 +27,11 @@ export type EventProps = {
   description: string;
   category: string;
 };
+
+export type NewsProps = {
+  id: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  content: string;
+};

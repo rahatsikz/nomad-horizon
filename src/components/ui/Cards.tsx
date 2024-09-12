@@ -1,5 +1,10 @@
 import { CalendarIcon, MapIcon } from "@/assets/svgs/heroIcons";
-import { EventProps, ReviewProps, ServiceProps } from "@/types/common";
+import {
+  EventProps,
+  NewsProps,
+  ReviewProps,
+  ServiceProps,
+} from "@/types/common";
 import Image from "next/image";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
@@ -93,6 +98,21 @@ export function EventCard({ data }: { data: EventProps }) {
           <CalendarIcon />
           <p className='mt-0.5 text-primary'> {data?.eventDate}</p>
         </div>
+      </div>
+    </div>
+  );
+}
+
+export function NewsCard({ data }: { data: NewsProps }) {
+  return (
+    <div className='w-full overflow-hidden border border-neutral rounded-lg p-4'>
+      <div>
+        <h2 className='text-secondary'>{data?.title}</h2>
+        <div className='flex items-center gap-2 mt-0.5 mb-3'>
+          <CalendarIcon />
+          <p className='mt-0.5 text-primary text-sm'>{data?.date}</p>
+        </div>
+        <p className='text-neutral line-clamp-5'>{data?.content}</p>
       </div>
     </div>
   );
