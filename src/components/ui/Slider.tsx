@@ -7,7 +7,7 @@ export const InfiniteSlider = ({
   cardArr: React.ReactElement[];
 }) => {
   const [translateX, setTranslateX] = useState(0);
-  const [cardWidth, setCardWidth] = useState(1);
+  const [cardWidth, setCardWidth] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
   const lastTimeRef = useRef<number>();

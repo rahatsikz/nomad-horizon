@@ -1,4 +1,5 @@
 import { HeroSection } from "@/components/Homepage/HeroSection";
+import { Overview } from "@/components/Homepage/Overview";
 import { TopService, UpcomingService } from "@/components/Homepage/Services";
 import { Testimonial } from "@/components/Homepage/Testimonial";
 import { Navbar } from "@/components/ui/Navbar";
@@ -12,6 +13,7 @@ const Homepage = () => {
       <TopService />
       <UpcomingService />
       <Testimonial />
+      <Overview />
       <h1>Homepage</h1>
     </div>
   );

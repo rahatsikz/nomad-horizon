@@ -64,9 +64,9 @@ export function TestimonialCard({ data }: { data: ReviewProps }) {
           <blockquote className='p-6 text-lg leading-relaxed text-secondary'>
             <p>{data?.review}</p>
           </blockquote>
-          <figcaption className='flex items-center gap-4 p-6 pt-2 text-sm text-primary'>
+          <figcaption className='flex items-center gap-4 p-6 pt-2 text-sm'>
             <div className='flex flex-col gap-1'>
-              <span className='font-bold'>{data?.name}</span>
+              <span className='font-bold text-primary'>{data?.name}</span>
               <cite className='not-italic'>
                 <span className='text-neutral'>{data?.city}</span>
               </cite>
