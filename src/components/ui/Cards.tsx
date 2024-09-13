@@ -1,5 +1,6 @@
 import { CalendarIcon, MapIcon } from "@/assets/svgs/heroIcons";
 import {
+  BlogProps,
   EventProps,
   NewsProps,
   ReviewProps,
@@ -113,6 +114,36 @@ export function NewsCard({ data }: { data: NewsProps }) {
           <p className='mt-0.5 text-primary text-sm'>{data?.date}</p>
         </div>
         <p className='text-neutral line-clamp-5'>{data?.content}</p>
+      </div>
+    </div>
+  );
+}
+
+export function BlogCard({ data }: { data: BlogProps }) {
+  return (
+    <div className='overflow-hidden min-w-80 h-fit bg-nomadGray shadow-md rounded w-full'>
+      <div className='p-6'>
+        <div className='grid gap-6 grid-cols-2'>
+          <Image
+            sizes='100vw'
+            width={100}
+            height={100}
+            src={data.image}
+            alt='card image'
+            className='aspect-video w-full h-full object-cover rounded'
+          />
+          <div className='w-full'>
+            <h2 className='text-xl text-secondary font-semibold'>
+              {data.title}
+            </h2>
+            <p className='text-neutral text-xs tracking-wider mt-1'>
+              {data.author}
+            </p>
+            <p className='text-neutral mt-4 text-sm xl:line-clamp-5'>
+              {data.content}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

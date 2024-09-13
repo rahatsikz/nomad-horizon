@@ -1,3 +1,4 @@
+import { BlogSection } from "@/components/Homepage/BlogSection";
 import { Events } from "@/components/Homepage/Events";
 import { HeroSection } from "@/components/Homepage/HeroSection";
 import { LatestNews } from "@/components/Homepage/LatestNews";
@@ -16,6 +17,7 @@ const Homepage = () => {
       <Testimonial />
       <Overview />
       <Events />
+      <BlogSection />
       <LatestNews />
     </div>
   );

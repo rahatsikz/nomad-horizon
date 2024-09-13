@@ -159,3 +159,24 @@ export const dummyLatestNews = [
       "Stay productive on the go with these essential gadgets designed for digital nomads. From portable Wi-Fi hotspots to noise-canceling headphones, we’ve got you covered with tools that enhance your remote work experience.",
   },
 ];
+
+export const dummyBlogData = [
+  {
+    id: crypto.randomUUID(),
+    title: "How to Stay Productive as a Digital Nomad",
+    author: "David Simmons",
+    publishDate: "2024-09-15",
+    image: "https://images.pexels.com/photos/5992541/pexels-photo-5992541.jpeg",
+    content:
+      "As a digital nomad, staying productive while on the move can be challenging. This blog explores proven strategies like setting clear goals, using digital tools, and creating a structured routine that balances work and travel...",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "The Best Destinations for Remote Work in 2024",
+    author: "Emily Carter",
+    publishDate: "2024-09-10",
+    image: "https://images.pexels.com/photos/2773521/pexels-photo-2773521.jpeg",
+    content:
+      "2024 offers many exciting locations for digital nomads seeking the perfect blend of work and leisure. In this blog, we highlight destinations with reliable internet, great co-working spaces, and vibrant nomad communities to enhance your remote work experience...",
+  },
+];

@@ -35,3 +35,12 @@ export type NewsProps = {
   date: string;
   content: string;
 };
+
+export type BlogProps = {
+  id: string;
+  title: string;
+  author: string;
+  publishDate: string;
+  image: string;
+  content: string;
+};
