@@ -139,7 +139,7 @@ export function BlogCard({ data }: { data: BlogProps }) {
             <p className='text-neutral text-xs tracking-wider mt-1'>
               {data.author}
             </p>
-            <p className='text-neutral mt-4 text-sm xl:line-clamp-5'>
+            <p className='text-neutral mt-4 text-sm line-clamp-5'>
               {data.content}
             </p>
           </div>

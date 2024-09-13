@@ -5,7 +5,7 @@ import { HeaderText } from "../ui/Headers";
 export function TopService() {
   const topService = dummyServices.filter((data) => data?.status === "active");
   return (
-    <div className='container mx-auto my-16'>
+    <div>
       <HeaderText
         title='Our Top Services'
         subtitle='Discover our top-rated services designed to keep you connected, secure, and efficient wherever your journey takes you'
@@ -23,7 +23,7 @@ export function UpcomingService() {
     (data) => data?.status === "upcoming"
   );
   return (
-    <div className='container mx-auto my-16'>
+    <div>
       <HeaderText
         title='Our Upcoming Services'
         subtitle='Stay tuned for the latest innovations in nomad services, coming soon to make your adventures even more seamless'

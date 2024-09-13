@@ -4,7 +4,7 @@ import { HeaderText } from "../ui/Headers";
 
 export function LatestNews() {
   return (
-    <div className='container mx-auto pb-12 2xl:px-0 px-4'>
+    <div>
       <HeaderText
         title='Latest News'
         subtitle='Stay Updated with the Latest Trends and Insights in the Digital Nomad World'

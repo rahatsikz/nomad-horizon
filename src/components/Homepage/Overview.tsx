@@ -3,7 +3,7 @@ import { HeaderText } from "../ui/Headers";
 
 export function Overview() {
   return (
-    <div className='container mx-auto my-16 2xl:px-0 px-4'>
+    <div>
       <HeaderText
         title='Overview'
         subtitle='Focus on your adventures and career without the worry of losing connectivity or facing tech issues'

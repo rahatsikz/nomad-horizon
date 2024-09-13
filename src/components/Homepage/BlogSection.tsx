@@ -4,7 +4,7 @@ import { HeaderText } from "../ui/Headers";
 
 export function BlogSection() {
   return (
-    <div className='container mx-auto my-12'>
+    <div>
       <HeaderText
         title='Most Popular Blogs'
         subtitle='Your Ultimate Resource for Digital Nomads: Practical Tips, Inspiring Stories, and Expert Guides'
