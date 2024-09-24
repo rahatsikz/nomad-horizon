@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${redditFont.className} flex flex-col min-h-screen`}>
         <Navbar />
-        <div className='flex-1'>{children}</div>
+        <div className='flex-1 bg-mainBg'>{children}</div>
         <Footer />
       </body>
     </html>

@@ -7,6 +7,7 @@ import {
   ServiceProps,
 } from "@/types/common";
 import Image from "next/image";
+import { Button } from "./Button";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
   return (
@@ -143,6 +144,42 @@ export function BlogCard({ data }: { data: BlogProps }) {
               {data.content}
             </p>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function CardVariantThree({ data }: { data: ServiceProps }) {
+  return (
+    <div className='flex flex-col overflow-hidden bg-nomadGray rounded text-secondary shadow-main sm:flex-row'>
+      {/*  <!-- Image --> */}
+      <figure className='h-auto flex-1'>
+        <Image
+          src={data?.image}
+          width={200}
+          height={200}
+          sizes='100vw'
+          alt='card image'
+          className='object-cover aspect-auto h-full w-full'
+        />
+      </figure>
+      {/*  <!-- Body--> */}
+      <div className='flex-1 px-6 sm:px-0 flex flex-col justify-between gap-4 max-sm:py-6'>
+        <>
+          <div className='space-y-3 sm:mx-6 pt-6'>
+            <h3 className='text-xl font-medium'>{data?.serviceName}</h3>
+            <p className='text-neutral'>{data?.content}</p>
+          </div>
+          <div className='text-sm text-neutral sm:mx-6'>
+            <span>Price: </span>
+            <span className='text-primary'>{data?.price} USD</span>
+          </div>
+        </>
+        <div className='sm:flex justify-end  w-full'>
+          <Button variant='solid' className='max-sm:w-full px-3 text-sm'>
+            Add to cart
+          </Button>
         </div>
       </div>
     </div>
