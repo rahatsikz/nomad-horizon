@@ -176,7 +176,7 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
             <span className='text-primary'>{data?.price} USD</span>
           </div>
         </>
-        <div className='sm:flex justify-end  w-full'>
+        <div className='sm:flex justify-end w-full'>
           <Button variant='solid' className='max-sm:w-full px-3 text-sm'>
             Add to cart
           </Button>

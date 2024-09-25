@@ -26,7 +26,7 @@ export function RangeSlide({
         step={100}
         value={value}
         onChange={handleChange}
-        className='w-full h-4 rounded-full bg-primary appearance-none focus:outline-none'
+        className='w-full h-4 rounded-full bg-gradient-to-r from-neutral to-primary appearance-none focus:outline-none'
       />
     </div>
   );

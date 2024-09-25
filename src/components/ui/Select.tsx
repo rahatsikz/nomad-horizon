@@ -10,10 +10,17 @@ type SelectComponentProps = {
   onChange: (value: Option) => void;
   value: Option;
   options: Option[];
-  label: string;
+  label?: string;
+  searchable?: boolean;
 };
 
-const Select = ({ options, onChange, value, label }: SelectComponentProps) => {
+const Select = ({
+  options,
+  onChange,
+  value,
+  label,
+  searchable = true,
+}: SelectComponentProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isArrowRotated, setIsArrowRotated] = useState(false);
@@ -88,14 +95,16 @@ const Select = ({ options, onChange, value, label }: SelectComponentProps) => {
       </button>
       {isOpen && (
         <div className='absolute  mt-2 w-full bg-nomadGray text-secondary border border-neutral rounded shadow-lg '>
-          <input
-            type='text'
-            placeholder='Search...'
-            value={searchQuery}
-            ref={inputRef}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className='block w-full border-b bg-nomadGray  border-neutral py-2 px-3 focus:outline-none'
-          />
+          {searchable && (
+            <input
+              type='text'
+              placeholder='Search...'
+              value={searchQuery}
+              ref={inputRef}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className='block w-full border-b bg-nomadGray  border-neutral py-2 px-3 focus:outline-none'
+            />
+          )}
           <div className='max-h-60 h-fit overflow-y-auto'>
             {filteredOptions.map((option: Option) => (
               <div
