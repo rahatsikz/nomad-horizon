@@ -177,7 +177,10 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
           </div>
         </>
         <div className='sm:flex justify-end w-full'>
-          <Button variant='solid' className='max-sm:w-full px-3 text-sm'>
+          <Button
+            variant='solid'
+            className='max-sm:w-full px-3 text-sm rounded-bl-none rounded-tr-none'
+          >
             Add to cart
           </Button>
         </div>
