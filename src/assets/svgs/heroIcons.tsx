@@ -50,7 +50,7 @@ export const OpenSidebarIcon = () => (
     width={24}
     height={24}
     stroke='currentColor'
-    className='size-2'
+    className='size-6'
   >
     <path
       strokeLinecap='round'
@@ -69,7 +69,7 @@ export const CloseSidebarIcon = () => (
     width={24}
     height={24}
     stroke='currentColor'
-    className='size-2'
+    className='size-6'
   >
     <path
       strokeLinecap='round'

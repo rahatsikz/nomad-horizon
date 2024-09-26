@@ -8,6 +8,8 @@ import {
 } from "@/types/common";
 import Image from "next/image";
 import { Button } from "./Button";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { addingToCart } from "@/redux/slice/cart/cartSlice";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
   return (
@@ -151,6 +153,9 @@ export function BlogCard({ data }: { data: BlogProps }) {
 }
 
 export function CardVariantThree({ data }: { data: ServiceProps }) {
+  const { cart } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
+
   return (
     <div className='flex flex-col overflow-hidden bg-nomadGray rounded text-secondary shadow-main sm:flex-row'>
       {/*  <!-- Image --> */}
@@ -180,7 +185,9 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
         <div className='sm:flex justify-end w-full'>
           <Button
             variant='solid'
+            disabled={cart?.includes(data?.id)}
             className='max-sm:w-full px-3 text-sm rounded-bl-none rounded-tr-none'
+            onClick={() => dispatch(addingToCart(data.id))}
           >
             Add to cart
           </Button>

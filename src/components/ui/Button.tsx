@@ -5,6 +5,7 @@ type ButtonProps = {
   onClick?: () => void;
   type?: "submit" | "button" | "reset";
   variant: "solid" | "outline" | "ghost";
+  disabled?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export const Button = ({
@@ -12,6 +13,7 @@ export const Button = ({
   onClick,
   type = "button",
   variant,
+  disabled = false,
   ...props
 }: ButtonProps) => {
   const basicStyle =
@@ -19,7 +21,7 @@ export const Button = ({
 
   const variantStyle = {
     solid:
-      "bg-primary text-white border-2 border-transparent hover:bg-transparent hover:text-primary hover:border-primary",
+      "bg-primary text-white border-2 border-transparent hover:bg-transparent hover:text-primary hover:border-primary disabled:bg-primary disabled:text-white",
     outline:
       "border-2 border-primary text-primary hover:text-white hover:bg-primary hover:border-transparent",
     ghost: "text-primary hover:bg-primary hover:text-white",
@@ -29,7 +31,10 @@ export const Button = ({
     <button
       onClick={onClick}
       type={type}
-      className={cn(basicStyle, variantStyle[variant], props?.className)}
+      className={cn(basicStyle, variantStyle[variant], props?.className, {
+        "cursor-not-allowed opacity-50": disabled,
+      })}
+      disabled={disabled}
     >
       {children}
     </button>

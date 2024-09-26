@@ -6,6 +6,7 @@ import { DropdownMenu } from "./DropdownMenu";
 import { usePathname } from "next/navigation";
 import Logo from "@/assets/svgs/logo";
 import { loginRouteOptions, navOptions } from "@/constant/global";
+import { useAppSelector } from "@/redux/hooks";
 
 export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -132,6 +133,27 @@ const NavLink = ({
   isVisible?: boolean;
 }) => {
   const pathname = usePathname();
+  const { cart } = useAppSelector((state) => state.cart);
+
+  if (label === "Cart") {
+    return (
+      <li className='relative'>
+        <Link
+          href={route}
+          tabIndex={isVisible ? 0 : -1}
+          className={cn("hover:text-primary transition-colors duration-300", {
+            "text-primary": route === pathname,
+            "text-secondary": route !== pathname,
+          })}
+        >
+          <span className=''>{label}</span>
+          <span className='text-secondary bg-primary rounded-full size-4 text-xs flex items-center justify-center absolute bottom-4 -right-4'>
+            {cart?.length}
+          </span>
+        </Link>
+      </li>
+    );
+  }
 
   return (
     <li>

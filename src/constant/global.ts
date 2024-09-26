@@ -1,7 +1,8 @@
 export const navOptions = [
   { label: "Home", route: "/" },
   { label: "Services", route: "/services" },
-  { label: "Contact", route: "/contact" },
+  { label: "Cart", route: "/cart" },
+  // { label: "Contact", route: "/contact" },
   { label: "Blog", route: "/blog" },
 ];
 

@@ -12,12 +12,14 @@ import { cn } from "@/lib/utils";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function ServicePageContent() {
+  // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState({
     value: "2",
     label: "2",
   });
 
+  // toggle sidebar
   const [showSidebar, setShowSidebar] = useState(false);
   const sideRef = useRef<HTMLDivElement>(null);
 
