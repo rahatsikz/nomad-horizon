@@ -162,6 +162,7 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
           sizes='100vw'
           alt='card image'
           className='object-cover aspect-auto h-full w-full'
+          priority={true}
         />
       </figure>
       {/*  <!-- Body--> */}

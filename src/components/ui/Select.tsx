@@ -70,7 +70,7 @@ const Select = ({
 
   return (
     <div className='relative lg:w-full w-full ' ref={selectRef}>
-      <label className='text-sm text-secondary'>{label}</label>
+      {label && <p className='text-sm text-secondary mb-0.5'>{label}</p>}
       <button
         onClick={handleOpen}
         className='text-left outline-none w-full flex justify-between items-center border border-neutral rounded px-4 py-[9px] text-sm bg-transparent text-secondary focus:border-primary'

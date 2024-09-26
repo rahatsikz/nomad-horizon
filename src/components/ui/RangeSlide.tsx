@@ -15,8 +15,8 @@ export function RangeSlide({
 }: RangeSlideProps) {
   return (
     <div className='flex flex-col '>
-      <div className='flex justify-between items-center'>
-        <span className='text-secondary text-sm my-2'> {label} </span>
+      <div className='flex justify-between items-center mb-0.5'>
+        <span className='text-secondary text-sm'> {label} </span>
         <span className='text-neutral'>{value} </span>
       </div>
       <input

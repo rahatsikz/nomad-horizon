@@ -50,7 +50,7 @@ export default function ServicePageContent() {
           subtitle='Discover our services designed to keep you connected, secure and efficient wherever your journey takes you'
         />
         <div className='flex gap-12'>
-          <div className={`w-1/5 hidden 2xl:flex`}>
+          <div className='w-1/5 hidden 2xl:block'>
             <FilterDiv />
           </div>
 
@@ -98,7 +98,10 @@ export default function ServicePageContent() {
             showSidebar ? "translate-x-0" : "-translate-x-full"
           )}
         >
-          <FilterDiv closeSidebar={() => setShowSidebar(false)} />
+          <FilterDiv
+            displayIt={showSidebar}
+            closeSidebar={() => setShowSidebar(false)}
+          />
         </div>
       </div>
     </div>
@@ -106,7 +109,13 @@ export default function ServicePageContent() {
 }
 
 // Filtering Service
-const FilterDiv = ({ closeSidebar }: { closeSidebar?: () => void }) => {
+const FilterDiv = ({
+  closeSidebar,
+  displayIt = true,
+}: {
+  closeSidebar?: () => void;
+  displayIt?: boolean;
+}) => {
   const [price, setPrice] = useState<number>(100);
 
   const [search, setSearch] = useState<string>("");
@@ -134,15 +143,11 @@ const FilterDiv = ({ closeSidebar }: { closeSidebar?: () => void }) => {
           label='Search'
           type='search'
           placeholder='Search'
-          name='search'
+          name={`search-${displayIt}`}
           value={search}
           handleChange={handleSearchChange}
         />
-        <RangeSlide
-          label='Price'
-          handleChange={handleRangeChange}
-          value={price}
-        />
+
         <Select
           label='Categories'
           onChange={handleSelectChange}
@@ -152,6 +157,11 @@ const FilterDiv = ({ closeSidebar }: { closeSidebar?: () => void }) => {
             { value: "3", label: "Category 3" },
           ]}
           value={category}
+        />
+        <RangeSlide
+          label='Price'
+          handleChange={handleRangeChange}
+          value={price}
         />
       </div>
       {closeSidebar && (
