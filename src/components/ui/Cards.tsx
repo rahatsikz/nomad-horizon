@@ -189,7 +189,7 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
             className='max-sm:w-full px-3 text-sm rounded-bl-none rounded-tr-none'
             onClick={() => dispatch(addingToCart(data.id))}
           >
-            Add to cart
+            {cart?.includes(data?.id) ? "Added to cart" : "Add to cart"}
           </Button>
         </div>
       </div>

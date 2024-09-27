@@ -137,16 +137,19 @@ const NavLink = ({
 
   if (label === "Cart") {
     return (
-      <li className='relative'>
+      <li>
         <Link
           href={route}
           tabIndex={isVisible ? 0 : -1}
-          className={cn("hover:text-primary transition-colors duration-300", {
-            "text-primary": route === pathname,
-            "text-secondary": route !== pathname,
-          })}
+          className={cn(
+            "hover:text-primary transition-colors duration-300 relative",
+            {
+              "text-primary": route === pathname,
+              "text-secondary": route !== pathname,
+            }
+          )}
         >
-          <span className=''>{label}</span>
+          <span>{label}</span>
           <span className='text-secondary bg-primary rounded-full size-4 text-xs flex items-center justify-center absolute bottom-4 -right-4'>
             {cart?.length}
           </span>
