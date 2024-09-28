@@ -5,6 +5,7 @@ import { dummyServices } from "@/constant/global";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeFromCart } from "@/redux/slice/cart/cartSlice";
 import { ServiceProps } from "@/types/common";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function CartPageContent() {
@@ -36,6 +37,7 @@ export default function CartPageContent() {
 
 const CartCard = ({ data }: { data: ServiceProps | undefined }) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   return (
     <div className='flex flex-col md:flex-row justify-between gap-3 px-6 py-8 bg-nomadGray rounded-md border border-secondary'>
@@ -56,7 +58,12 @@ const CartCard = ({ data }: { data: ServiceProps | undefined }) => {
         >
           Remove
         </Button>
-        <Button variant='solid'>Book Now</Button>
+        <Button
+          variant='solid'
+          onClick={() => router.push(`/booking/${data?.id}`)}
+        >
+          Book Now
+        </Button>
       </div>
     </div>
   );
