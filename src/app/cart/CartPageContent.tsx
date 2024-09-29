@@ -40,7 +40,7 @@ const CartCard = ({ data }: { data: ServiceProps | undefined }) => {
   const router = useRouter();
 
   return (
-    <div className='flex flex-col md:flex-row justify-between gap-3 px-6 py-8 bg-nomadGray rounded-md border border-secondary'>
+    <div className='flex flex-col md:flex-row justify-between gap-3 px-6 py-8 bg-nomadGray rounded-md border dark:border-secondary'>
       <div className='text-secondary space-y-2'>
         <p>
           Service Name:{" "}

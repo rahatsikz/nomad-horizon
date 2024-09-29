@@ -44,3 +44,10 @@ export type BlogProps = {
   image: string;
   content: string;
 };
+
+export type ScheduleTimeProps = {
+  id: string;
+  start_time: string;
+  end_time: string;
+  available: boolean;
+};

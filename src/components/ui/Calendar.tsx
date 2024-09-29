@@ -117,8 +117,8 @@ export default function Calendar({ onDateClick, selectedDate }: CalendarProps) {
   };
 
   return (
-    <div className='w-72 p-4 bg-nomadGray text-secondary'>
-      <div className='flex justify-between mb-2'>
+    <div className='md:w-72 py-4 bg-nomadGray text-secondary w-full'>
+      <div className='flex justify-between mb-2 px-4'>
         <button onClick={goToPrevMonth}>&lt;</button>
         <span>
           {onDisplayDate.toLocaleString("default", { month: "long" })}{" "}
@@ -126,13 +126,15 @@ export default function Calendar({ onDateClick, selectedDate }: CalendarProps) {
         </span>
         <button onClick={goToNextMonth}>&gt;</button>
       </div>
-      <div className='grid grid-cols-7 gap-1.5'>
+      {/* Display the days of the week */}
+      <div className='grid grid-cols-7 gap-1.5 bg-mainBg px-4 text-neutral'>
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, idx) => (
-          <div key={idx} className='text-center font-semibold'>
+          <div key={idx} className='text-center font-medium'>
             {day}
           </div>
         ))}
-
+      </div>
+      <div className='grid grid-cols-7 gap-1.5 px-4'>
         {/* Adding empty cells before the first day of the month */}
         {Array.from({ length: startDay }).map((_, idx) => (
           <div key={idx}></div> // Empty div to represent an empty space
@@ -148,8 +150,8 @@ export default function Calendar({ onDateClick, selectedDate }: CalendarProps) {
                 "text-neutral opacity-50 cursor-not-allowed hover:bg-transparent hover:text-neutral":
                   isPastDate(day),
               },
-              { "bg-primary text-secondary": isToday(day) && !selectedDate },
-              { "bg-primary text-secondary": isDateSelected(day) }
+              { "bg-primary text-white": isToday(day) && !selectedDate },
+              { "bg-primary text-white": isDateSelected(day) }
             )}
             onClick={() => !isPastDate(day) && handleDayClick(day)} // Disable click for past dates
           >
