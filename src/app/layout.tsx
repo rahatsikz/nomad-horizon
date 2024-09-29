@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Reddit_Mono as RedditFont } from "next/font/google";
-import { Navbar } from "@/components/ui/Navbar";
-import { Footer } from "@/components/ui/Footer";
 import Providers from "@/lib/Providers";
 
 const redditFont = RedditFont({
@@ -23,12 +21,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${redditFont.className} flex flex-col min-h-screen`}>
-        <Providers>
-          <Navbar />
-          <div className='flex-1 bg-mainBg'>{children}</div>
-          <Footer />
-        </Providers>
+      <body className={`${redditFont.className}`}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
