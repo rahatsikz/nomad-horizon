@@ -1,6 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/Button";
 import Calendar from "@/components/ui/Calendar";
+import { HeaderText } from "@/components/ui/Headers";
+import { dummyServices } from "@/constant/global";
 import { cn } from "@/lib/utils";
 import { ScheduleTimeProps } from "@/types/common";
 import React, { useState } from "react";
@@ -21,15 +23,22 @@ export default function BookingPageContent({ id }: { id: string }) {
     setSelectedTime(time);
   };
 
+  // replace with api service data
+  const service = dummyServices.find((data) => data.id === id);
+
   // ! will implement booking api call here
   const handleBooking = () => {
     if (selectedDate && selectedTime) {
-      console.log(selectedDate.getDate(), selectedTime, id);
+      console.log(selectedDate.getDate(), selectedTime);
     }
   };
 
   return (
     <section className='container mx-auto px-4 2xl:px-0 py-8'>
+      <HeaderText
+        title={service!.serviceName}
+        subtitle='Book your desired service on your preferred date and time'
+      />
       <div className='border dark:border-neutral rounded-lg'>
         {/* topbar */}
         <div className='w-full h-fit md:h-20 border-b dark:border-neutral sticky top-[94px] left-0 bg-nomadGray rounded-tr-md rounded-tl-md z-[2]'>
