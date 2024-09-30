@@ -1,5 +1,5 @@
 "use client";
-import { CalendarIcon, MapIcon } from "@/assets/svgs/heroIcons";
+import { CalendarIcon, MapIcon, RightArrowIcon } from "@/assets/svgs/heroIcons";
 import {
   BlogProps,
   EventProps,
@@ -12,7 +12,7 @@ import { Button } from "./Button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addingToCart } from "@/redux/slice/cart/cartSlice";
 import loginImage from "@/assets/images/Login-amico.png";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
@@ -160,6 +160,8 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
   const { cart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
+  const router = useRouter();
+
   return (
     <div className='flex flex-col overflow-hidden bg-nomadGray rounded text-secondary shadow-main sm:flex-row'>
       {/*  <!-- Image --> */}
@@ -186,11 +188,21 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
             <span className='text-primary'>{data?.price} USD</span>
           </div>
         </>
-        <div className='sm:flex justify-end w-full'>
+        <div className='sm:flex flex-col max-sm:space-y-4 gap-4 items-end w-full'>
+          <Button
+            variant='solid'
+            className='max-sm:w-full sm:px-2 sm:py-1 text-sm sm:rounded-tr-none sm:rounded-br-none'
+            onClick={() => router.push(`/services/${data?.id}`)}
+          >
+            <span className='hidden sm:inline'>
+              <RightArrowIcon />
+            </span>
+            <span className='sm:hidden'>Details</span>
+          </Button>
           <Button
             variant='solid'
             disabled={cart?.includes(data?.id)}
-            className='max-sm:w-full px-3 text-sm rounded-bl-none rounded-tr-none'
+            className='max-sm:w-full px-3 text-sm sm:rounded-bl-none sm:rounded-tr-none'
             onClick={() => dispatch(addingToCart(data.id))}
           >
             {cart?.includes(data?.id) ? "Added to cart" : "Add to cart"}

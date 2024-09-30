@@ -84,11 +84,11 @@ export default function ServicePageContent() {
         </div>
       </div>
       {/* sidebar for smaller screen */}
-      <div className='fixed top-24 mt-0 lg:mt-2.5 bottom-0 left-0 2xl:hidden max-sm:w-full z-[2]'>
+      <div className=' 2xl:hidden max-sm:w-full '>
         <Button
           variant='solid'
           className={cn(
-            "block rounded-none hover:bg-primary hover:text-white",
+            "block rounded-none hover:bg-primary hover:text-white fixed top-24 mt-0 lg:mt-2.5 left-0",
             { hidden: showSidebar }
           )}
           onClick={() => setShowSidebar((prev) => !prev)}
@@ -97,7 +97,7 @@ export default function ServicePageContent() {
         </Button>
         <div
           className={cn(
-            "transition-transform duration-300 ease-in-out max-sm:w-full",
+            "transition-transform duration-300 ease-in-out max-sm:w-full z-[2] fixed top-24 mt-0 lg:mt-2.5 left-0",
             showSidebar ? "translate-x-0" : "-translate-x-full"
           )}
         >
