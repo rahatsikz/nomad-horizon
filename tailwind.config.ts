@@ -14,6 +14,7 @@ const config: Config = {
         mainBg: "var(--main-bg)",
         neutral: "var(--neutral)",
         nomadGray: "var(--nomad-gray)",
+        lightPrimary: "var(--light-primary)",
       },
       backgroundColor: {
         primary: "var(--primary)",
@@ -21,6 +22,7 @@ const config: Config = {
         mainBg: "var(--main-bg)",
         neutral: "var(--neutral)",
         nomadGray: "var(--nomad-gray)",
+        lightPrimary: "var(--light-primary)",
       },
       boxShadow: {
         main: "var(--main-boxShadow)",

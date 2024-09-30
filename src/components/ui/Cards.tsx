@@ -1,3 +1,4 @@
+"use client";
 import { CalendarIcon, MapIcon } from "@/assets/svgs/heroIcons";
 import {
   BlogProps,
@@ -10,6 +11,9 @@ import Image from "next/image";
 import { Button } from "./Button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addingToCart } from "@/redux/slice/cart/cartSlice";
+import loginImage from "@/assets/images/Login-amico.png";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
   return (
@@ -194,5 +198,33 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
         </div>
       </div>
     </div>
+  );
+}
+
+export function AuthLayoutCard({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  return (
+    <section
+      className={cn("flex min-h-screen bg-lightPrimary text-secondary", {
+        "flex-row-reverse": pathname !== "/login",
+      })}
+    >
+      <div className='xl:w-1/3 w-1/2 bg-mainBg max-md:w-full'>{children}</div>
+      <div className='self-center flex-1 max-md:hidden'>
+        <div className='w-fit mx-auto'>
+          <Image
+            src={loginImage.src}
+            alt='login image'
+            width={100}
+            height={100}
+            sizes='100vw'
+            style={{ width: "40%", height: "auto" }}
+            className='object-cover mx-auto'
+            priority={true}
+          />
+        </div>
+      </div>
+    </section>
   );
 }

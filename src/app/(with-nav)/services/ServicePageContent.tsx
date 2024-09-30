@@ -2,6 +2,7 @@
 import { CloseSidebarIcon, OpenSidebarIcon } from "@/assets/svgs/heroIcons";
 import { Button } from "@/components/ui/Button";
 import { CardVariantThree } from "@/components/ui/Cards";
+import Form from "@/components/ui/Form";
 import { HeaderText } from "@/components/ui/Headers";
 import Input from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
@@ -120,7 +121,6 @@ const FilterDiv = ({
 }) => {
   const [price, setPrice] = useState<number>(100);
 
-  const [search, setSearch] = useState<string>("");
   const [category, setCategory] = useState({
     value: "1",
     label: "Category 1",
@@ -134,20 +134,14 @@ const FilterDiv = ({
     setPrice(Number(event.target.value));
   };
 
-  const handleSearchChange = (value: string) => {
-    setSearch(value);
-  };
-
   return (
     <div className='self-start bg-nomadGray'>
-      <div className='px-6 pt-6 pb-16  space-y-4'>
+      <Form submitHandler={() => {}} className='px-6 pt-6 pb-16  space-y-4'>
         <Input
           label='Search'
           type='search'
           placeholder='Search'
           name={`search-${displayIt}`}
-          value={search}
-          handleChange={handleSearchChange}
         />
 
         <Select
@@ -165,7 +159,7 @@ const FilterDiv = ({
           handleChange={handleRangeChange}
           value={price}
         />
-      </div>
+      </Form>
       {closeSidebar && (
         <Button
           className='w-full flex justify-center items-center rounded-none hover:bg-primary hover:text-white'
