@@ -4,12 +4,16 @@ import { sidebarRoutes } from "@/constant/global";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "./Button";
 
-export default function Sidebar() {
-  const [showSidebar, setShowSidebar] = useState(true);
-
+export default function Sidebar({
+  setShowSidebar,
+  showSidebar,
+}: {
+  showSidebar: boolean;
+  setShowSidebar: (value: any) => void;
+}) {
   //!replace with user data
   const role = "user";
 
@@ -17,14 +21,14 @@ export default function Sidebar() {
     <>
       <div
         className={cn(
-          "border-r dark:border-neutral transition-transform duration-300 ease-in-out",
+          "border-r dark:border-neutral transition-transform duration-300 ease-in-out fixed lg:top-[106px] top-[98px] left-0 bottom-0 bg-mainBg",
           {
-            "block w-60": showSidebar,
+            "block w-60 ": showSidebar,
           },
-          showSidebar ? "translate-x-0" : "-translate-x-full max-lg:hidden"
+          showSidebar ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className='sticky top-[106px] left-0 flex flex-col justify-between h-full'>
+        <div className='flex flex-col justify-between h-full'>
           <ul className='py-4 px-4 space-y-3'>
             {sidebarRoutes[role].map((route) => (
               <SidebarItem
@@ -50,7 +54,7 @@ export default function Sidebar() {
             "block rounded-none hover:bg-primary hover:text-white fixed top-[106px] mt-0 lg:mt-2.5 left-0",
             { hidden: showSidebar }
           )}
-          onClick={() => setShowSidebar((prev) => !prev)}
+          onClick={() => setShowSidebar((prev: any) => !prev)}
         >
           <OpenSidebarIcon />
         </Button>
