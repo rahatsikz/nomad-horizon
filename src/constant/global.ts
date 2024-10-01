@@ -181,3 +181,18 @@ export const dummyBlogData = [
       "2024 offers many exciting locations for digital nomads seeking the perfect blend of work and leisure. In this blog, we highlight destinations with reliable internet, great co-working spaces, and vibrant nomad communities to enhance your remote work experience...",
   },
 ];
+
+export const sidebarRoutes = {
+  user: [
+    {
+      id: 1,
+      label: "Service History",
+      path: "/dashboard/user/history",
+    },
+    {
+      id: 2,
+      label: "Feedback",
+      path: "/dashboard/user/feedback",
+    },
+  ],
+};

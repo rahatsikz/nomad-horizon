@@ -9,7 +9,7 @@ export function Events() {
         title='Upcoming Events'
         subtitle='Our exclusive upcoming events, designed to inspire and connect digital nomads from around the globe'
       />
-      <div className='grid lg:grid-cols-2 max-lg:divide-y-2 lg:divide-x-2 divide-neutral'>
+      <div className='grid lg:grid-cols-2 max-lg:divide-y-2 lg:divide-x-2 dark:divide-neutral'>
         {dummyEvent.map((data, idx) => (
           <EventCard key={idx} data={data} />
         ))}

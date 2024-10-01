@@ -113,7 +113,7 @@ export function EventCard({ data }: { data: EventProps }) {
 
 export function NewsCard({ data }: { data: NewsProps }) {
   return (
-    <div className='w-full overflow-hidden border border-neutral rounded-lg p-4'>
+    <div className='w-full overflow-hidden border dark:border-neutral rounded-lg p-4'>
       <div>
         <h2 className='text-secondary'>{data?.title}</h2>
         <div className='flex items-center gap-2 mt-0.5 mb-3'>
