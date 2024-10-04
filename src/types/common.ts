@@ -51,3 +51,9 @@ export type ScheduleTimeProps = {
   end_time: string;
   available: boolean;
 };
+
+export type TableColumnProps = {
+  tableHeader: string;
+  dataIndex: string;
+  renders?: any;
+};
