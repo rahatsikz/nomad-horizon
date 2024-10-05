@@ -1,5 +1,6 @@
 import React from "react";
+import FeedbackPageContent from "./FeedbackPageContent";
 
 export default function FeedbackPage() {
-  return <div className='px-4 py-8 text-secondary'>FeedbackPage</div>;
+  return <FeedbackPageContent />;
 }

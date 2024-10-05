@@ -12,3 +12,18 @@ export function HeaderText({
     </div>
   );
 }
+
+export function DashboardHeaderText({
+  title,
+  subtitle,
+}: {
+  title: string;
+  subtitle?: string;
+}) {
+  return (
+    <div className='max-w-xl px-4 2xl:px-0 mb-4'>
+      <h2 className='text-2xl text-secondary font-medium'>{title}</h2>
+      <p className='text-neutral mt-1'>{subtitle}</p>
+    </div>
+  );
+}

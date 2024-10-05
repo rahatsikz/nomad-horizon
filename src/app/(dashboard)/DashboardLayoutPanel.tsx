@@ -18,7 +18,7 @@ export default function DashboardLayoutPanel({
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <div
           className={cn(
-            "transition-all duration-300 ease-in-out mt-6 w-full",
+            "transition-all duration-300 ease-in-out mt-6 w-full overflow-hidden",
             showSidebar ? "lg:ml-60" : "ml-0"
           )}
         >

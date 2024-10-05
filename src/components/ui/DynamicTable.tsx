@@ -34,7 +34,7 @@ export default function DynamicTable({
               ) : (
                 // column.actions(data.id)
                 <td
-                  className='xl:px-4 px-2 py-3 border-b border-l min-w-32 xl:space-x-2 space-y-2'
+                  className='xl:px-4 px-2 py-3 border-b border-l min-w-32 2xl:space-x-2 max-2xl:space-y-2'
                   key={column.dataIndex}
                 >
                   {column.renders && column.renders(data.id)}
