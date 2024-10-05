@@ -1,5 +1,7 @@
 "use client";
+import { manageFormError } from "@/lib/utils";
 import React, { useEffect, useRef, useState } from "react";
+import { Controller, useFormContext } from "react-hook-form";
 
 export type Option = {
   value: string;
@@ -7,18 +9,18 @@ export type Option = {
 };
 
 type SelectComponentProps = {
-  onChange: (value: Option) => void;
-  value: Option;
-  options: Option[];
   label?: string;
+  name: string;
+  options: Option[];
   searchable?: boolean;
+  placeholder?: string;
 };
 
 const Select = ({
   options,
-  onChange,
-  value,
+  name,
   label,
+  placeholder = "Select an option",
   searchable = true,
 }: SelectComponentProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,11 +28,12 @@ const Select = ({
   const [isArrowRotated, setIsArrowRotated] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const selectRef = useRef<HTMLInputElement>(null);
-  const handleSelect = (option: Option) => {
-    onChange(option);
-    setIsOpen(false);
-    setIsArrowRotated(false);
-  };
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
+  const errorMessage = manageFormError(errors, name);
 
   const handleOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -70,54 +73,70 @@ const Select = ({
 
   return (
     <div className='relative lg:w-full w-full ' ref={selectRef}>
-      {label && <p className='text-sm text-secondary mb-0.5'>{label}</p>}
-      <button
-        onClick={handleOpen}
-        className='text-left outline-none w-full flex justify-between items-center border border-neutral rounded px-4 py-[9px] text-sm bg-transparent text-secondary focus:border-primary'
-      >
-        {value?.label || options[0].label}
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          className={`h-3 w-3  transition-transform ${
-            isArrowRotated ? "transform rotate-180" : ""
-          }`}
-          viewBox='0 0 20 20'
-          fill='none'
-          stroke='#B3B8C2'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='2'
-            d='M19 9l-7 7-7-7'
-          />
-        </svg>
-      </button>
-      {isOpen && (
-        <div className='absolute  mt-2 w-full bg-nomadGray text-secondary border border-neutral rounded shadow-lg '>
-          {searchable && (
-            <input
-              type='text'
-              placeholder='Search...'
-              value={searchQuery}
-              ref={inputRef}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className='block w-full border-b bg-nomadGray  border-neutral py-2 px-3 focus:outline-none'
-            />
-          )}
-          <div className='max-h-60 h-fit overflow-y-auto'>
-            {filteredOptions.map((option: Option) => (
-              <div
-                key={option.value}
-                onClick={() => handleSelect(option)}
-                className='px-4 py-2 flex items-center gap-2 cursor-pointer hover:text-primary'
+      <div className='flex justify-between'>
+        <p className='text-sm text-secondary mb-1'>{label}</p>
+        <small className='text-red-400'>{errorMessage}</small>
+      </div>
+
+      <Controller
+        control={control}
+        name={name}
+        render={({ field }) => (
+          <>
+            <button
+              onClick={handleOpen}
+              className='text-left outline-none w-full flex justify-between items-center border dark:border-neutral rounded px-4 py-[9px] text-sm bg-transparent text-secondary focus:border-primary'
+            >
+              {field.value?.label || placeholder}
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className={`h-3 w-3  transition-transform ${
+                  isArrowRotated ? "transform rotate-180" : ""
+                }`}
+                viewBox='0 0 20 20'
+                fill='none'
+                stroke='#B3B8C2'
               >
-                {option.label}
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
+                  d='M19 9l-7 7-7-7'
+                />
+              </svg>
+            </button>
+            {isOpen && (
+              <div className='absolute  mt-2 w-full  bg-mainBg text-secondary border dark:border-neutral rounded shadow-lg z-[1]'>
+                {searchable && (
+                  <input
+                    type='text'
+                    placeholder='Search...'
+                    value={searchQuery}
+                    ref={inputRef}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className='block w-full border-b  bg-mainBg  dark:border-neutral py-2 px-3 focus:outline-none'
+                  />
+                )}
+                <div className='max-h-60 h-fit overflow-y-auto'>
+                  {filteredOptions.map((option: Option) => (
+                    <div
+                      key={option.value}
+                      onClick={() => {
+                        field.onChange(option);
+                        setIsOpen(false);
+                        setIsArrowRotated(false);
+                      }}
+                      className='px-4 py-2 flex items-center gap-2 cursor-pointer hover:text-primary'
+                    >
+                      {option.label}
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      )}
+            )}
+          </>
+        )}
+      />
     </div>
   );
 };

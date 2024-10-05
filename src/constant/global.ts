@@ -195,6 +195,23 @@ export const sidebarRoutes = {
       path: "/dashboard/user/feedback",
     },
   ],
+  admin: [
+    {
+      id: 1,
+      label: "User Management",
+      path: "/dashboard/admin/management/user",
+    },
+    {
+      id: 2,
+      label: "Service Management",
+      path: "/dashboard/admin/management/service",
+    },
+    {
+      id: 3,
+      label: "Booking Management",
+      path: "/dashboard/admin/management/booking",
+    },
+  ],
 };
 
 export const dataset = [

@@ -15,13 +15,13 @@ export default function Sidebar({
   setShowSidebar: (value: any) => void;
 }) {
   //!replace with user data
-  const role = "user";
+  const role = "admin";
 
   return (
     <>
       <div
         className={cn(
-          "border-r dark:border-neutral transition-transform duration-300 ease-in-out fixed lg:top-[106px] top-[98px] left-0 bottom-0 bg-mainBg",
+          "border-r dark:border-neutral transition-transform duration-300 ease-in-out fixed lg:top-[106px] top-[98px] left-0 bottom-0 bg-mainBg z-[2]",
           {
             "block w-60 ": showSidebar,
           },

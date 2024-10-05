@@ -22,7 +22,7 @@ const Input = ({ name, type, label, placeholder }: InputProps) => {
   return (
     <div>
       <div className='flex justify-between'>
-        <label htmlFor={name} className='text-sm text-secondary'>
+        <label htmlFor={name} className='text-sm text-secondary mb-1'>
           {label}
         </label>
         <small className='text-red-400'>{errorMessage}</small>
@@ -39,7 +39,7 @@ const Input = ({ name, type, label, placeholder }: InputProps) => {
             max={type === "number" ? 100 : undefined}
             placeholder={placeholder}
             value={field.value ?? ""}
-            className='h-10 w-full bg-transparent text-secondary rounded border border-neutral px-4 text-sm placeholder-transparent outline-none transition-all autofill:bg-transparent focus:border-primary focus:outline-none '
+            className='h-10 w-full bg-transparent text-secondary rounded border dark:border-neutral px-4 text-sm placeholder-transparent outline-none transition-all autofill:bg-transparent focus:border-primary focus:outline-none '
             autoComplete='off'
           />
         )}
