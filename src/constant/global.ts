@@ -2,13 +2,13 @@ export const navOptions = [
   { label: "Home", route: "/" },
   { label: "Services", route: "/services" },
   { label: "Cart", route: "/cart" },
-  // { label: "Contact", route: "/contact" },
   { label: "Blog", route: "/blog" },
+  // { label: "Contact", route: "/contact" },
 ];
 
 export const loginRouteOptions = [
-  { label: "Register", route: "/register" },
   { label: "Login", route: "/login" },
+  { label: "Register", route: "/register" },
 ];
 export const dummyServices = [
   {

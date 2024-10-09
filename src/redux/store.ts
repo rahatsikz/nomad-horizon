@@ -11,11 +11,13 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Defaults to localStorage for web
 import rootReducer from "./rootReducer";
+import { baseApi } from "./api/baseApi";
 
 // Persist configuration
 const persistConfig = {
   key: "nomad", // The key to persist data under in localStorage
   storage, // Define storage to use (localStorage)
+  blacklist: [baseApi.reducerPath], // The keys to blacklist from persistence
 };
 
 // Create a persisted reducer
@@ -28,7 +30,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(baseApi.middleware),
 });
 
 // Create the persistor

@@ -1,19 +1,18 @@
 import { cn } from "@/lib/utils";
 import Select, { Option } from "./Select";
+import Form from "./Form";
 
 type PaginationProps = {
   totalPages: number;
   currentPage: number;
   handlePageChange: (page: number) => void;
-  limit: Option;
-  handleLimitChange: (limit: Option) => void;
+  limit?: Option;
+  handleLimitChange?: (limit: Option) => void;
 };
 export default function Pagination({
   totalPages,
   currentPage,
   handlePageChange,
-  limit,
-  handleLimitChange,
 }: PaginationProps) {
   if (totalPages < 2) return null;
 
@@ -33,19 +32,20 @@ export default function Pagination({
           </button>
         ))}
       </div>
-      <div className='w-16'>
+      <Form submitHandler={() => {}} className='w-16'>
         <Select
+          // label='Category'
+          name='categoryId'
+          placeholder='2'
           options={[
             { value: "2", label: "2" },
             { value: "4", label: "4" },
             { value: "6", label: "6" },
             { value: "8", label: "8" },
           ]}
-          onChange={(limit) => handleLimitChange(limit)}
-          value={limit}
           searchable={false}
         />
-      </div>
+      </Form>
     </div>
   );
 }

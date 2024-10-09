@@ -4,18 +4,37 @@ import { Button } from "@/components/ui/Button";
 import Form from "@/components/ui/Form";
 import { HeaderText } from "@/components/ui/Headers";
 import Input from "@/components/ui/Input";
+import { setCookie } from "@/lib/cookies";
+import { useUserLoginMutation } from "@/redux/api/authApi";
+import { useAppDispatch } from "@/redux/hooks";
+import { setAccessToken } from "@/redux/slice/user/userSlice";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function LoginPageContent() {
+  const [userLogin] = useUserLoginMutation();
+
+  const dispatch = useAppDispatch();
+
   const onSubmit: SubmitHandler<any> = async (data: any) => {
     try {
-      console.log(data);
-    } catch (error) {
-      console.log(error);
+      // console.log(data);
+      const response = await userLogin({ ...data }).unwrap();
+      // console.log(response);
+      if (response.statusCode === 200) {
+        dispatch(setAccessToken(response.data.accessToken));
+        toast.success(response.message);
+        setCookie("accessToken", response.data.accessToken, {
+          redirectTo: "/",
+        });
+      }
+    } catch (error: any) {
+      // console.log(error);
+      toast.error(error.data.message);
     }
   };
 

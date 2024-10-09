@@ -1,3 +1,4 @@
+import { instance as axiosInstance } from "@/axios/axiosInstance";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -22,3 +23,18 @@ export function manageFormError(
 
   return value.message;
 }
+
+export const getBaseUrl = (): string => {
+  return process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api/v1";
+};
+
+export const getNewAccessToken = async () => {
+  return await axiosInstance({
+    url: `${getBaseUrl()}/auth/new-access-token`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  });
+};

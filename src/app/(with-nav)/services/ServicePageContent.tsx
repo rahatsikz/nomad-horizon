@@ -7,7 +7,7 @@ import { HeaderText } from "@/components/ui/Headers";
 import Input from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
 import { RangeSlide } from "@/components/ui/RangeSlide";
-import Select, { Option } from "@/components/ui/Select";
+import Select from "@/components/ui/Select";
 import { dummyServices } from "@/constant/global";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef, useState } from "react";
@@ -121,14 +121,14 @@ const FilterDiv = ({
 }) => {
   const [price, setPrice] = useState<number>(100);
 
-  const [category, setCategory] = useState({
-    value: "1",
-    label: "Category 1",
-  });
+  // const [category, setCategory] = useState({
+  //   value: "1",
+  //   label: "Category 1",
+  // });
 
-  const handleSelectChange = (option: Option) => {
-    setCategory(option);
-  };
+  // const handleSelectChange = (option: Option) => {
+  //   setCategory(option);
+  // };
 
   const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPrice(Number(event.target.value));
@@ -145,14 +145,15 @@ const FilterDiv = ({
         />
 
         <Select
-          label='Categories'
-          onChange={handleSelectChange}
+          label='Category'
+          name='categoryId'
+          placeholder='Select a Category'
           options={[
             { value: "1", label: "Category 1" },
             { value: "2", label: "Category 2" },
             { value: "3", label: "Category 3" },
           ]}
-          value={category}
+          searchable={false}
         />
         <RangeSlide
           label='Price'

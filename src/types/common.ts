@@ -57,3 +57,11 @@ export type TableColumnProps = {
   dataIndex: string;
   renders?: any;
 };
+
+export type ResponseSuccessType<T> = T & { meta: IMeta };
+
+export type IMeta = {
+  page: number;
+  limit: number;
+  total: number;
+};

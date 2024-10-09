@@ -6,14 +6,25 @@ import { DropdownMenu } from "./DropdownMenu";
 import { usePathname } from "next/navigation";
 import Logo from "@/assets/svgs/logo";
 import { loginRouteOptions, navOptions } from "@/constant/global";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { deleteCookie } from "@/lib/cookies";
+import { removeAccessToken } from "@/redux/slice/user/userSlice";
+import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
+import { clearCart } from "@/redux/slice/cart/cartSlice";
 
 export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const dispatch = useAppDispatch();
+
+  // useLoggedUser();
+
+  const { user } = useAppSelector((state) => state.user);
+  const { accessToken } = user;
+  const { username } = useLoggedUserInfo(accessToken);
 
   const myRef = useRef<HTMLDivElement>(null);
 
-  const user = "Rahat";
+  // const user = "Rahat";
 
   useEffect(() => {
     const autoCloseNavbar = () => {
@@ -29,13 +40,20 @@ export function Navbar() {
     window.addEventListener("resize", autoCloseNavbar);
   }, []);
 
+  const handleLogOut = () => {
+    deleteCookie("accessToken");
+    deleteCookie("refreshToken");
+    dispatch(removeAccessToken());
+    dispatch(clearCart());
+  };
+
   return (
     <header className='sticky top-0 left-0 z-10' ref={myRef}>
       <nav className='relative flex justify-between items-center py-8 px-8 lg:px-16 z-50 bg-mainBg shadow dark:shadow-gray-50/10'>
         <Link href='/' className=''>
           <Logo />
         </Link>
-        <ul className='lg:flex items-center gap-6 hidden'>
+        <ul className='lg:flex items-center gap-6 hidden h-10'>
           {navOptions.map(({ label, route }) => (
             <NavLink
               key={label}
@@ -44,13 +62,13 @@ export function Navbar() {
               isVisible={!showMobileMenu}
             />
           ))}
-          {user ? (
+          {username && accessToken ? (
             <DropdownMenu
               contents={[
-                { label: "Logout", onClick: () => console.log("Logout") },
+                { label: "Logout", onClick: handleLogOut },
                 { label: "Edit Profile", route: "/profile" },
               ]}
-              trigger={user[0]}
+              trigger={username[0]}
               className='bg-primary rounded-full text-white'
             />
           ) : (
@@ -91,9 +109,9 @@ export function Navbar() {
               isVisible={showMobileMenu}
             />
           ))}
-          {user ? (
+          {username && accessToken ? (
             <div className='border-t w-full space-y-2'>
-              <p className='pt-2 text-blue-400'>{user}</p>
+              <p className='pt-2 text-blue-400'>{username}</p>
               <NavLink
                 route='/profile'
                 label='Edit Profile'
@@ -101,7 +119,7 @@ export function Navbar() {
               />
               <button
                 tabIndex={showMobileMenu ? 0 : -1}
-                onClick={() => console.log("Logout")}
+                onClick={handleLogOut}
                 className='text-secondary hover:text-primary transition-colors duration-300'
               >
                 Logout

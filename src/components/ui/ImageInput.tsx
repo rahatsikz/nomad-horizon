@@ -1,4 +1,4 @@
-import { manageFormError } from "@/lib/utils";
+import { cn, manageFormError } from "@/lib/utils";
 import { useState, useRef } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -65,9 +65,10 @@ const ImageInput = ({ name }: { name: string }) => {
               onDragLeave={handleDragLeave}
               onDrop={(e) => handleDrop(e, onChange)}
               onClick={handleContainerClick} // Click to open file dialog
-              className={`flex flex-col items-center justify-center py-9 w-full border ${
+              className={cn(
+                "flex flex-col items-center justify-center py-9 w-full border rounded cursor-pointer bg-mainBg",
                 dragging ? "border-primary" : "dark:border-neutral"
-              } rounded cursor-pointer bg-mainBg`}
+              )}
             >
               <div className='mb-3 flex items-center justify-center'>
                 <svg
@@ -99,7 +100,7 @@ const ImageInput = ({ name }: { name: string }) => {
               <input
                 ref={fileInputRef}
                 type='file'
-                accept='image/png, image/jpeg, application/pdf'
+                accept='image/png, image/jpeg'
                 className='hidden'
                 onChange={(e) => handleInputChange(e, onChange)} // Handle file input change
               />
