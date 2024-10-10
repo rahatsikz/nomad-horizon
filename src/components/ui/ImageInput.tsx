@@ -58,12 +58,12 @@ const ImageInput = ({ name }: { name: string }) => {
       <Controller
         name={name}
         control={control}
-        render={({ field: { onChange } }) => (
+        render={({ field }) => (
           <div>
             <div
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
-              onDrop={(e) => handleDrop(e, onChange)}
+              onDrop={(e) => handleDrop(e, field.onChange)}
               onClick={handleContainerClick} // Click to open file dialog
               className={cn(
                 "flex flex-col items-center justify-center py-9 w-full border rounded cursor-pointer bg-mainBg",
@@ -90,10 +90,12 @@ const ImageInput = ({ name }: { name: string }) => {
                 </svg>
               </div>
               <h2 className='text-center text-neutral text-xs mb-1'>
-                {fileName ? "Image uploaded" : "Upload PNG or JPG format image"}
+                {field.value
+                  ? "Image uploaded"
+                  : "Upload PNG or JPG format image"}
               </h2>
               <h4 className='text-center text-secondary text-sm'>
-                {fileName
+                {field.value
                   ? fileName
                   : "Drag and Drop your file here or click to browse"}
               </h4>
@@ -102,7 +104,7 @@ const ImageInput = ({ name }: { name: string }) => {
                 type='file'
                 accept='image/png, image/jpeg'
                 className='hidden'
-                onChange={(e) => handleInputChange(e, onChange)} // Handle file input change
+                onChange={(e) => handleInputChange(e, field.onChange)} // Handle file input change
               />
             </div>
             {errorMessage && (

@@ -87,7 +87,8 @@ const Select = ({
               onClick={handleOpen}
               className='text-left outline-none w-full flex justify-between items-center border dark:border-neutral rounded px-4 py-[9px] text-sm bg-transparent text-secondary focus:border-primary'
             >
-              {field.value?.label || placeholder}
+              {options.find((option) => option.value.includes(field.value))
+                ?.label || placeholder}
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 className={`h-3 w-3  transition-transform ${
@@ -122,7 +123,7 @@ const Select = ({
                     <div
                       key={option.value}
                       onClick={() => {
-                        field.onChange(option);
+                        field.onChange(option.value);
                         setIsOpen(false);
                         setIsArrowRotated(false);
                       }}

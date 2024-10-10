@@ -11,14 +11,15 @@ import { setAccessToken } from "@/redux/slice/user/userSlice";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 
 export default function LoginPageContent() {
   const [userLogin] = useUserLoginMutation();
-
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
     try {
@@ -28,9 +29,8 @@ export default function LoginPageContent() {
       if (response.statusCode === 200) {
         dispatch(setAccessToken(response.data.accessToken));
         toast.success(response.message);
-        setCookie("accessToken", response.data.accessToken, {
-          redirectTo: "/",
-        });
+        setCookie("accessToken", response.data.accessToken);
+        router.push("/");
       }
     } catch (error: any) {
       // console.log(error);

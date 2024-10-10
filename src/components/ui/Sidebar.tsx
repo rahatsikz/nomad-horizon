@@ -21,7 +21,7 @@ export default function Sidebar({
     <>
       <div
         className={cn(
-          "border-r dark:border-neutral transition-transform duration-300 ease-in-out fixed lg:top-[106px] top-[98px] left-0 bottom-0 bg-mainBg z-[2]",
+          "border-r dark:border-neutral transition-transform duration-300 ease-in-out fixed lg:top-[106px] top-[96px] left-0 bottom-0 bg-mainBg z-[2]",
           {
             "block w-60 ": showSidebar,
           },
@@ -51,7 +51,7 @@ export default function Sidebar({
         <Button
           variant='solid'
           className={cn(
-            "block rounded-none hover:bg-primary hover:text-white fixed top-[106px] mt-0 lg:mt-2.5 left-0",
+            "block rounded-none hover:bg-primary hover:text-white fixed top-[106px] mt-0 lg:mt-2.5 left-0 z-[2]",
             { hidden: showSidebar }
           )}
           onClick={() => setShowSidebar((prev: any) => !prev)}

@@ -13,7 +13,8 @@ instance.defaults.timeout = 60000;
 instance.interceptors.request.use(
   async function (config) {
     // Do something before request is sent
-    const accessToken = getCookie("accessToken");
+    const accessToken = await getCookie("accessToken");
+    console.log(accessToken);
 
     if (accessToken) {
       config.headers.Authorization = accessToken;
@@ -39,13 +40,19 @@ instance.interceptors.response.use(
   },
   async function (error) {
     const config = error?.config;
-    if (error?.response?.status === 403 && !config?.sent) {
+    if (error?.response?.status === 500 && !config?.sent) {
       config.sent = true;
       const response = await getNewAccessToken();
-      const newAccessToken = response?.data?.accessToken;
+      const newAccessToken = response?.data?.data?.accessToken;
+      // console.log("rahat", response);
+
       if (newAccessToken) {
+        console.log("sikder");
+
         config.headers.Authorization = newAccessToken;
-        setCookie("accessToken", newAccessToken);
+        console.log("newAccessToken", newAccessToken);
+        await setCookie("accessToken", newAccessToken);
+
         return instance(config);
       }
     }
