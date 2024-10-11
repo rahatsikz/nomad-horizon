@@ -9,9 +9,10 @@ type InputProps = {
   type: "number" | "text" | "email" | "password" | "search";
   placeholder?: string;
   required?: boolean;
+  disabled?: boolean;
 };
 
-const Input = ({ name, type, label, placeholder }: InputProps) => {
+const Input = ({ name, type, label, placeholder, disabled }: InputProps) => {
   const {
     control,
     formState: { errors },
@@ -36,11 +37,12 @@ const Input = ({ name, type, label, placeholder }: InputProps) => {
             id={name}
             type={type}
             min={type === "number" ? 0 : undefined}
-            max={type === "number" ? 100 : undefined}
+            max={type === "number" ? 360 : undefined}
             placeholder={placeholder}
             value={field.value ?? ""}
-            className='h-10 w-full bg-transparent text-secondary rounded border dark:border-neutral px-4 text-sm placeholder-transparent outline-none transition-all autofill:bg-transparent focus:border-primary focus:outline-none '
+            className='h-10 w-full bg-transparent text-secondary rounded border dark:border-neutral px-4 text-sm  outline-none transition-all autofill:bg-transparent focus:border-primary focus:outline-none'
             autoComplete='off'
+            disabled={disabled}
           />
         )}
       />

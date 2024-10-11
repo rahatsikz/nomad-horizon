@@ -44,11 +44,8 @@ instance.interceptors.response.use(
       config.sent = true;
       const response = await getNewAccessToken();
       const newAccessToken = response?.data?.data?.accessToken;
-      // console.log("rahat", response);
 
       if (newAccessToken) {
-        console.log("sikder");
-
         config.headers.Authorization = newAccessToken;
         console.log("newAccessToken", newAccessToken);
         await setCookie("accessToken", newAccessToken);

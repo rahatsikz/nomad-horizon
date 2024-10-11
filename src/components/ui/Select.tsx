@@ -14,6 +14,7 @@ type SelectComponentProps = {
   options: Option[];
   searchable?: boolean;
   placeholder?: string;
+  disabled?: boolean;
 };
 
 const Select = ({
@@ -22,6 +23,7 @@ const Select = ({
   label,
   placeholder = "Select an option",
   searchable = true,
+  disabled = false,
 }: SelectComponentProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,6 +39,9 @@ const Select = ({
 
   const handleOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (disabled) return;
+
     setIsOpen(!isOpen);
     setIsArrowRotated(!isArrowRotated);
     // if (!isOpen && inputRef.current) {
