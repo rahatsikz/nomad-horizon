@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/app/loading";
 import { CloseSidebarIcon, OpenSidebarIcon } from "@/assets/svgs/heroIcons";
 import { Button } from "@/components/ui/Button";
 import { CardVariantThree } from "@/components/ui/Cards";
@@ -8,11 +9,13 @@ import Input from "@/components/ui/Input";
 import Pagination from "@/components/ui/Pagination";
 import { RangeSlide } from "@/components/ui/RangeSlide";
 import Select from "@/components/ui/Select";
-import { dummyServices } from "@/constant/global";
 import { cn } from "@/lib/utils";
+import { useGetServicesQuery } from "@/redux/api/serviceApi";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function ServicePageContent() {
+  const { data: serviceData, isLoading } = useGetServicesQuery({});
+
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState({
@@ -37,6 +40,10 @@ export default function ServicePageContent() {
 
     window.addEventListener("resize", autoCloseSidebar);
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className='bg-mainBg relative' ref={sideRef}>
@@ -67,7 +74,7 @@ export default function ServicePageContent() {
               />
             )}
             <div className='grid xl:grid-cols-2 gap-8'>
-              {dummyServices.slice(0, 4).map((data, idx) => (
+              {serviceData?.data.map((data: any, idx: any) => (
                 <CardVariantThree key={idx} data={data} />
               ))}
             </div>

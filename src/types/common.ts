@@ -46,9 +46,8 @@ export type BlogProps = {
 };
 
 export type ScheduleTimeProps = {
-  id: string;
-  start_time: string;
-  end_time: string;
+  sessionStarts: string;
+  sessionEnds: string;
   available: boolean;
 };
 

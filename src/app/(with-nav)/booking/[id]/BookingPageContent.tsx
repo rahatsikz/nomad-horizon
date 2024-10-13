@@ -1,17 +1,38 @@
 "use client";
+import Loading from "@/app/loading";
 import { Button } from "@/components/ui/Button";
 import Calendar from "@/components/ui/Calendar";
 import { HeaderText } from "@/components/ui/Headers";
-import { dummyServices } from "@/constant/global";
-import { cn } from "@/lib/utils";
+import { cn, formatSelectedDateLikeIso } from "@/lib/utils";
+import { useGetScheduleQuery } from "@/redux/api/scheduleApi";
+import { useGetServiceQuery } from "@/redux/api/serviceApi";
 import { ScheduleTimeProps } from "@/types/common";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function BookingPageContent({ id }: { id: string }) {
+  // service data fetching
+  const { data: service, isLoading } = useGetServiceQuery(id);
+
+  // calendar and time picker state
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [selectedTime, setSelectedTime] = useState<ScheduleTimeProps | null>(
     null
   );
+
+  // schedule data fetching
+  const {
+    data: schedule,
+    error,
+    isFetching,
+  } = useGetScheduleQuery({
+    serviceId: id,
+    date: formatSelectedDateLikeIso(selectedDate),
+  });
+
+  // reset time picker on date change
+  useEffect(() => {
+    setSelectedTime(null);
+  }, [selectedDate]);
 
   // date pick handler
   const handleDateClick = (date: Date) => {
@@ -23,20 +44,22 @@ export default function BookingPageContent({ id }: { id: string }) {
     setSelectedTime(time);
   };
 
-  // replace with api service data
-  const service = dummyServices.find((data) => data.id === id);
-
   // ! will implement booking api call here
   const handleBooking = () => {
+    const bookingDate = formatSelectedDateLikeIso(selectedDate);
     if (selectedDate && selectedTime) {
-      console.log(selectedDate.getDate(), selectedTime);
+      console.log(bookingDate, selectedTime);
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <section className='container mx-auto px-4 2xl:px-0 py-8'>
       <HeaderText
-        title={service!.serviceName}
+        title={service?.data?.serviceName}
         subtitle='Book your desired service on your preferred date and time'
       />
       <div className='border dark:border-neutral rounded-lg'>
@@ -60,7 +83,7 @@ export default function BookingPageContent({ id }: { id: string }) {
               {selectedTime && (
                 <div className=''>
                   <p className='md:text-lg text-sm text-secondary'>
-                    {selectedTime.start_time} - {selectedTime.end_time}
+                    {selectedTime.sessionStarts} - {selectedTime.sessionEnds}
                   </p>
                 </div>
               )}
@@ -83,6 +106,9 @@ export default function BookingPageContent({ id }: { id: string }) {
             <TimeTable
               onTimeClick={handleTimeClick}
               selectedTime={selectedTime}
+              serviceSchedule={schedule?.data}
+              isFetching={isFetching}
+              isError={error}
             />
           </div>
           <div className='md:pr-8'>
@@ -100,49 +126,37 @@ export default function BookingPageContent({ id }: { id: string }) {
 const TimeTable = ({
   onTimeClick,
   selectedTime,
+  serviceSchedule,
+  isFetching,
+  isError,
 }: {
-  onTimeClick: (time: ScheduleTimeProps) => void;
+  onTimeClick: (time: any) => void;
   selectedTime: ScheduleTimeProps | null;
+  serviceSchedule: ScheduleTimeProps[];
+  isFetching: boolean;
+  isError: any;
 }) => {
-  const availableHours = 12;
-  const eachSession = 90; // Session length in minutes
-  const startHour = 10; // Starting time (10:00 AM)
+  // loading while fetching schedule data
+  if (isFetching) {
+    return <Loading />;
+  }
 
-  const totalSession = (availableHours * 60) / eachSession;
-
-  const formatTime = (time: Date) => {
-    return `${time.getHours().toString().padStart(2, "0")}:${time
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}`;
-  };
-
-  const schedule = Array.from({ length: totalSession }).map((_, idx) => {
-    const startTime = new Date();
-    // Set the starting time of the first session
-    startTime.setHours(startHour);
-    startTime.setMinutes(0);
-
-    // Add the required session time to the startTime based on the index
-    startTime.setMinutes(startTime.getMinutes() + eachSession * idx);
-
-    const endTime = new Date(startTime.getTime() + eachSession * 60000); // Add session duration
-
-    return {
-      id: idx.toString(),
-      start_time: formatTime(startTime),
-      end_time: formatTime(endTime),
-      available: idx % 2 === 0,
-    };
-  });
+  // if there is no schedule data
+  if (isError?.status === 400) {
+    return (
+      <div className='w-full h-full flex items-center justify-center'>
+        <p className='text-secondary max-md:py-4'>{isError?.data?.message}</p>
+      </div>
+    );
+  }
 
   return (
     <>
       <div className='dark:border-neutral border-l md:border-r h-8 ml-14'></div>
-      {schedule.map((item, idx) => (
+      {serviceSchedule.map((item: ScheduleTimeProps, idx: number) => (
         <div key={idx} className='relative w-full'>
           <div className='absolute top-0 left-0 text-secondary'>
-            {item.start_time}
+            {item.sessionStarts}
           </div>
           <div className='dark:border-neutral border-l md:border-r border-t h-16 ml-14'>
             {item.available ? (
@@ -150,7 +164,8 @@ const TimeTable = ({
                 className={cn(
                   "text-secondary w-full flex items-center justify-center h-full cursor-pointer",
                   {
-                    "bg-primary": Number(selectedTime?.id) === Number(item.id),
+                    "bg-primary":
+                      selectedTime?.sessionStarts === item.sessionStarts,
                   }
                 )}
                 onClick={() => onTimeClick(item)}

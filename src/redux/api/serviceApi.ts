@@ -13,7 +13,25 @@ export const serviceApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.service],
     }),
+    getServices: build.query({
+      query: () => ({
+        url: `${SERVICE_URL}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.service],
+    }),
+    getService: build.query({
+      query: (id) => ({
+        url: `${SERVICE_URL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.service],
+    }),
   }),
 });
 
-export const { useAddServiceMutation } = serviceApi;
+export const {
+  useAddServiceMutation,
+  useGetServicesQuery,
+  useGetServiceQuery,
+} = serviceApi;

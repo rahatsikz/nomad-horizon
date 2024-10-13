@@ -1,7 +1,8 @@
 "use client";
+import Loading from "@/app/loading";
 import { Button } from "@/components/ui/Button";
 import { HeaderText } from "@/components/ui/Headers";
-import { dummyServices } from "@/constant/global";
+import { useGetServicesQuery } from "@/redux/api/serviceApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeFromCart } from "@/redux/slice/cart/cartSlice";
 import { ServiceProps } from "@/types/common";
@@ -10,6 +11,7 @@ import React from "react";
 
 export default function CartPageContent() {
   const { cart } = useAppSelector((state) => state.cart);
+  const { data: serviceData, isLoading } = useGetServicesQuery({});
 
   if (cart?.length === 0) {
     return (
@@ -20,8 +22,12 @@ export default function CartPageContent() {
   }
 
   const cartItem = cart?.map((item) =>
-    dummyServices.find((data) => data?.id === item)
+    serviceData?.data?.find((data: any) => data?.id === item)
   );
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <section className='container mx-auto px-4 2xl:px-0 py-8'>
