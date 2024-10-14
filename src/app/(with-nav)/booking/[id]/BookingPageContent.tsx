@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/Button";
 import Calendar from "@/components/ui/Calendar";
 import { HeaderText } from "@/components/ui/Headers";
 import { cn, formatSelectedDateLikeIso } from "@/lib/utils";
+import { useAddBookingMutation } from "@/redux/api/bookingApi";
 import { useGetScheduleQuery } from "@/redux/api/scheduleApi";
 import { useGetServiceQuery } from "@/redux/api/serviceApi";
 import { ScheduleTimeProps } from "@/types/common";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function BookingPageContent({ id }: { id: string }) {
   // service data fetching
@@ -29,6 +31,9 @@ export default function BookingPageContent({ id }: { id: string }) {
     date: formatSelectedDateLikeIso(selectedDate),
   });
 
+  // booking post api hook
+  const [addBooking] = useAddBookingMutation();
+
   // reset time picker on date change
   useEffect(() => {
     setSelectedTime(null);
@@ -44,11 +49,24 @@ export default function BookingPageContent({ id }: { id: string }) {
     setSelectedTime(time);
   };
 
-  // ! will implement booking api call here
-  const handleBooking = () => {
+  // booking handler
+  const handleBooking = async () => {
     const bookingDate = formatSelectedDateLikeIso(selectedDate);
-    if (selectedDate && selectedTime) {
-      console.log(bookingDate, selectedTime);
+
+    try {
+      const response = await addBooking({
+        date: bookingDate,
+        serviceId: id,
+        startTime: selectedTime?.sessionStarts,
+        endTime: selectedTime?.sessionEnds,
+      }).unwrap();
+      console.log(response);
+      if (response.statusCode === 200) {
+        toast.success(response.message);
+      }
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error.data.message);
     }
   };
 
