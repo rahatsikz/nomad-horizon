@@ -11,6 +11,7 @@ import { deleteCookie } from "@/lib/cookies";
 import { removeAccessToken } from "@/redux/slice/user/userSlice";
 import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
 import { clearCart } from "@/redux/slice/cart/cartSlice";
+import NotificationMenu from "./NotificationMenu";
 
 export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -50,7 +51,7 @@ export function Navbar() {
   return (
     <header className='sticky top-0 left-0 z-10' ref={myRef}>
       <nav className='relative flex justify-between items-center py-8 px-8 lg:px-16 z-50 bg-mainBg shadow dark:shadow-gray-50/10'>
-        <Link href='/' className=''>
+        <Link href='/' className='max-lg:mt-0.5'>
           <Logo />
         </Link>
         <ul className='lg:flex items-center gap-6 hidden h-10'>
@@ -63,14 +64,17 @@ export function Navbar() {
             />
           ))}
           {username && accessToken ? (
-            <DropdownMenu
-              contents={[
-                { label: "Logout", onClick: handleLogOut },
-                { label: "Edit Profile", route: "/profile" },
-              ]}
-              trigger={username[0]}
-              className='bg-primary rounded-full text-white'
-            />
+            <>
+              <NotificationMenu />
+              <DropdownMenu
+                contents={[
+                  { label: "Logout", onClick: handleLogOut },
+                  { label: "Edit Profile", route: "/profile" },
+                ]}
+                trigger={username[0]}
+                className='bg-primary rounded-full text-white'
+              />
+            </>
           ) : (
             loginRouteOptions.map(({ label, route }) => (
               <NavLink
@@ -82,14 +86,17 @@ export function Navbar() {
             ))
           )}
         </ul>
-        <button
-          className='lg:hidden focus-visible:ring-2 focus-visible:ring-offset-8 focus:outline-none'
-          onClick={() => setShowMobileMenu(!showMobileMenu)}
-          aria-label='Open Mobile Menu'
-          title='Open Mobile Menu'
-        >
-          <HamburgerMenu showMobileMenu={showMobileMenu} />
-        </button>
+        <div className='lg:hidden flex items-center gap-4'>
+          {username && accessToken && <NotificationMenu />}
+          <button
+            className='lg:hidden focus-visible:ring-2 focus-visible:ring-offset-8 focus:outline-none'
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            aria-label='Open Mobile Menu'
+            title='Open Mobile Menu'
+          >
+            <HamburgerMenu showMobileMenu={showMobileMenu} />
+          </button>
+        </div>
       </nav>
       <div
         className={cn(

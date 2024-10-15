@@ -7,6 +7,8 @@ import { cn, formatSelectedDateLikeIso } from "@/lib/utils";
 import { useAddBookingMutation } from "@/redux/api/bookingApi";
 import { useGetScheduleQuery } from "@/redux/api/scheduleApi";
 import { useGetServiceQuery } from "@/redux/api/serviceApi";
+import { useAppDispatch } from "@/redux/hooks";
+import { removeFromCart } from "@/redux/slice/cart/cartSlice";
 import { ScheduleTimeProps } from "@/types/common";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -14,6 +16,8 @@ import toast from "react-hot-toast";
 export default function BookingPageContent({ id }: { id: string }) {
   // service data fetching
   const { data: service, isLoading } = useGetServiceQuery(id);
+  // redux dispatch
+  const dispatch = useAppDispatch();
 
   // calendar and time picker state
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
@@ -60,9 +64,10 @@ export default function BookingPageContent({ id }: { id: string }) {
         startTime: selectedTime?.sessionStarts,
         endTime: selectedTime?.sessionEnds,
       }).unwrap();
-      console.log(response);
+      // console.log(response);
       if (response.statusCode === 200) {
         toast.success(response.message);
+        dispatch(removeFromCart(id));
       }
     } catch (error: any) {
       console.log(error);
