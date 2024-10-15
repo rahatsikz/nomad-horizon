@@ -24,8 +24,6 @@ export default function NotificationMenu() {
     const unSeenNotifications = notificationData?.data?.filter(
       (n: any) => !seenNotifications.includes(n.id)
     );
-    console.log(seenNotifications);
-    console.log(unSeenNotifications);
 
     setNotificationsCount(unSeenNotifications.length);
   }, [notificationData, seenNotifications]);
@@ -186,16 +184,26 @@ export default function NotificationMenu() {
           className='absolute mt-2 w-72 bg-mainBg shadow-main rounded-md overflow-hidden'
         >
           <ul role='menu' className='divide-y divide-secondary'>
-            {notificationData?.data.map((item: any, index: number) => (
+            {notificationData?.data?.length > 0 ? (
+              notificationData?.data.map((item: any, index: number) => (
+                <li
+                  key={index}
+                  className={`px-6 py-2 cursor-pointer text-secondary text-sm`}
+                  tabIndex={-1}
+                  role='menuitem'
+                >
+                  {item?.content}
+                </li>
+              ))
+            ) : (
               <li
-                key={index}
-                className={`px-6 py-2 cursor-pointer text-secondary text-sm`}
+                className={`px-6 py-2 cursor-pointer text-secondary text-sm text-center`}
                 tabIndex={-1}
                 role='menuitem'
               >
-                {item?.content}
+                No notifications found
               </li>
-            ))}
+            )}
           </ul>
         </div>
       )}

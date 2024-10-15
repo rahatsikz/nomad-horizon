@@ -1,7 +1,7 @@
 "use client";
-import Loading from "@/app/loading";
 import { Button } from "@/components/ui/Button";
 import { HeaderText } from "@/components/ui/Headers";
+import LoadingComponent from "@/components/ui/LoadingComponent";
 import { useGetServicesQuery } from "@/redux/api/serviceApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeFromCart } from "@/redux/slice/cart/cartSlice";
@@ -26,7 +26,7 @@ export default function CartPageContent() {
   );
 
   if (isLoading) {
-    return <Loading />;
+    return <LoadingComponent />;
   }
 
   return (

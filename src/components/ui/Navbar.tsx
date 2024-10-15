@@ -51,7 +51,7 @@ export function Navbar() {
   return (
     <header className='sticky top-0 left-0 z-10' ref={myRef}>
       <nav className='relative flex justify-between items-center py-8 px-8 lg:px-16 z-50 bg-mainBg shadow dark:shadow-gray-50/10'>
-        <Link href='/' className='max-lg:mt-0.5'>
+        <Link href='/' className='mt-1.5'>
           <Logo />
         </Link>
         <ul className='lg:flex items-center gap-6 hidden h-10'>

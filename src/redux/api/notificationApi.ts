@@ -10,7 +10,7 @@ export const notificationApi = baseApi.injectEndpoints({
         url: `${NOTIFICATION_URL}`,
         method: "GET",
       }),
-      providesTags: [tagTypes.notification, tagTypes.booking],
+      providesTags: [tagTypes.notification, tagTypes.booking, tagTypes.user],
     }),
   }),
 });

@@ -1,11 +1,11 @@
 "use client";
-import Loading from "@/app/loading";
 import { CloseSidebarIcon, OpenSidebarIcon } from "@/assets/svgs/heroIcons";
 import { Button } from "@/components/ui/Button";
 import { CardVariantThree } from "@/components/ui/Cards";
 import Form from "@/components/ui/Form";
 import { HeaderText } from "@/components/ui/Headers";
 import Input from "@/components/ui/Input";
+import LoadingComponent from "@/components/ui/LoadingComponent";
 import Pagination from "@/components/ui/Pagination";
 import { RangeSlide } from "@/components/ui/RangeSlide";
 import Select from "@/components/ui/Select";
@@ -42,7 +42,7 @@ export default function ServicePageContent() {
   }, []);
 
   if (isLoading) {
-    return <Loading />;
+    return <LoadingComponent />;
   }
 
   return (

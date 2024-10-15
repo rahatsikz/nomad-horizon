@@ -1,8 +1,8 @@
 "use client";
-import Loading from "@/app/loading";
 import { Button } from "@/components/ui/Button";
 import Calendar from "@/components/ui/Calendar";
 import { HeaderText } from "@/components/ui/Headers";
+import LoadingComponent from "@/components/ui/LoadingComponent";
 import { cn, formatSelectedDateLikeIso } from "@/lib/utils";
 import { useAddBookingMutation } from "@/redux/api/bookingApi";
 import { useGetScheduleQuery } from "@/redux/api/scheduleApi";
@@ -76,7 +76,7 @@ export default function BookingPageContent({ id }: { id: string }) {
   };
 
   if (isLoading) {
-    return <Loading />;
+    return <LoadingComponent />;
   }
 
   return (
@@ -161,7 +161,7 @@ const TimeTable = ({
 }) => {
   // loading while fetching schedule data
   if (isFetching) {
-    return <Loading />;
+    return <LoadingComponent />;
   }
 
   // if there is no schedule data
