@@ -153,7 +153,10 @@ export default function NotificationMenu() {
 
     if (newNotification) {
       newNotification.forEach((n: any) => {
-        toast.success(n.content);
+        toast.success(n.content, {
+          duration: 6000,
+          id: n.id,
+        });
       });
     }
   }, [notificationData, seenNotifications]);

@@ -2,8 +2,8 @@ import React from "react";
 
 export default function Loading() {
   return (
-    <div className='min-h-screen bg-mainBg h-full'>
-      <section className='flex h-[440px] justify-center items-center'>
+    <section className='min-h-screen bg-mainBg h-full'>
+      <div className='flex h-[440px] justify-center items-center'>
         <div className='flex justify-center items-center gap-2'>
           <div className='flex'>
             <div
@@ -26,7 +26,7 @@ export default function Loading() {
             ></div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
