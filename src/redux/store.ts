@@ -17,7 +17,7 @@ import { baseApi } from "./api/baseApi";
 const persistConfig = {
   key: "nomad", // The key to persist data under in localStorage
   storage, // Define storage to use (localStorage)
-  blacklist: [baseApi.reducerPath], // The keys to blacklist from persistence
+  blacklist: [baseApi.reducerPath, "modal"], // The keys to blacklist from persistence
 };
 
 // Create a persisted reducer

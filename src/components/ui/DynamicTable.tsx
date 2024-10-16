@@ -21,7 +21,7 @@ export default function DynamicTable({
         </tr>
       </thead>
       <tbody className='text-left text-secondary'>
-        {dataset.map((data, rowIdx) => (
+        {dataset?.map((data, rowIdx) => (
           <tr key={rowIdx} className='odd:bg-nomadGray even:bg-mainBg'>
             {columns.map((column) =>
               column.dataIndex !== "action" ? (
@@ -37,7 +37,7 @@ export default function DynamicTable({
                   className='xl:px-4 px-2 py-3 border-b border-l min-w-32 2xl:space-x-2 max-2xl:space-y-2'
                   key={column.dataIndex}
                 >
-                  {column.renders && column.renders(data.id)}
+                  {column.renders && column.renders(data)}
                 </td>
               )
             )}

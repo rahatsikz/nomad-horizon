@@ -30,7 +30,7 @@ export default function LoginPageContent() {
         dispatch(setAccessToken(response.data.accessToken));
         toast.success(response.message);
         setCookie("accessToken", response.data.accessToken);
-        router.push("/");
+        router.back();
       }
     } catch (error: any) {
       // console.log(error);

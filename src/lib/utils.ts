@@ -49,3 +49,42 @@ export const formatSelectedDateLikeIso = (date: Date | null) => {
   }
   return isoDate;
 };
+
+export const formatISODatetoHumanReadable = (date: string) => {
+  const formatedDate = new Date(date).toLocaleDateString("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+  });
+
+  return formatedDate;
+};
+
+export const convertTo12HourFormat = (time24: string) => {
+  // eslint-disable-next-line prefer-const
+  let [hours, minutes] = time24.split(":").map(Number);
+
+  // Determine if it's AM or PM
+  const period = hours >= 12 ? "PM" : "AM";
+
+  hours = hours % 12 || 12; // If hours is 0 or 12, set to 12
+
+  return `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")} ${period}`;
+};
+
+export const formatDateTime = (isoString: string) => {
+  const dateAndTime = new Date(isoString);
+
+  const date = formatISODatetoHumanReadable(isoString);
+
+  const time = dateAndTime.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true, // Converts to 12-hour format with AM/PM
+  });
+
+  // Return formatted date and time
+  return `${date} at ${time}`;
+};

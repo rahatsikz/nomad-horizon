@@ -12,7 +12,8 @@ export const useLoggedUserInfo = (accessToken: string | null) => {
     skip: !decodeToken?.userId,
   });
 
-  const username = user?.data.username;
+  const username = user?.data?.username;
+  const role = user?.data?.role;
 
-  return { user, username };
+  return { user, username, role };
 };

@@ -4,8 +4,10 @@ import { sidebarRoutes } from "@/constant/global";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
+import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
+import { getCookie } from "@/lib/cookies";
 
 export default function Sidebar({
   setShowSidebar,
@@ -14,8 +16,21 @@ export default function Sidebar({
   showSidebar: boolean;
   setShowSidebar: (value: any) => void;
 }) {
-  //!replace with user data
-  const role = "admin";
+  const [accessToken, setAccessToken] = useState<string>("");
+
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await getCookie("accessToken");
+      if (!token) {
+        return;
+      }
+      setAccessToken(token);
+    };
+
+    getToken();
+  }, []);
+
+  const { role } = useLoggedUserInfo(accessToken);
 
   return (
     <>
@@ -30,7 +45,7 @@ export default function Sidebar({
       >
         <div className='flex flex-col justify-between h-full'>
           <ul className='py-4 px-4 space-y-3'>
-            {sidebarRoutes[role].map((route) => (
+            {sidebarRoutes[role]?.map((route: any) => (
               <SidebarItem
                 key={route.id}
                 label={route.label}

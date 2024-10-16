@@ -182,8 +182,8 @@ export const dummyBlogData = [
   },
 ];
 
-export const sidebarRoutes = {
-  user: [
+export const sidebarRoutes: any = {
+  customer: [
     {
       id: 1,
       label: "Service History",
