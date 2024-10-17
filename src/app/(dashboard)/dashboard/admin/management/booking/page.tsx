@@ -1,5 +1,6 @@
 import React from "react";
+import BookingManagePageContent from "./BookingManagePageContent";
 
 export default function BookingManagePage() {
-  return <section className='px-4 py-8'>BookingManagePage</section>;
+  return <BookingManagePageContent />;
 }

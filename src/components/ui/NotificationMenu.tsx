@@ -8,7 +8,12 @@ import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function NotificationMenu() {
-  const { data: notificationData } = useGetNotificationQuery({});
+  const { data: notificationData } = useGetNotificationQuery(
+    {},
+    {
+      refetchOnFocus: true,
+    }
+  );
 
   // notification count
   const [notificationCount, setNotificationsCount] = useState(0);
@@ -95,7 +100,7 @@ export default function NotificationMenu() {
 
     // Add positioning classes based on available space
     if (shouldOpenUpwards) {
-      menu.classList.add("bottom-full", "top-auto");
+      // menu.classList.add("bottom-full", "top-auto");
     } else {
       menu.classList.add("top-full");
     }

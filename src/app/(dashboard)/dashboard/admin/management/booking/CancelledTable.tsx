@@ -1,16 +1,11 @@
-"use client";
 import DynamicTable from "@/components/ui/DynamicTable";
 import React, { useState } from "react";
+import { BookingCancelColumn } from "./BookingTableColumn";
 import {
-  useCancelBookingMutation,
-  useMyBookingsQuery,
+  useDeleteBookingMutation,
+  useGetAllBookingsQuery,
 } from "@/redux/api/bookingApi";
-import {
-  convertTo12HourFormat,
-  formatDateTime,
-  formatISODatetoHumanReadable,
-} from "@/lib/utils";
-import { HistoryTableColumn } from "./HistoryTableColumn";
+import { formatDateTime } from "@/lib/utils";
 import LoadingComponent from "@/components/ui/LoadingComponent";
 import Modal from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
@@ -18,62 +13,58 @@ import { useAppDispatch } from "@/redux/hooks";
 import { toggleModal } from "@/redux/slice/modal/modalSlice";
 import toast from "react-hot-toast";
 
-export default function HistoryPageContent() {
-  const { data, isFetching } = useMyBookingsQuery(
-    {},
-    {
-      refetchOnFocus: true,
-    }
-  );
-  const [cancelBooking] = useCancelBookingMutation();
-  const serviceData = data?.data.map((d: any) => ({
-    id: d.id,
-    serviceName: d.service?.serviceName,
-    date: formatISODatetoHumanReadable(d.date),
-    startTime: convertTo12HourFormat(d.startTime),
-    endTime: convertTo12HourFormat(d.endTime),
-    bookingStatus: d.bookingStatus,
-    createdAt: formatDateTime(d.createdAt),
-  }));
+export default function CancelledTable() {
+  const { data, isFetching } = useGetAllBookingsQuery({
+    bookingStatus: "cancelled",
+  });
 
-  const dispatch = useAppDispatch();
   const [rowId, setRowId] = useState<string>("");
-  const openModal = (id: any) => {
-    setRowId(id);
-    dispatch(toggleModal({ isModalOpen: true, id: "1" }));
-  };
+  const dispatch = useAppDispatch();
+  const [deleteBooking] = useDeleteBookingMutation();
 
-  const cancelHandler = async () => {
-    // console.log(rowId);
-    const response = await cancelBooking(rowId).unwrap();
-    // console.log(response);
-
-    dispatch(toggleModal({ isModalOpen: false, id: "1" }));
-    if (response.statusCode === 200) {
-      toast.success(response.message);
-    }
-  };
-
+  const bookingData = data?.data?.map((data: any) => ({
+    id: data?.id,
+    username: data?.user?.username,
+    serviceName: data?.service?.serviceName,
+    bookingStatus: data?.bookingStatus,
+    updatedAt: formatDateTime(data?.updatedAt),
+  }));
   if (isFetching) {
     return <LoadingComponent />;
   }
 
+  const deleteModal = (id: any) => {
+    setRowId(id);
+    dispatch(toggleModal({ isModalOpen: true, id: "1" }));
+  };
+
+  const deleteHandler = async () => {
+    console.log(rowId);
+    const response = await deleteBooking(rowId).unwrap();
+    console.log(response);
+
+    dispatch(toggleModal({ isModalOpen: false, id: "1" }));
+    if (response.statusCode === 200) {
+      toast.success("Booking Deleted Successfully");
+    }
+  };
+
   return (
-    <section className='px-4 py-8 text-secondary'>
+    <div className='px-6'>
       <div className='w-full overflow-x-auto'>
         <DynamicTable
-          columns={HistoryTableColumn(openModal)}
-          dataset={serviceData}
+          columns={BookingCancelColumn(deleteModal)}
+          dataset={bookingData}
         />
       </div>
       <Modal id={"1"}>
         <div className='flex flex-col justify-between h-24'>
-          <p>Are you sure you want to cancel this booking?</p>
+          <p>Are you sure you want to delete this booking?</p>
           <div className='flex justify-end gap-2'>
             <Button
               variant='solid'
               className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
-              onClick={cancelHandler}
+              onClick={deleteHandler}
             >
               Yes
             </Button>
@@ -89,6 +80,6 @@ export default function HistoryPageContent() {
           </div>
         </div>
       </Modal>
-    </section>
+    </div>
   );
 }

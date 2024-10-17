@@ -3,18 +3,24 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface ModalState {
   isModalOpen: boolean;
+  id: string;
 }
 
 const initialState: ModalState = {
   isModalOpen: false,
+  id: "",
 };
 
 const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    toggleModal: (state, action: PayloadAction<boolean>) => {
-      state.isModalOpen = action.payload;
+    toggleModal: (
+      state,
+      action: PayloadAction<{ isModalOpen: boolean; id: string }>
+    ) => {
+      state.id = action.payload.id;
+      state.isModalOpen = action.payload.isModalOpen;
     },
   },
 });

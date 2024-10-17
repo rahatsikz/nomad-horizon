@@ -43,6 +43,16 @@ export default function DynamicTable({
             )}
           </tr>
         ))}
+        {dataset?.length === 0 && (
+          <tr>
+            <td
+              className='xl:px-4 px-2 py-3 text-center border-b border-l first:border-l-0 min-w-32'
+              colSpan={columns.length}
+            >
+              No data Found
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

@@ -1,12 +1,23 @@
 "use client";
 import LoadingComponent from "@/components/ui/LoadingComponent";
 import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
-import { useAppSelector } from "@/redux/hooks";
-import React from "react";
+import { getCookie } from "@/lib/cookies";
+import React, { useEffect, useState } from "react";
 
-export default function AdminPageContent() {
-  const { user } = useAppSelector((state) => state.user);
-  const { accessToken } = user;
+export default function UserPageContent() {
+  const [accessToken, setAccessToken] = useState<string>("");
+
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await getCookie("accessToken");
+      if (!token) {
+        return;
+      }
+      setAccessToken(token);
+    };
+
+    getToken();
+  }, []);
 
   const { username, isFetching } = useLoggedUserInfo(accessToken);
 

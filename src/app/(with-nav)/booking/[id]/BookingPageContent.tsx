@@ -146,7 +146,7 @@ export default function BookingPageContent({ id }: { id: string }) {
   );
 }
 
-const TimeTable = ({
+export const TimeTable = ({
   onTimeClick,
   selectedTime,
   serviceSchedule,
