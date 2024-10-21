@@ -76,6 +76,62 @@ const Select = ({
     option.label.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleDropdownPosition = () => {
+    const dropdown = dropdownRef.current;
+    if (!dropdown) return;
+
+    const rect = dropdown.getBoundingClientRect();
+    const availableSpaceBelow = window.innerHeight - rect.bottom;
+    const availableSpaceRight = window.innerWidth - rect.right;
+    // console.log(rect);
+
+    const dropdownHeight = dropdown.offsetHeight;
+    const dropdownWidth = dropdown.offsetWidth;
+
+    // Check if there's enough space below
+    const shouldOpenUpwards = availableSpaceBelow < dropdownHeight;
+
+    // Check if there's enough space on the right
+    const shouldAlignRight = availableSpaceRight < dropdownWidth;
+    // Check if there's enough space on the left
+    const shouldAlignLeft = !shouldAlignRight && rect.left < dropdownWidth;
+
+    // Remove previous positioning classes
+    dropdown.classList.remove(
+      "top-full",
+      "bottom-full",
+      "right-0",
+      "left-1/2",
+      "right-1/2",
+      "-translate-x-1/2",
+      "top-auto",
+      "left-0"
+    );
+
+    // Add positioning classes based on available space
+    if (shouldOpenUpwards) {
+      dropdown.classList.add("bottom-full", "top-auto");
+    } else {
+      dropdown.classList.add("top-full");
+    }
+
+    if (shouldAlignRight) {
+      dropdown.classList.add("right-0");
+    } else if (shouldAlignLeft) {
+      dropdown.classList.add("left-0");
+    } else {
+      dropdown.classList.add("left-1/2", "right-1/2", "-translate-x-1/2");
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleDropdownPosition);
+    handleDropdownPosition();
+    return () => window.removeEventListener("resize", handleDropdownPosition);
+  }, [isOpen]);
+
   return (
     <div className='relative lg:w-full w-full ' ref={selectRef}>
       <div className='flex justify-between'>
@@ -112,7 +168,10 @@ const Select = ({
               </svg>
             </button>
             {isOpen && (
-              <div className='absolute  mt-2 w-full  bg-mainBg text-secondary border dark:border-neutral rounded shadow-lg z-[1]'>
+              <div
+                className='absolute  mt-2 w-full  bg-mainBg text-secondary border dark:border-neutral rounded shadow-lg z-[1]'
+                ref={dropdownRef}
+              >
                 {searchable && (
                   <input
                     type='text'

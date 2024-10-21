@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect } from "react";
+import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 type FormConfig = {
@@ -32,9 +31,9 @@ export default function Form({
     reset();
   };
 
-  useEffect(() => {
-    reset(defaultValues);
-  }, [defaultValues, reset, methods]);
+  // useEffect(() => {
+  //   reset(defaultValues);
+  // }, [defaultValues, reset, methods]);
 
   return (
     <FormProvider {...methods}>

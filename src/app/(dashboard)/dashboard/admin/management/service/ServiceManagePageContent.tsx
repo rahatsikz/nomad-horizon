@@ -2,6 +2,7 @@
 import { cn } from "@/lib/utils";
 import AddService from "./AddService";
 import { useState } from "react";
+import ManageServices from "./ManageServices";
 
 export default function ServiceManagePageContent() {
   const tabsData = [
@@ -13,7 +14,7 @@ export default function ServiceManagePageContent() {
     {
       id: 2,
       title: "Manage Service",
-      children: <div>Manage Service</div>,
+      children: <ManageServices />,
     },
   ];
 

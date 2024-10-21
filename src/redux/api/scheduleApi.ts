@@ -13,7 +13,14 @@ export const scheduleApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.booking],
     }),
+    getServiceSchedule: build.query({
+      query: (serviceId) => ({
+        url: `${SCHEDULE_URL}/${serviceId}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.schedule],
+    }),
   }),
 });
 
-export const { useGetScheduleQuery } = scheduleApi;
+export const { useGetScheduleQuery, useGetServiceScheduleQuery } = scheduleApi;

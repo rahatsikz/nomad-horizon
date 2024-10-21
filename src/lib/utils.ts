@@ -10,7 +10,7 @@ export function manageFormError(
   obj: Record<string, any>,
   propertyPath: string
 ) {
-  const properties = propertyPath.split(".");
+  const properties = propertyPath?.split(".");
   let value = obj;
 
   for (const property of properties) {
