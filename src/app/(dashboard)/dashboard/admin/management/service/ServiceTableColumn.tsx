@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/Button";
 
-export const ServiceTableColumn = (editModal: any, scheduleModal: any) => [
+export const ServiceTableColumn = (
+  editModal: any,
+  scheduleModal: any,
+  deleteModal: any
+) => [
   {
     tableHeader: "Service Name",
     dataIndex: "serviceName",
@@ -41,7 +45,7 @@ export const ServiceTableColumn = (editModal: any, scheduleModal: any) => [
           <Button
             variant='solid'
             className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
-            onClick={() => console.log(data?.id)}
+            onClick={() => deleteModal(data?.id)}
           >
             Delete
           </Button>

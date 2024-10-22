@@ -20,7 +20,20 @@ export const scheduleApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.schedule],
     }),
+
+    updateSchedule: build.mutation({
+      query: ({ id, data }) => ({
+        url: `${SCHEDULE_URL}/${id}`,
+        method: "PATCH",
+        data,
+      }),
+      invalidatesTags: [tagTypes.schedule, tagTypes.service],
+    }),
   }),
 });
 
-export const { useGetScheduleQuery, useGetServiceScheduleQuery } = scheduleApi;
+export const {
+  useGetScheduleQuery,
+  useGetServiceScheduleQuery,
+  useUpdateScheduleMutation,
+} = scheduleApi;
