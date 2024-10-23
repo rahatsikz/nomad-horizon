@@ -40,7 +40,7 @@ const Input = ({ name, type, label, placeholder, disabled }: InputProps) => {
             max={type === "number" ? 360 : undefined}
             placeholder={placeholder}
             value={field.value ?? ""}
-            className='h-10 w-full bg-transparent text-secondary rounded border dark:border-neutral px-4 text-sm  outline-none transition-all autofill:bg-transparent focus:border-primary focus:outline-none'
+            className='h-10 w-full bg-transparent text-secondary rounded border dark:border-neutral px-4 text-sm  outline-none transition-all autofill:bg-transparent focus:border-primary focus:outline-none disabled:text-neutral disabled:cursor-not-allowed'
             autoComplete='off'
             disabled={disabled}
           />

@@ -1,5 +1,6 @@
 import React from "react";
+import UserManagePageContent from "./UserManagePageContent";
 
 export default function UserManagePage() {
-  return <section className='px-4 py-8'>UserManagePage</section>;
+  return <UserManagePageContent />;
 }
