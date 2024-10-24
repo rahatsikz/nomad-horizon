@@ -1,29 +1,21 @@
 "use client";
-import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import CancelledTable from "./CancelledTable";
-import RecentTable from "./RecentTable";
-import AllTable from "./AllTable";
+import React, { useState } from "react";
+import AddContent from "./AddContent";
 
-export default function BookingManagePageContent() {
+export default function ContentPageContent() {
   const tabsData = [
     {
       id: 1,
-      title: "Recent Bookings",
-      children: <RecentTable />,
+      title: "Create Content",
+      children: <AddContent />,
     },
     {
       id: 2,
-      title: "Cancelled Bookings",
-      children: <CancelledTable />,
-    },
-    {
-      id: 3,
-      title: "All Bookings",
-      children: <AllTable />,
+      title: "Manage Content",
+      children: <div>Manage Content</div>,
     },
   ];
-
   const [activeTab, setActiveTab] = useState(tabsData[0]);
   return (
     <section>

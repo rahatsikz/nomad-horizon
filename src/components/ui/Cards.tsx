@@ -42,7 +42,7 @@ export function CardVariantOne({ data }: { data: ServiceProps }) {
 
 export function CardVariantTwo({ data }: { data: ServiceProps }) {
   return (
-    <div className='overflow-hidden rounded shadow-main'>
+    <div className='overflow-hidden rounded shadow-main bg-nomadGray'>
       <figure>
         <Image
           src={data?.image}
@@ -58,7 +58,7 @@ export function CardVariantTwo({ data }: { data: ServiceProps }) {
         />
       </figure>
       {/*  Body */}
-      <div className='p-6 bg-nomadGray'>
+      <div className='p-6'>
         <header className=''>
           <h3 className='text-xl font-medium text-secondary'>
             {data?.serviceName}

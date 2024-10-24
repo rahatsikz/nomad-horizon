@@ -4,6 +4,7 @@ export enum tagTypes {
   booking = "booking",
   notification = "notification",
   schedule = "schedule",
+  blog = "blog",
 }
 
 export const tagTypesList = Object.values(tagTypes);
