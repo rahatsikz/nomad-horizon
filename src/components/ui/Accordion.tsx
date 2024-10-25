@@ -1,27 +1,55 @@
-import React, { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import React, { useState, useEffect, useRef } from "react";
 
 type AccordionProps = {
   header: string;
   children: React.ReactNode;
-  isOpen?: boolean;
+  id: string;
 };
 
-export default function Accordion({
-  header,
-  children,
-  isOpen = false,
-}: AccordionProps) {
-  const [isExpanded, setIsExpanded] = useState(isOpen);
+export default function Accordion({ header, children, id }: AccordionProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setIsExpanded(isOpen);
-  }, [isOpen]);
+    const handleClose = (event: CustomEvent) => {
+      if (event.detail !== id) {
+        setIsExpanded(false);
+      }
+    };
+
+    window.addEventListener("accordion-toggle", handleClose as EventListener);
+
+    return () =>
+      window.removeEventListener(
+        "accordion-toggle",
+        handleClose as EventListener
+      );
+  }, [id]);
+
+  const handleToggle = () => {
+    setIsExpanded((prev) => {
+      const newState = !prev;
+      if (newState) {
+        requestAnimationFrame(() => {
+          const customEvent = new CustomEvent("accordion-toggle", {
+            detail: id,
+          });
+          window.dispatchEvent(customEvent);
+        });
+      }
+      return newState;
+    });
+  };
 
   return (
-    <div className='w-full p-4'>
+    <div ref={panelRef} className='w-full px-4 py-2'>
       <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className='flex items-center justify-between w-full font-medium tracking-wide cursor-pointer py-4 px-6 rounded border-2 border-primary text-secondary'
+        onClick={handleToggle}
+        className={cn(
+          "flex items-center justify-between w-full font-medium tracking-wide cursor-pointer py-4 px-6 rounded  border-2 border-primary text-secondary",
+          isExpanded && "rounded-b-none"
+        )}
       >
         {header}
         <svg
@@ -40,9 +68,12 @@ export default function Accordion({
         </svg>
       </button>
       <div
-        className={`grid transition-all duration-500 ease-in-out ${
-          isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        }`}
+        className={cn(
+          "grid transition-all duration-500 ease-in-out",
+          isExpanded
+            ? "grid-rows-[1fr] border-2 border-t-0 dark:border-neutral rounded rounded-t-none -mt-0.5 pb-4"
+            : "grid-rows-[0fr]"
+        )}
       >
         <div className='overflow-hidden'>
           <div className='pt-4 px-4'>{children}</div>

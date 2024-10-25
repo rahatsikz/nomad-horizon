@@ -119,12 +119,16 @@ export default function Calendar({ onDateClick, selectedDate }: CalendarProps) {
   return (
     <div className='md:w-72 py-4 bg-nomadGray text-secondary w-full'>
       <div className='flex justify-between mb-2 px-4'>
-        <button onClick={goToPrevMonth}>&lt;</button>
+        <button onClick={goToPrevMonth} type='button'>
+          &lt;
+        </button>
         <span>
           {onDisplayDate.toLocaleString("default", { month: "long" })}{" "}
           {onDisplayDate.getFullYear()}
         </span>
-        <button onClick={goToNextMonth}>&gt;</button>
+        <button onClick={goToNextMonth} type='button'>
+          &gt;
+        </button>
       </div>
       {/* Display the days of the week */}
       <div className='grid grid-cols-7 gap-1.5 bg-mainBg px-4 text-neutral'>

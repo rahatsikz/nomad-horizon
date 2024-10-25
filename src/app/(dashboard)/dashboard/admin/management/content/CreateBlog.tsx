@@ -5,6 +5,8 @@ import ImageInput from "@/components/ui/ImageInput";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
 import { useAddBlogsMutation } from "@/redux/api/blogApi";
+import { blogSchema } from "@/schemas/content";
+import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import toast from "react-hot-toast";
 
@@ -45,8 +47,12 @@ export default function CreateBlog() {
   };
 
   return (
-    <Accordion header='Create Blog'>
-      <Form submitHandler={onSubmit} className='space-y-4 text-center'>
+    <Accordion header='Create Blog' id='blog'>
+      <Form
+        submitHandler={onSubmit}
+        className='space-y-4 text-center'
+        resolver={yupResolver(blogSchema)}
+      >
         <div className='grid lg:grid-cols-2 gap-4'>
           <Input label='Title' name='title' type='text' />
           <Input label='Author' name='author' type='text' />
