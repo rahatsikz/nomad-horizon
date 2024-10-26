@@ -2,6 +2,7 @@
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import AddContent from "./AddContent";
+import ManageContent from "./ManageContent";
 
 export default function ContentPageContent() {
   const tabsData = [
@@ -13,7 +14,7 @@ export default function ContentPageContent() {
     {
       id: 2,
       title: "Manage Content",
-      children: <div>Manage Content</div>,
+      children: <ManageContent />,
     },
   ];
   const [activeTab, setActiveTab] = useState(tabsData[0]);

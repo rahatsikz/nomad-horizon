@@ -5,10 +5,10 @@ import CreateNews from "./CreateNews";
 
 export default function AddContent() {
   return (
-    <section className=''>
+    <>
       <CreateBlog />
       <CreateEvent />
       <CreateNews />
-    </section>
+    </>
   );
 }
