@@ -62,3 +62,70 @@ export const BlogsColumn = (
     },
   },
 ];
+
+export const EventColumn = (
+  deleteModal: any,
+  editModal: any,
+  showModal: any,
+  hideHandler: any,
+  shownOnHomepage: number
+) => [
+  {
+    tableHeader: "Event Name",
+    dataIndex: "title",
+  },
+  {
+    tableHeader: "Event City",
+    dataIndex: "city",
+  },
+  {
+    tableHeader: "Country",
+    dataIndex: "country",
+  },
+  {
+    tableHeader: "Event Date",
+    dataIndex: "date",
+  },
+  {
+    tableHeader: "Action",
+    dataIndex: "action",
+    renders: (data: any) => {
+      return (
+        <div className='flex gap-2 flex-wrap'>
+          <Button
+            variant='solid'
+            className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
+            onClick={() => deleteModal(data?.id)}
+          >
+            Delete
+          </Button>
+          <Button
+            variant='solid'
+            className='text-sm px-2.5 py-0.5'
+            onClick={() => editModal(data?.id)}
+          >
+            Edit
+          </Button>
+          {data?.showOnHomepage && (
+            <Button
+              variant='solid'
+              className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
+              onClick={() => hideHandler(data?.id)}
+            >
+              Hide from Homepage
+            </Button>
+          )}
+          {!data?.showOnHomepage && shownOnHomepage < 2 && (
+            <Button
+              variant='solid'
+              className='text-sm px-2.5 py-0.5'
+              onClick={() => showModal(data?.id)}
+            >
+              Show on Homepage
+            </Button>
+          )}
+        </div>
+      );
+    },
+  },
+];

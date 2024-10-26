@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addingToCart } from "@/redux/slice/cart/cartSlice";
 import loginImage from "@/assets/images/Login-amico.png";
 import { usePathname, useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn, formatISODatetoHumanReadable } from "@/lib/utils";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
   return (
@@ -95,16 +95,22 @@ export function TestimonialCard({ data }: { data: ReviewProps }) {
 export function EventCard({ data }: { data: EventProps }) {
   return (
     <div className='overflow-hidden w-full p-6 space-y-3'>
-      <h2 className='text-secondary'>{data?.eventName}</h2>
-      <p className='text-neutral'>{data?.description}</p>
+      <h2 className='text-secondary'>{data?.title}</h2>
+      <p className='text-neutral line-clamp-3'>{data?.content}</p>
       <div className='flex justify-between'>
         <div className='flex items-center gap-2'>
           <MapIcon />
-          <p className='mt-0.5 text-primary'> {data?.location}</p>
+          <p className='mt-0.5 text-primary'>
+            {" "}
+            {data?.city}, {data?.country}
+          </p>
         </div>
         <div className='flex items-center gap-2'>
           <CalendarIcon />
-          <p className='mt-0.5 text-primary'> {data?.eventDate}</p>
+          <p className='mt-0.5 text-primary'>
+            {" "}
+            {formatISODatetoHumanReadable(data?.date)}
+          </p>
         </div>
       </div>
     </div>

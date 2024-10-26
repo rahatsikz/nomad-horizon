@@ -21,11 +21,11 @@ export type ReviewProps = {
 
 export type EventProps = {
   id?: string;
-  eventName: string;
-  eventDate: string;
-  location: string;
-  description: string;
-  category: string;
+  title: string;
+  date: string;
+  city: string;
+  country: string;
+  content: string;
 };
 
 export type NewsProps = {

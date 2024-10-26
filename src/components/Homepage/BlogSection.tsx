@@ -15,7 +15,7 @@ export function BlogSection() {
   }
 
   return (
-    <>
+    <div>
       {allBlogs?.data?.length > 0 && (
         <>
           <HeaderText
@@ -36,6 +36,6 @@ export function BlogSection() {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }

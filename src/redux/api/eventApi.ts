@@ -13,7 +13,44 @@ export const eventApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.event],
     }),
+    getEvents: build.query({
+      query: (args: Record<string, any>) => ({
+        url: `${EVENT_URL}`,
+        method: "GET",
+        params: args,
+      }),
+      providesTags: [tagTypes.event],
+    }),
+    getEvent: build.query({
+      query: (id) => ({
+        url: `${EVENT_URL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.event],
+    }),
+    updateEvent: build.mutation({
+      query: ({ id, data }) => ({
+        url: `${EVENT_URL}/${id}`,
+        method: "PATCH",
+        data,
+      }),
+      invalidatesTags: [tagTypes.event],
+    }),
+
+    deleteEvent: build.mutation({
+      query: (id) => ({
+        url: `${EVENT_URL}/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.event],
+    }),
   }),
 });
 
-export const { useAddEventMutation } = eventApi;
+export const {
+  useAddEventMutation,
+  useGetEventsQuery,
+  useGetEventQuery,
+  useUpdateEventMutation,
+  useDeleteEventMutation,
+} = eventApi;

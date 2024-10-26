@@ -73,7 +73,7 @@ export default function DatePicker({
               disabled={disabled}
               onClick={() => setShowCalendar(!showCalendar)}
             />
-            <div className='absolute z-10'>
+            <div className='absolute z-[1]'>
               {showCalendar && (
                 <Calendar
                   onDateClick={(selectedDate) => {
