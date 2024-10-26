@@ -108,7 +108,6 @@ export function EventCard({ data }: { data: EventProps }) {
         <div className='flex items-center gap-2'>
           <CalendarIcon />
           <p className='mt-0.5 text-primary'>
-            {" "}
             {formatISODatetoHumanReadable(data?.date)}
           </p>
         </div>
@@ -124,7 +123,9 @@ export function NewsCard({ data }: { data: NewsProps }) {
         <h2 className='text-secondary'>{data?.title}</h2>
         <div className='flex items-center gap-2 mt-0.5 mb-3'>
           <CalendarIcon />
-          <p className='mt-0.5 text-primary text-sm'>{data?.date}</p>
+          <p className='mt-0.5 text-primary text-sm'>
+            {formatISODatetoHumanReadable(data?.date)}
+          </p>
         </div>
         <p className='text-neutral line-clamp-5'>{data?.content}</p>
       </div>
