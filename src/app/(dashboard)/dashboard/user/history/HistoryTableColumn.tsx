@@ -1,13 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/Button";
 
-export const HistoryTableColumn = (openModal: any) => [
+export const HistoryTableColumn = (openModal: any, reviewModal: any) => [
   {
     tableHeader: "Service Name",
     dataIndex: "serviceName",
   },
   {
-    tableHeader: "Service Date",
+    tableHeader: "Booking Date",
     dataIndex: "date",
   },
   {
@@ -44,6 +44,18 @@ export const HistoryTableColumn = (openModal: any) => [
           )}
           {data?.bookingStatus === "cancelled" && (
             <p className='text-red-400'>Cancelled</p>
+          )}
+          {data?.bookingStatus === "completed" && !data?.isReviewed && (
+            <Button
+              variant='solid'
+              className='text-sm px-2.5 py-0.5'
+              onClick={() => reviewModal(data?.id)}
+            >
+              Write a Review
+            </Button>
+          )}
+          {data?.bookingStatus === "completed" && data?.isReviewed && (
+            <p className='text-primary'>Reviewed</p>
           )}
         </>
       );

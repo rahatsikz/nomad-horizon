@@ -186,7 +186,7 @@ export const sidebarRoutes: any = {
   customer: [
     {
       id: 1,
-      label: "Service History",
+      label: "Booking History",
       path: "/dashboard/user/history",
     },
     {
