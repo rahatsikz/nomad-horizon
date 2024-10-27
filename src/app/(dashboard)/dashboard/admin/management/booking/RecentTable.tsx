@@ -68,6 +68,11 @@ export default function RecentTable() {
     setSelectedDate(
       new Date(bookingData?.find((data: any) => data.id === id)?.dbDate)
     );
+    setSelectedTime({
+      sessionStarts: data?.data?.find((data: any) => data.id === id)?.startTime,
+      sessionEnds: data?.data?.find((data: any) => data.id === id)?.endTime,
+      available: data?.data?.find((data: any) => data.id === id)?.available,
+    });
     dispatch(toggleModal({ isModalOpen: true, id: "2" }));
   };
 
@@ -172,8 +177,36 @@ export default function RecentTable() {
           </div>
         </div>
       </Modal>
-      <Modal id={"2"} className='max-w-4xl overflow-y-auto'>
-        <div className='flex md:flex-row flex-col-reverse gap-8 md:items-center'>
+      <Modal id={"2"} className='max-w-4xl overflow-y-auto py-0 px-0 pb-6'>
+        {/* topbar */}
+        <div className='w-full h-fit md:h-20 border-b dark:border-neutral sticky top-0 left-0 bg-nomadGray rounded-tr-md rounded-tl-md z-[2]'>
+          <div className='flex items-center justify-between  h-full px-8 py-4'>
+            {selectedDate && (
+              <div>
+                <p className='text-lg text-secondary'>
+                  {selectedDate.getDate()}{" "}
+                  {selectedDate.toLocaleString("default", { month: "short" })}{" "}
+                  {selectedDate.getFullYear()}
+                </p>
+                <p className='text-neutral'>
+                  {selectedDate.toLocaleString("default", { weekday: "long" })}
+                </p>
+              </div>
+            )}
+
+            <div className='flex gap-2 md:gap-4 md:items-center md:flex-row flex-col md:divide-x-2'>
+              {selectedTime && (
+                <div className=''>
+                  <p className='md:text-lg text-sm text-secondary'>
+                    {selectedTime.sessionStarts} - {selectedTime.sessionEnds}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        {/* calendar and time picker */}
+        <div className='flex md:flex-row flex-col-reverse gap-8 md:items-center -mt-3 px-2'>
           <div className='flex-1 md:pl-8 pl-4'>
             <TimeTable
               onTimeClick={handleTimeClick}
@@ -190,7 +223,7 @@ export default function RecentTable() {
             />
           </div>
         </div>
-        <div className='flex justify-end gap-2'>
+        <div className='flex justify-end gap-2 px-6'>
           <Button
             variant='solid'
             className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'

@@ -32,7 +32,8 @@ export const HistoryTableColumn = (openModal: any) => [
     renders: (data: any) => {
       return (
         <>
-          {data?.bookingStatus === "processing" && (
+          {(data?.bookingStatus === "processing" ||
+            data?.bookingStatus === "adjusted") && (
             <Button
               variant='solid'
               className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'

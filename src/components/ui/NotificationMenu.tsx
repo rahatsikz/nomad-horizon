@@ -193,16 +193,18 @@ export default function NotificationMenu() {
         >
           <ul role='menu' className='divide-y divide-secondary'>
             {notificationData?.data?.length > 0 ? (
-              notificationData?.data.map((item: any, index: number) => (
-                <li
-                  key={index}
-                  className={`px-6 py-2 cursor-pointer text-secondary text-sm`}
-                  tabIndex={-1}
-                  role='menuitem'
-                >
-                  {item?.content}
-                </li>
-              ))
+              notificationData?.data
+                ?.slice(0, 5)
+                .map((item: any, index: number) => (
+                  <li
+                    key={index}
+                    className={`px-6 py-2 cursor-pointer text-secondary text-sm`}
+                    tabIndex={-1}
+                    role='menuitem'
+                  >
+                    {item?.content}
+                  </li>
+                ))
             ) : (
               <li
                 className={`px-6 py-2 cursor-pointer text-secondary text-sm text-center`}
