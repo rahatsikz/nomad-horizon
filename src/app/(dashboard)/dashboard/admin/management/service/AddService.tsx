@@ -13,6 +13,8 @@ import {
 } from "@/constant/global";
 import { cn } from "@/lib/utils";
 import { useAddServiceMutation } from "@/redux/api/serviceApi";
+import { serviceSchema } from "@/schemas/service";
+import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -56,6 +58,17 @@ export default function AddService() {
       (schedule: any) => !removedDays.includes(schedule.daysOfWeek)
     );
 
+    if (
+      data.schedule.find(
+        (schedule: any) =>
+          !schedule.startTime ||
+          !schedule.endTime ||
+          !schedule.eachSessionDuration
+      )
+    ) {
+      return toast.error("Please fill up the schedule fields");
+    }
+
     try {
       console.log(data);
       const response = await addService(data).unwrap();
@@ -66,7 +79,6 @@ export default function AddService() {
       }
     } catch (error: any) {
       console.log(error);
-      toast.error(error.data.message);
     }
   };
 
@@ -92,7 +104,7 @@ export default function AddService() {
     <section className='px-6 py-8'>
       <Form
         submitHandler={onSubmit}
-        // defaultValues={defaultValue}
+        resolver={yupResolver(serviceSchema)}
         className='space-y-4'
       >
         <div className='grid md:grid-cols-2 gap-4'>
@@ -122,12 +134,12 @@ export default function AddService() {
         </div>
         <ImageInput name='image' />
         <div className='border dark:border-neutral px-4 xl:px-8 py-6 rounded'>
-          <div className='w-full space-y-6 md:space-y-4 max-md:divide-y-2 dark:divide-neutral'>
+          <div className='w-full space-y-6 md:space-y-4 max-lg:divide-y-2 dark:divide-neutral'>
             {days.map((day, idx) => (
               <div
                 key={day}
                 className={cn(
-                  "md:flex justify-between max-md:space-y-4  items-center gap-2 lg:gap-8 w-full"
+                  "lg:flex justify-between max-lg:space-y-4  items-center gap-2 lg:gap-8 w-full"
                 )}
               >
                 <h2
@@ -140,7 +152,7 @@ export default function AddService() {
                 </h2>
                 <div
                   className={cn(
-                    "w-full md:flex max-md:space-y-2 lg:gap-8 gap-4 items-center",
+                    "w-full lg:flex max-lg:space-y-2 lg:gap-8 gap-4 items-center",
                     removedDays.includes(day) ? "opacity-20" : ""
                   )}
                 >
@@ -178,7 +190,7 @@ export default function AddService() {
                   {removedDays.includes(day) ? (
                     <Button
                       variant='solid'
-                      className='max-sm:w-full'
+                      className='max-lg:w-full'
                       onClick={() => insertDay(day)}
                     >
                       Insert
@@ -186,7 +198,7 @@ export default function AddService() {
                   ) : (
                     <Button
                       variant='outline'
-                      className='border-red-400 text-red-400 hover:bg-red-400 max-sm:w-full'
+                      className='border-red-400 text-red-400 hover:bg-red-400 max-lg:w-full'
                       onClick={() => removeDay(day)}
                     >
                       Remove

@@ -13,9 +13,20 @@ export function manageFormError(
   const properties = propertyPath?.split(".");
   let value = obj;
 
+  console.log(obj);
+
   for (const property of properties) {
-    if (value[property]) {
+    const arrayMatch = property.match(/(\w+)\[(\d+)\]/);
+    if (arrayMatch) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [_, key, index] = arrayMatch;
+
+      if (Array.isArray(value[key]) && value[key][index as any]) {
+        value = value[key][index as any];
+      }
+    } else if (value[property]) {
       value = value[property];
+      // console.log(value);
     } else {
       return undefined;
     }

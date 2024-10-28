@@ -95,7 +95,7 @@ export default function ServicePageContent() {
         <Button
           variant='solid'
           className={cn(
-            "block rounded-none hover:bg-primary hover:text-white fixed top-24 mt-0 lg:mt-2.5 left-0",
+            "block rounded-none hover:bg-primary hover:text-white fixed top-28 mt-0 lg:mt-2.5 left-0",
             { hidden: showSidebar }
           )}
           onClick={() => setShowSidebar((prev) => !prev)}

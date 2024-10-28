@@ -99,6 +99,9 @@ const ImageInput = ({ name }: { name: string }) => {
                   ? fileName
                   : "Drag and Drop your file here or click to browse"}
               </h4>
+              {errorMessage && (
+                <small className='text-red-400'>{errorMessage}</small>
+              )}
               <input
                 ref={fileInputRef}
                 type='file'
@@ -107,9 +110,6 @@ const ImageInput = ({ name }: { name: string }) => {
                 onChange={(e) => handleInputChange(e, field.onChange)} // Handle file input change
               />
             </div>
-            {errorMessage && (
-              <small className='text-red-400'>{errorMessage}</small>
-            )}
           </div>
         )}
       />
