@@ -284,6 +284,28 @@ export const serviceStatus = [
   },
 ];
 
+export const sortOrder = [
+  {
+    label: "Ascending",
+    value: "asc",
+  },
+  {
+    label: "Descending",
+    value: "desc",
+  },
+];
+
+export const serviceSortBy = [
+  {
+    label: "Price",
+    value: "price",
+  },
+  {
+    label: "Popularity",
+    value: "popularity",
+  },
+];
+
 export const startTime = [
   { label: "8:00 AM", value: "08:00" },
   { label: "8:30 AM", value: "08:30" },

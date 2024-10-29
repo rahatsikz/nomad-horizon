@@ -4,6 +4,7 @@ type RangeSlideProps = {
   min?: number;
   max?: number;
   label: string;
+  step?: number;
 };
 
 export function RangeSlide({
@@ -11,6 +12,7 @@ export function RangeSlide({
   handleChange,
   min = 100,
   max = 900,
+  step,
   label,
 }: RangeSlideProps) {
   return (
@@ -23,10 +25,10 @@ export function RangeSlide({
         type='range'
         min={min}
         max={max}
-        step={100}
+        step={step}
         value={value}
         onChange={handleChange}
-        className='w-full h-4 rounded-full bg-gradient-to-r from-neutral to-primary appearance-none focus:outline-none'
+        className='w-full h-4 rounded-full bg-gradient-to-r dark:from-neutral dark:to-primary from-slate-200 to-primary  appearance-none focus:outline-none'
       />
     </div>
   );

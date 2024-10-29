@@ -1,36 +1,47 @@
 import { cn } from "@/lib/utils";
 import Select, { Option } from "./Select";
 import Form from "./Form";
+import { useEffect } from "react";
 
 type PaginationProps = {
   totalPages: number;
   currentPage: number;
   handlePageChange: (page: number) => void;
   limit?: Option;
-  handleLimitChange?: (limit: Option) => void;
+  totalItems: number;
+  handleLimitChange: (limit: string) => void;
 };
 export default function Pagination({
   totalPages,
   currentPage,
   handlePageChange,
+  handleLimitChange,
+  limit,
+  totalItems,
 }: PaginationProps) {
-  if (totalPages < 2) return null;
-
+  // if (totalPages < 1) return null;
+  useEffect(() => {
+    if (totalItems <= Number(limit?.value)) {
+      handlePageChange(1);
+    }
+  }, [totalItems, limit?.value, handlePageChange]);
   return (
-    <div className='flex flex-col sm:flex-row gap-2 sm:gap-6 justify-end items-center mt-8 '>
+    <div className='flex gap-2 sm:gap-6 sm:justify-end justify-center items-center mt-8 '>
       <div className='flex flex-wrap gap-2'>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            key={i}
-            className={cn("size-8 rounded-full", {
-              "bg-primary text-white": currentPage === i + 1,
-              "bg-transparent text-primary": currentPage !== i + 1,
-            })}
-            onClick={() => handlePageChange(i + 1)}
-          >
-            {i + 1}
-          </button>
-        ))}
+        {totalPages >= 2
+          ? Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                className={cn("size-8 rounded-full", {
+                  "bg-primary text-white": currentPage === i + 1,
+                  "bg-transparent text-primary": currentPage !== i + 1,
+                })}
+                onClick={() => handlePageChange(i + 1)}
+              >
+                {i + 1}
+              </button>
+            ))
+          : null}
       </div>
       <Form submitHandler={() => {}} className='w-16'>
         <Select
@@ -44,6 +55,7 @@ export default function Pagination({
             { value: "8", label: "8" },
           ]}
           searchable={false}
+          onChange={(value) => handleLimitChange(value)}
         />
       </Form>
     </div>

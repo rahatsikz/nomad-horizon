@@ -34,7 +34,8 @@ export default function ManageServices() {
   const allServiceData = data?.data.map((data: any) => ({
     id: data?.id,
     serviceName: data?.serviceName,
-    status: data?.status,
+    category: data?.category[0].toUpperCase() + data?.category.slice(1),
+    status: data?.status[0].toUpperCase() + data?.status.slice(1),
     price: data?.price + " USD",
     createdAt: formatDateTime(data?.createdAt),
   }));

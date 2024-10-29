@@ -13,8 +13,6 @@ export function manageFormError(
   const properties = propertyPath?.split(".");
   let value = obj;
 
-  console.log(obj);
-
   for (const property of properties) {
     const arrayMatch = property.match(/(\w+)\[(\d+)\]/);
     if (arrayMatch) {

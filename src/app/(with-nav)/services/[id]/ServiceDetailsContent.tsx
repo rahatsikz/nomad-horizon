@@ -65,12 +65,18 @@ export default function ServiceDetailsContent({ id }: { id: string }) {
             <p className='text-neutral'>
               Service Days:{" "}
               <span className='text-primary capitalize'>
-                {service?.data?.schedules?.map((schedule: any, idx: number) => (
-                  <span key={schedule.daysOfWeek}>
-                    {schedule.daysOfWeek}
-                    {idx !== service?.data?.schedules?.length - 1 ? ", " : ""}
-                  </span>
-                ))}
+                {service?.data?.schedules.length > 0
+                  ? service?.data?.schedules?.map(
+                      (schedule: any, idx: number) => (
+                        <span key={schedule.daysOfWeek}>
+                          {schedule.daysOfWeek}
+                          {idx !== service?.data?.schedules?.length - 1
+                            ? ", "
+                            : ""}
+                        </span>
+                      )
+                    )
+                  : "N/A"}
               </span>
             </p>
             <p className='text-neutral'>

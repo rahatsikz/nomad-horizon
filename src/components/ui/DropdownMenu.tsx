@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
 type DropdownMenuProps = {
@@ -21,6 +22,7 @@ export const DropdownMenu = ({
   const [closing, setClosing] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const router = useRouter();
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (open) {
@@ -174,6 +176,7 @@ export const DropdownMenu = ({
                 onClick={() => {
                   console.log(`Selected: ${item.label}`);
                   item.onClick && item.onClick();
+                  item.route && router.push(item.route);
                   setOpen(false);
                 }}
               >

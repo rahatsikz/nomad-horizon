@@ -21,7 +21,7 @@ export function Navbar() {
 
   const { user } = useAppSelector((state) => state.user);
   const { accessToken } = user;
-  const { username } = useLoggedUserInfo(accessToken);
+  const { username, role } = useLoggedUserInfo(accessToken);
 
   const myRef = useRef<HTMLDivElement>(null);
 
@@ -68,8 +68,9 @@ export function Navbar() {
               <NotificationMenu />
               <DropdownMenu
                 contents={[
-                  { label: "Logout", onClick: handleLogOut },
+                  { label: "Dashboard", route: `/dashboard/${role}` },
                   { label: "Edit Profile", route: "/profile" },
+                  { label: "Logout", onClick: handleLogOut },
                 ]}
                 trigger={username[0]}
                 className='bg-primary rounded-full text-white'
@@ -119,6 +120,11 @@ export function Navbar() {
           {username && accessToken ? (
             <div className='border-t w-full space-y-2'>
               <p className='pt-2 text-blue-400'>{username}</p>
+              <NavLink
+                route={`/dashboard/${role}`}
+                label='Dashboard'
+                isVisible={showMobileMenu}
+              />
               <NavLink
                 route='/profile'
                 label='Edit Profile'

@@ -9,6 +9,10 @@ export const ServiceTableColumn = (
     tableHeader: "Service Name",
     dataIndex: "serviceName",
   },
+  {
+    tableHeader: "Category",
+    dataIndex: "category",
+  },
 
   {
     tableHeader: "Service Status",

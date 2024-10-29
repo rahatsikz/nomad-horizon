@@ -10,9 +10,17 @@ type InputProps = {
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
+  onchange?: (value: string) => void;
 };
 
-const Input = ({ name, type, label, placeholder, disabled }: InputProps) => {
+const Input = ({
+  name,
+  type,
+  label,
+  placeholder,
+  disabled,
+  onchange,
+}: InputProps) => {
   const {
     control,
     formState: { errors },
@@ -39,7 +47,7 @@ const Input = ({ name, type, label, placeholder, disabled }: InputProps) => {
             min={type === "number" ? 0 : undefined}
             max={type === "number" ? 360 : undefined}
             placeholder={placeholder}
-            value={field.value ?? ""}
+            onChange={(e) => onchange && onchange(e.target.value)}
             className='h-10 w-full bg-transparent text-secondary rounded border dark:border-neutral px-4 text-sm  outline-none transition-all autofill:bg-transparent focus:border-primary focus:outline-none disabled:text-neutral disabled:cursor-not-allowed'
             autoComplete='off'
             disabled={disabled}

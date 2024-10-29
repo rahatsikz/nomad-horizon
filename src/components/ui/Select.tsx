@@ -15,6 +15,7 @@ type SelectComponentProps = {
   searchable?: boolean;
   placeholder?: string;
   disabled?: boolean;
+  onChange?: (value: string) => void;
 };
 
 const Select = ({
@@ -24,6 +25,7 @@ const Select = ({
   placeholder = "Select an option",
   searchable = true,
   disabled = false,
+  onChange,
 }: SelectComponentProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -188,6 +190,7 @@ const Select = ({
                       key={option.value}
                       onClick={() => {
                         field.onChange(option.value);
+                        onChange && onChange(option.value);
                         setIsOpen(false);
                         setIsArrowRotated(false);
                       }}
