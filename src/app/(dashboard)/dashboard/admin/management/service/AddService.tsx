@@ -70,7 +70,7 @@ export default function AddService() {
     }
 
     try {
-      console.log(data);
+      // console.log(data, typeof data.image);
       const response = await addService(data).unwrap();
       console.log(response);
       if (response.statusCode === 200) {

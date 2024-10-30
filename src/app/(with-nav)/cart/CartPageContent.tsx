@@ -22,7 +22,7 @@ export default function CartPageContent() {
   }
 
   const cartItem = cart?.map((item) =>
-    serviceData?.data?.find((data: any) => data?.id === item)
+    serviceData?.data?.data?.find((data: any) => data?.id === item)
   );
 
   if (isLoading) {

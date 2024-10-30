@@ -31,7 +31,7 @@ export default function ManageServices() {
   const { data, isFetching } = useGetServicesQuery({});
   const imgBBUrl = `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`;
 
-  const allServiceData = data?.data.map((data: any) => ({
+  const allServiceData = data?.data?.data?.map((data: any) => ({
     id: data?.id,
     serviceName: data?.serviceName,
     category: data?.category[0].toUpperCase() + data?.category.slice(1),

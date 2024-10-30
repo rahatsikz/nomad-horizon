@@ -16,7 +16,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 export default function ServicePageContent() {
   // filter states
-  const [price, setPrice] = useState<number>(200);
+  const [price, setPrice] = useState<number>(400);
   const [category, setCategory] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const [limit, setLimit] = useState({
@@ -83,13 +83,13 @@ export default function ServicePageContent() {
         />
 
         {serviceData?.data?.data?.length === 0 && !isFetching && (
-          <h1 className='text-2xl text-primary text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+          <h1 className='text-2xl text-primary text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-2xl:mt-20'>
             No service found
           </h1>
         )}
 
         {isFetching && (
-          <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+          <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-2xl:mt-20'>
             <LoadingComponent />
           </div>
         )}
@@ -206,7 +206,7 @@ const FilterDiv = ({
   // displayIt?: boolean;
 }) => {
   const handleReset = () => {
-    setPrice(200);
+    setPrice(400);
     setCategory("");
     setSearch("");
     setSortBy("");
@@ -214,8 +214,11 @@ const FilterDiv = ({
   };
 
   return (
-    <div className='self-start dark:bg-nomadGray bg-mainBg shadow-main dark:shadow-none'>
-      <Form submitHandler={() => {}} className='px-6 pt-6 pb-6 space-y-4'>
+    <div className='dark:bg-nomadGray bg-mainBg shadow-main dark:shadow-none overflow-y-auto'>
+      <Form
+        submitHandler={() => {}}
+        className='px-6 pt-6 lg:max-xl:pt-4 pb-6 space-y-3 xl:space-y-4'
+      >
         <Input
           label='Search'
           type='search'

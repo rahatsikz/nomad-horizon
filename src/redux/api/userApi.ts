@@ -35,6 +35,21 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+    createUser: build.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/signup`,
+        method: "POST",
+        data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
+    getAllAdmins: build.query({
+      query: () => ({
+        url: `${USER_URL}/admins`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user],
+    }),
   }),
 });
 
@@ -43,4 +58,6 @@ export const {
   useGetAllCustomersQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useCreateUserMutation,
+  useGetAllAdminsQuery,
 } = authApi;

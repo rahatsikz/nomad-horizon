@@ -217,6 +217,13 @@ export const sidebarRoutes: any = {
       path: "/dashboard/admin/management/content",
     },
   ],
+  superadmin: [
+    {
+      id: 1,
+      label: "Admin Management",
+      path: "/dashboard/superadmin/manage-admin",
+    },
+  ],
 };
 
 export const dataset = [
