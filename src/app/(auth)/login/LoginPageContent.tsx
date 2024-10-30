@@ -54,8 +54,10 @@ export default function LoginPageContent() {
         resolver={yupResolver(loginSchema)}
         className='space-y-8 w-full'
       >
-        <Input label='Email' name='email' type='text' />
-        <Input label='Password' name='password' type='password' />
+        <div className='space-y-4'>
+          <Input label='Email' name='email' type='text' />
+          <Input label='Password' name='password' type='password' />
+        </div>
         <Button variant='solid' type='submit' className='w-full'>
           Login
         </Button>

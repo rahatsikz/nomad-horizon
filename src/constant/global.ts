@@ -187,12 +187,12 @@ export const sidebarRoutes: any = {
     {
       id: 1,
       label: "Booking History",
-      path: "/dashboard/user/history",
+      path: "/dashboard/customer/history",
     },
     {
       id: 2,
       label: "Feedback",
-      path: "/dashboard/user/feedback",
+      path: "/dashboard/customer/feedback",
     },
   ],
   admin: [

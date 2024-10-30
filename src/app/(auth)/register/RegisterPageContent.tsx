@@ -4,17 +4,30 @@ import { Button } from "@/components/ui/Button";
 import Form from "@/components/ui/Form";
 import { HeaderText } from "@/components/ui/Headers";
 import Input from "@/components/ui/Input";
+import { useCreateUserMutation } from "@/redux/api/userApi";
 import { registerSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 export default function RegisterPageContent() {
+  const [createUser] = useCreateUserMutation();
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<any> = async (data: any) => {
     try {
-      console.log(data);
-    } catch (error) {
+      // console.log(data);
+      const response = await createUser(data).unwrap();
+      // console.log(response);
+      if (response.statusCode === 200) {
+        toast.success(response.message);
+        router.push("/login");
+      }
+    } catch (error: any) {
       console.log(error);
+      toast.error(error.data.message);
     }
   };
   return (
@@ -33,9 +46,11 @@ export default function RegisterPageContent() {
         resolver={yupResolver(registerSchema)}
         className='space-y-8 w-full'
       >
-        <Input label='Username' name='username' type='text' />
-        <Input label='Email' name='email' type='text' />
-        <Input label='Password' name='password' type='password' />
+        <div className='space-y-4'>
+          <Input label='Username' name='username' type='text' />
+          <Input label='Email' name='email' type='text' />
+          <Input label='Password' name='password' type='password' />
+        </div>
         <Button variant='solid' type='submit' className='w-full'>
           Register
         </Button>

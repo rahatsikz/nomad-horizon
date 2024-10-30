@@ -229,8 +229,8 @@ export function AuthLayoutCard({ children }: { children: React.ReactNode }) {
         "flex-row-reverse": pathname !== "/login",
       })}
     >
-      <div className='xl:w-1/3 w-1/2 bg-mainBg max-md:w-full'>{children}</div>
-      <div className='self-center flex-1 max-md:hidden'>
+      <div className='xl:w-1/3 w-1/2 bg-mainBg max-lg:w-full'>{children}</div>
+      <div className='self-center flex-1 max-lg:hidden'>
         <div className='w-fit mx-auto'>
           <Image
             src={loginImage.src}
