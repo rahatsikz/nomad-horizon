@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/Button";
 import Form from "@/components/ui/Form";
 import Input from "@/components/ui/Input";
-import { useCreateUserMutation } from "@/redux/api/userApi";
+import { useCreateAdminMutation } from "@/redux/api/userApi";
 import { registerSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
@@ -9,12 +9,11 @@ import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 
 export default function CreateAdmin() {
-  const [createUser] = useCreateUserMutation();
+  const [createAdmin] = useCreateAdminMutation();
   const onSubmit: SubmitHandler<any> = async (data: any) => {
-    data["role"] = "admin";
     try {
       //   console.log(data);
-      const response = await createUser(data).unwrap();
+      const response = await createAdmin(data).unwrap();
       console.log(response);
       if (response.statusCode === 200) {
         toast.success("Admin created successfully");
