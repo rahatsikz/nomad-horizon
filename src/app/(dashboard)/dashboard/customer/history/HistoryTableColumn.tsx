@@ -32,8 +32,8 @@ export const HistoryTableColumn = (openModal: any, reviewModal: any) => [
     renders: (data: any) => {
       return (
         <>
-          {(data?.bookingStatus === "processing" ||
-            data?.bookingStatus === "adjusted") && (
+          {(data?.bookingStatus === "Processing" ||
+            data?.bookingStatus === "Adjusted") && (
             <Button
               variant='solid'
               className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
@@ -42,10 +42,10 @@ export const HistoryTableColumn = (openModal: any, reviewModal: any) => [
               Cancel Booking
             </Button>
           )}
-          {data?.bookingStatus === "cancelled" && (
+          {data?.bookingStatus === "Cancelled" && (
             <p className='text-red-400'>Cancelled</p>
           )}
-          {data?.bookingStatus === "completed" && !data?.isReviewed && (
+          {data?.bookingStatus === "Completed" && !data?.isReviewed && (
             <Button
               variant='solid'
               className='text-sm px-2.5 py-0.5'
@@ -54,7 +54,7 @@ export const HistoryTableColumn = (openModal: any, reviewModal: any) => [
               Write a Review
             </Button>
           )}
-          {data?.bookingStatus === "completed" && data?.isReviewed && (
+          {data?.bookingStatus === "Completed" && data?.isReviewed && (
             <p className='text-primary'>Reviewed</p>
           )}
         </>

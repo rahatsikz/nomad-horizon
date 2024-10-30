@@ -135,8 +135,8 @@ export const AllBookingsColumn = (completeHandler: any, deleteModal: any) => [
     renders: (data: any) => {
       return (
         <div className='flex gap-2 flex-wrap'>
-          {(data?.bookingStatus === "adjusted" ||
-            data?.bookingStatus === "confirmed") && (
+          {(data?.bookingStatus === "Adjusted" ||
+            data?.bookingStatus === "Confirmed") && (
             <Button
               variant='solid'
               className='text-sm px-2.5 py-0.5'

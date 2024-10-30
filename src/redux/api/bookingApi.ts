@@ -19,7 +19,7 @@ export const bookingApi = baseApi.injectEndpoints({
         url: `${BOOKING_URL}/my-bookings`,
         method: "GET",
       }),
-      providesTags: [tagTypes.booking],
+      providesTags: [tagTypes.booking, tagTypes.user],
     }),
     // Cancel Booking
     cancelBooking: build.mutation({

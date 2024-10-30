@@ -26,12 +26,7 @@ import {
 } from "@/redux/api/reviewApi";
 
 export default function HistoryPageContent() {
-  const { data, isFetching } = useMyBookingsQuery(
-    {},
-    {
-      refetchOnFocus: true,
-    }
-  );
+  const { data, isFetching } = useMyBookingsQuery({});
   const [cancelBooking] = useCancelBookingMutation();
   const { data: reviews } = useGetReviewsQuery({});
   const serviceData = data?.data.map((d: any) => ({
@@ -41,7 +36,7 @@ export default function HistoryPageContent() {
     date: formatISODatetoHumanReadable(d.date),
     startTime: convertTo12HourFormat(d.startTime),
     endTime: convertTo12HourFormat(d.endTime),
-    bookingStatus: d.bookingStatus,
+    bookingStatus: d.bookingStatus[0].toUpperCase() + d.bookingStatus.slice(1),
     createdAt: formatDateTime(d.createdAt),
     isReviewed: reviews?.data.some((review: any) => review.bookingId === d.id),
   }));

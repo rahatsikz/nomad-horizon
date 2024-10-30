@@ -12,6 +12,14 @@ import { removeAccessToken } from "@/redux/slice/user/userSlice";
 import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
 import { clearCart } from "@/redux/slice/cart/cartSlice";
 import NotificationMenu from "./NotificationMenu";
+import Modal from "./Modal";
+import Form from "./Form";
+import Input from "./Input";
+import Textarea from "./Textarea";
+import { Button } from "./Button";
+import { toggleModal } from "@/redux/slice/modal/modalSlice";
+import { useUpdateProfileMutation } from "@/redux/api/userApi";
+import toast from "react-hot-toast";
 
 export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -21,11 +29,9 @@ export function Navbar() {
 
   const { user } = useAppSelector((state) => state.user);
   const { accessToken } = user;
-  const { username, role } = useLoggedUserInfo(accessToken);
+  const { username, role, user: loggedUser } = useLoggedUserInfo(accessToken);
 
   const myRef = useRef<HTMLDivElement>(null);
-
-  // const user = "Rahat";
 
   useEffect(() => {
     const autoCloseNavbar = () => {
@@ -46,6 +52,10 @@ export function Navbar() {
     deleteCookie("refreshToken");
     dispatch(removeAccessToken());
     dispatch(clearCart());
+  };
+
+  const editModal = () => {
+    dispatch(toggleModal({ isModalOpen: true, id: "edit-profile" }));
   };
 
   return (
@@ -69,7 +79,7 @@ export function Navbar() {
               <DropdownMenu
                 contents={[
                   { label: "Dashboard", route: `/dashboard/${role}` },
-                  { label: "Edit Profile", route: "/profile" },
+                  { label: "Edit Profile", onClick: editModal },
                   { label: "Logout", onClick: handleLogOut },
                 ]}
                 trigger={username[0]}
@@ -126,7 +136,8 @@ export function Navbar() {
                 isVisible={showMobileMenu}
               />
               <NavLink
-                route='/profile'
+                route=''
+                onClick={editModal}
                 label='Edit Profile'
                 isVisible={showMobileMenu}
               />
@@ -150,6 +161,7 @@ export function Navbar() {
           )}
         </ul>
       </div>
+      <EditProfileModal userData={loggedUser} />
     </header>
   );
 }
@@ -158,10 +170,12 @@ const NavLink = ({
   route,
   label,
   isVisible,
+  onClick,
 }: {
   route: string;
   label: string;
   isVisible?: boolean;
+  onClick?: () => void;
 }) => {
   const pathname = usePathname();
   const { cart } = useAppSelector((state) => state.cart);
@@ -190,7 +204,7 @@ const NavLink = ({
   }
 
   return (
-    <li>
+    <li onClick={onClick}>
       <Link
         href={route}
         tabIndex={isVisible ? 0 : -1}
@@ -229,5 +243,73 @@ const HamburgerMenu = ({ showMobileMenu }: { showMobileMenu: boolean }) => {
         )}
       ></span>
     </div>
+  );
+};
+
+const EditProfileModal = (userData: any) => {
+  const dispatch = useAppDispatch();
+  const pathname = usePathname();
+
+  const [updateProfile] = useUpdateProfileMutation();
+
+  const onUpdate = async (data: any) => {
+    console.log(data);
+    try {
+      const response = await updateProfile(data).unwrap();
+      console.log(response);
+      if (response.statusCode === 200) {
+        toast.success(response.message);
+      }
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error.data.message);
+    }
+
+    dispatch(toggleModal({ isModalOpen: false, id: "edit-profile" }));
+  };
+
+  useEffect(() => {
+    dispatch(toggleModal({ isModalOpen: false, id: "edit-profile" }));
+  }, [dispatch, pathname]);
+
+  const { username, email, contactNo, address } =
+    userData?.userData?.data || {};
+
+  return (
+    <Modal id='edit-profile'>
+      <Form
+        submitHandler={onUpdate}
+        className='space-y-4'
+        defaultValues={{
+          username: username ?? "",
+          email: email ?? "",
+          contactNo: contactNo ?? "",
+          address: address ?? "",
+        }}
+      >
+        <Input label='Username' name='username' type='text' />
+        <Input label='Email' name='email' type='email' disabled />
+        <Input label='Contact No' name='contactNo' type='text' />
+        <Textarea label='Address' name='address' />
+        <div className='flex justify-end gap-2'>
+          <Button
+            variant='solid'
+            type='submit'
+            className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
+          >
+            Update
+          </Button>
+          <Button
+            variant='outline'
+            className='py-1'
+            onClick={() =>
+              dispatch(toggleModal({ isModalOpen: false, id: "edit-profile" }))
+            }
+          >
+            Cancel
+          </Button>
+        </div>
+      </Form>
+    </Modal>
   );
 };

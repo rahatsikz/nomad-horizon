@@ -30,6 +30,7 @@ export function CardVariantOne({ data }: { data: ServiceProps }) {
             width: "100%",
             height: "auto",
           }}
+          priority={true}
         />
         <figcaption className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-slate-900 p-6 text-white'>
           <h3 className='text-lg font-medium '>{data?.serviceName}</h3>

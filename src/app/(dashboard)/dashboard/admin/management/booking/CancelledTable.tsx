@@ -26,7 +26,8 @@ export default function CancelledTable() {
     id: data?.id,
     username: data?.user?.username,
     serviceName: data?.service?.serviceName,
-    bookingStatus: data?.bookingStatus,
+    bookingStatus:
+      data?.bookingStatus[0].toUpperCase() + data?.bookingStatus.slice(1),
     updatedAt: formatDateTime(data?.updatedAt),
   }));
   if (isFetching) {

@@ -33,7 +33,8 @@ export default function AllTable() {
     date: formatISODatetoHumanReadable(data?.date),
     startTime: convertTo12HourFormat(data?.startTime),
     endTime: convertTo12HourFormat(data?.endTime),
-    bookingStatus: data?.bookingStatus,
+    bookingStatus:
+      data?.bookingStatus[0].toUpperCase() + data?.bookingStatus.slice(1),
     createdAt: formatDateTime(data?.createdAt),
   }));
   if (isFetching) {
