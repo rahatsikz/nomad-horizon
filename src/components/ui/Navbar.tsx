@@ -20,6 +20,8 @@ import { Button } from "./Button";
 import { toggleModal } from "@/redux/slice/modal/modalSlice";
 import { useUpdateProfileMutation } from "@/redux/api/userApi";
 import toast from "react-hot-toast";
+import { useTheme } from "next-themes";
+import { MoonIcon, SunIcon } from "@/assets/svgs/heroIcons";
 
 export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -36,7 +38,7 @@ export function Navbar() {
   useEffect(() => {
     const autoCloseNavbar = () => {
       if (myRef.current?.clientWidth) {
-        if (myRef.current.clientWidth > 1024) {
+        if (myRef.current.clientWidth >= 1024) {
           setShowMobileMenu(false);
         }
       }
@@ -60,7 +62,7 @@ export function Navbar() {
 
   return (
     <header className='sticky top-0 left-0 z-10' ref={myRef}>
-      <nav className='relative flex justify-between items-center py-8 px-8 lg:px-16 z-50 bg-mainBg shadow dark:shadow-gray-50/10'>
+      <nav className='relative flex justify-between items-center py-8 px-4 sm:px-8 lg:px-16 z-50 bg-mainBg shadow dark:shadow-gray-900'>
         <Link href='/' className='mt-1.5'>
           <Logo />
         </Link>
@@ -96,9 +98,11 @@ export function Navbar() {
               />
             ))
           )}
+          <ThemeToggler />
         </ul>
         <div className='lg:hidden flex items-center gap-4'>
           {username && accessToken && <NotificationMenu />}
+          <ThemeToggler />
           <button
             className='lg:hidden focus-visible:ring-2 focus-visible:ring-offset-8 focus:outline-none'
             onClick={() => setShowMobileMenu(!showMobileMenu)}
@@ -113,7 +117,7 @@ export function Navbar() {
         className={cn(
           "absolute z-10 w-full bg-mainBg transition-transform duration-700 ease-in-out backdrop-blur-sm shadow-md",
           {
-            "translate-y-14 top-8": showMobileMenu,
+            "translate-y-14 top-10": showMobileMenu,
             "-translate-y-full top-0": !showMobileMenu,
           }
         )}
@@ -129,7 +133,7 @@ export function Navbar() {
           ))}
           {username && accessToken ? (
             <div className='border-t w-full space-y-2'>
-              <p className='pt-2 text-blue-400'>{username}</p>
+              <p className='pt-2 text-neutral'>{username}</p>
               <NavLink
                 route={`/dashboard/${role}`}
                 label='Dashboard'
@@ -311,5 +315,18 @@ const EditProfileModal = (userData: any) => {
         </div>
       </Form>
     </Modal>
+  );
+};
+
+const ThemeToggler = () => {
+  const { theme, setTheme } = useTheme();
+  return (
+    <Button
+      variant='ghost'
+      className='px-0 py-1 hover:bg-transparent'
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+    >
+      {theme === "light" ? <SunIcon /> : <MoonIcon />}
+    </Button>
   );
 };
