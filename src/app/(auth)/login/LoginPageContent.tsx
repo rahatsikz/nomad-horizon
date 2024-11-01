@@ -5,21 +5,22 @@ import Form from "@/components/ui/Form";
 import { HeaderText } from "@/components/ui/Headers";
 import Input from "@/components/ui/Input";
 import { setCookie } from "@/lib/cookies";
+import withAuth from "@/lib/withAuth";
 import { useUserLoginMutation } from "@/redux/api/authApi";
 import { useAppDispatch } from "@/redux/hooks";
 import { setAccessToken } from "@/redux/slice/user/userSlice";
 import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 
-export default function LoginPageContent() {
+const LoginPageContent = () => {
   const [userLogin] = useUserLoginMutation();
   const dispatch = useAppDispatch();
-  const router = useRouter();
+  // const router = useRouter();
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
     try {
@@ -27,10 +28,13 @@ export default function LoginPageContent() {
       const response = await userLogin({ ...data }).unwrap();
       // console.log(response);
       if (response.statusCode === 200) {
+        setCookie("accessToken", response.data.accessToken);
         dispatch(setAccessToken(response.data.accessToken));
         toast.success(response.message);
-        setCookie("accessToken", response.data.accessToken);
-        router.back();
+
+        // setTimeout(() => {
+        //   router.back();
+        // }, 3000);
       }
     } catch (error: any) {
       // console.log(error);
@@ -70,4 +74,6 @@ export default function LoginPageContent() {
       </small>
     </div>
   );
-}
+};
+
+export default withAuth(LoginPageContent);

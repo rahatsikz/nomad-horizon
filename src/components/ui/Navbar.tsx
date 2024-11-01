@@ -3,14 +3,14 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import { DropdownMenu } from "./DropdownMenu";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Logo from "@/assets/svgs/logo";
 import { loginRouteOptions, navOptions } from "@/constant/global";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { deleteCookie } from "@/lib/cookies";
 import { removeAccessToken } from "@/redux/slice/user/userSlice";
 import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
-import { clearCart } from "@/redux/slice/cart/cartSlice";
+// import { clearCart } from "@/redux/slice/cart/cartSlice";
 import NotificationMenu from "./NotificationMenu";
 import Modal from "./Modal";
 import Form from "./Form";
@@ -26,7 +26,7 @@ import { MoonIcon, SunIcon } from "@/assets/svgs/heroIcons";
 export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const dispatch = useAppDispatch();
-
+  const router = useRouter();
   // useLoggedUser();
 
   const { user } = useAppSelector((state) => state.user);
@@ -50,10 +50,10 @@ export function Navbar() {
   }, []);
 
   const handleLogOut = () => {
-    deleteCookie("accessToken");
-    deleteCookie("refreshToken");
+    deleteCookie(["accessToken", "refreshToken"]);
     dispatch(removeAccessToken());
-    dispatch(clearCart());
+    // dispatch(clearCart());
+    router.refresh();
   };
 
   const editModal = () => {

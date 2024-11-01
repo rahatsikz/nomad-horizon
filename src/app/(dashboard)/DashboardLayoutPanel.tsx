@@ -2,13 +2,14 @@
 import { Navbar } from "@/components/ui/Navbar";
 import Sidebar from "@/components/ui/Sidebar";
 import { cn } from "@/lib/utils";
+import withAuth from "@/lib/withAuth";
 import { useState } from "react";
 
-export default function DashboardLayoutPanel({
+const DashboardLayoutPanel = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   const [showSidebar, setShowSidebar] = useState(true);
 
   return (
@@ -27,4 +28,6 @@ export default function DashboardLayoutPanel({
       </div>
     </div>
   );
-}
+};
+
+export default withAuth(DashboardLayoutPanel);

@@ -4,6 +4,7 @@ import Calendar from "@/components/ui/Calendar";
 import { HeaderText } from "@/components/ui/Headers";
 import LoadingComponent from "@/components/ui/LoadingComponent";
 import { cn, formatSelectedDateLikeIso } from "@/lib/utils";
+import withAuth from "@/lib/withAuth";
 import { useAddBookingMutation } from "@/redux/api/bookingApi";
 import { useGetScheduleQuery } from "@/redux/api/scheduleApi";
 import { useGetServiceQuery } from "@/redux/api/serviceApi";
@@ -13,7 +14,7 @@ import { ScheduleTimeProps } from "@/types/common";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export default function BookingPageContent({ id }: { id: string }) {
+const BookingPageContent = ({ id }: { id: string }) => {
   // service data fetching
   const { data: service, isLoading } = useGetServiceQuery(id);
   // redux dispatch
@@ -144,7 +145,9 @@ export default function BookingPageContent({ id }: { id: string }) {
       </div>
     </section>
   );
-}
+};
+
+export default withAuth(BookingPageContent);
 
 export const TimeTable = ({
   onTimeClick,

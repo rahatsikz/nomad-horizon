@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-export default function RegisterPageContent() {
+const RegisterPageContent = () => {
   const [createUser] = useCreateUserMutation();
   const router = useRouter();
 
@@ -63,4 +63,6 @@ export default function RegisterPageContent() {
       </small>
     </div>
   );
-}
+};
+
+export default RegisterPageContent;

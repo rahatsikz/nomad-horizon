@@ -11,6 +11,8 @@ export const getCookie = (name: string) => {
   return cookies().get(name)?.value;
 };
 
-export const deleteCookie = (name: string) => {
-  cookies().delete(name);
+export const deleteCookie = (names: string[]) => {
+  names.forEach((name) => {
+    cookies().delete(name);
+  });
 };
