@@ -183,6 +183,13 @@ const NavLink = ({
 }) => {
   const pathname = usePathname();
   const { cart } = useAppSelector((state) => state.cart);
+  const { user } = useAppSelector((state) => state.user);
+  const { accessToken } = user;
+  const { user: loggedUser } = useLoggedUserInfo(accessToken);
+
+  const userCartSize = cart?.filter((item) =>
+    item.user ? item.user === loggedUser?.data?.id : !item.user
+  );
 
   if (label === "Cart") {
     return (
@@ -200,7 +207,7 @@ const NavLink = ({
         >
           <span>{label}</span>
           <span className='text-white bg-primary rounded-full size-4 text-xs flex items-center justify-center absolute bottom-4 -right-4'>
-            {cart?.length}
+            {userCartSize?.length}
           </span>
         </Link>
       </li>

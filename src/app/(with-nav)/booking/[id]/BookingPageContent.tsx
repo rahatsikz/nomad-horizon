@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/Button";
 import Calendar from "@/components/ui/Calendar";
 import { HeaderText } from "@/components/ui/Headers";
 import LoadingComponent from "@/components/ui/LoadingComponent";
+import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
 import { cn, formatSelectedDateLikeIso } from "@/lib/utils";
 import withAuth from "@/lib/withAuth";
 import { useAddBookingMutation } from "@/redux/api/bookingApi";
 import { useGetScheduleQuery } from "@/redux/api/scheduleApi";
 import { useGetServiceQuery } from "@/redux/api/serviceApi";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeFromCart } from "@/redux/slice/cart/cartSlice";
 import { ScheduleTimeProps } from "@/types/common";
 import React, { useEffect, useState } from "react";
@@ -54,6 +55,11 @@ const BookingPageContent = ({ id }: { id: string }) => {
     setSelectedTime(time);
   };
 
+  // user data fetching
+  const { user } = useAppSelector((state) => state.user);
+  const { accessToken } = user;
+  const { user: loggedUser } = useLoggedUserInfo(accessToken);
+
   // booking handler
   const handleBooking = async () => {
     const bookingDate = formatSelectedDateLikeIso(selectedDate);
@@ -68,7 +74,12 @@ const BookingPageContent = ({ id }: { id: string }) => {
       // console.log(response);
       if (response.statusCode === 200) {
         toast.success(response.message);
-        dispatch(removeFromCart(id));
+        dispatch(
+          removeFromCart({
+            user: loggedUser?.data?.id,
+            service: id,
+          })
+        );
       }
     } catch (error: any) {
       console.log(error);
@@ -86,6 +97,7 @@ const BookingPageContent = ({ id }: { id: string }) => {
         title={service?.data?.serviceName}
         subtitle='Book your desired service on your preferred date and time'
       />
+
       <div className='border dark:border-neutral rounded-lg'>
         {/* topbar */}
         <div className='w-full h-fit md:h-20 border-b dark:border-neutral sticky top-[94px] left-0 bg-nomadGray rounded-tr-md rounded-tl-md z-[2]'>

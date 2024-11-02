@@ -14,6 +14,7 @@ import { addingToCart } from "@/redux/slice/cart/cartSlice";
 import loginImage from "@/assets/images/Login-amico.png";
 import { usePathname, useRouter } from "next/navigation";
 import { cn, formatISODatetoHumanReadable } from "@/lib/utils";
+import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
   return (
@@ -166,7 +167,12 @@ export function BlogCard({ data }: { data: BlogProps }) {
 
 export function CardVariantThree({ data }: { data: ServiceProps }) {
   const { cart } = useAppSelector((state) => state.cart);
+  const { user } = useAppSelector((state) => state.user);
+  const { accessToken } = user;
+  const { user: loggedUser } = useLoggedUserInfo(accessToken);
   const dispatch = useAppDispatch();
+
+  console.log(loggedUser);
 
   const router = useRouter();
 
@@ -209,11 +215,30 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
           </Button>
           <Button
             variant='solid'
-            disabled={cart?.includes(data?.id)}
+            disabled={
+              cart.find(
+                (item) =>
+                  item.service === data.id && item.user === loggedUser?.data?.id
+              )
+                ? true
+                : false
+            }
             className='max-sm:w-full px-3 text-sm sm:rounded-bl-none sm:rounded-tr-none'
-            onClick={() => dispatch(addingToCart(data.id))}
+            onClick={() =>
+              dispatch(
+                addingToCart({
+                  user: loggedUser?.data?.id,
+                  service: data?.id,
+                })
+              )
+            }
           >
-            {cart?.includes(data?.id) ? "Added to cart" : "Add to cart"}
+            {cart.find(
+              (item) =>
+                item.service === data.id && item.user === loggedUser?.data?.id
+            )
+              ? "Added to cart"
+              : "Add to cart"}
           </Button>
         </div>
       </div>

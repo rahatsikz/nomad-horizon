@@ -3,6 +3,7 @@ import { StarIcon } from "@/assets/svgs/heroIcons";
 import { Button } from "@/components/ui/Button";
 import { HeaderText } from "@/components/ui/Headers";
 import LoadingComponent from "@/components/ui/LoadingComponent";
+import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
 import { useGetReviewsQuery } from "@/redux/api/reviewApi";
 import { useGetServiceQuery } from "@/redux/api/serviceApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -25,6 +26,10 @@ export default function ServiceDetailsContent({ id }: { id: string }) {
       0
     ) || 0;
   const averageRating = Math.floor(totalRating / userReviews?.data.length) || 0;
+
+  const { user } = useAppSelector((state) => state.user);
+  const { accessToken } = user;
+  const { user: loggedUser } = useLoggedUserInfo(accessToken);
 
   if (isFetching || isFetchingReviews) {
     return <LoadingComponent />;
@@ -95,11 +100,30 @@ export default function ServiceDetailsContent({ id }: { id: string }) {
           </div>
           <Button
             variant='solid'
-            disabled={cart?.includes(id)}
+            disabled={
+              cart.find(
+                (item) =>
+                  item.service === id && item.user === loggedUser?.data?.id
+              )
+                ? true
+                : false
+            }
             className='max-md:w-full px-3 text-sm'
-            onClick={() => dispatch(addingToCart(id))}
+            onClick={() =>
+              dispatch(
+                addingToCart({
+                  user: loggedUser?.data?.id,
+                  service: id,
+                })
+              )
+            }
           >
-            {cart?.includes(id) ? "Added to cart" : "Add to cart"}
+            {cart.find(
+              (item) =>
+                item.service === id && item.user === loggedUser?.data?.id
+            )
+              ? "Added to cart"
+              : "Add to cart"}
           </Button>
         </div>
       </div>

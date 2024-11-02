@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import Form from "@/components/ui/Form";
 import { HeaderText } from "@/components/ui/Headers";
 import Input from "@/components/ui/Input";
+import withAuth from "@/lib/withAuth";
 import { useCreateUserMutation } from "@/redux/api/userApi";
 import { registerSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -65,4 +66,4 @@ const RegisterPageContent = () => {
   );
 };
 
-export default RegisterPageContent;
+export default withAuth(RegisterPageContent);
