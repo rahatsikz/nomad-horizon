@@ -3,7 +3,7 @@ import { Button } from "../ui/Button";
 export function CallToAction() {
   return (
     <div>
-      <div className='text-center bg-nomadGray p-12 rounded'>
+      <div className='text-center bg-nomadGray py-12 xl:px-12 px-4 rounded'>
         <h1 className='text-2xl text-secondary font-semibold'>
           Ready to Elevate Your Nomadic Lifestyle?
         </h1>

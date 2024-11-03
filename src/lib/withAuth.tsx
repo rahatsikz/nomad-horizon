@@ -71,7 +71,7 @@ export default function withAuth<T extends object>(
         .find((item) => item.service === bookingId);
 
       //check if new user came from cart page
-      const hasComeFromCart = cart.filter((item) => !item.user);
+      const hasComeFromCart = cart.filter((item) => item.service && !item.user);
 
       // checking if user came from booking page
       if (isPathInCommonAccessibleRoutes) {
@@ -142,7 +142,7 @@ export default function withAuth<T extends object>(
       isPathInCommonAccessibleRoutes,
     ]);
 
-    //if there is no logged in user and user in login or register page
+    //if there is no logged in user and user is not in login or register page then showing loading
     if (
       (!isLoading && !accessToken) ||
       (!permittedToVisit &&
@@ -150,9 +150,11 @@ export default function withAuth<T extends object>(
         !isPathInCommonAccessibleRoutes)
     )
       return (
-        <div className='w-full h-screen bg-mainBg'>
-          <LoadingComponent />
-        </div>
+        <section className='min-h-screen bg-mainBg h-full'>
+          <div className='flex h-[440px] justify-center items-center'>
+            <LoadingComponent />
+          </div>
+        </section>
       );
 
     // if user is logged in or user is in login or register page then showing component

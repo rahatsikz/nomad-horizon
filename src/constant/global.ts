@@ -2,7 +2,7 @@ export const navOptions = [
   { label: "Home", route: "/" },
   { label: "Services", route: "/services" },
   { label: "Cart", route: "/cart" },
-  { label: "Blog", route: "/blog" },
+  { label: "Blogs", route: "/blogs" },
   // { label: "Contact", route: "/contact" },
 ];
 

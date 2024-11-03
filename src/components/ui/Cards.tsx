@@ -74,7 +74,7 @@ export function CardVariantTwo({ data }: { data: ServiceProps }) {
 
 export function TestimonialCard({ data }: { data: ReviewProps }) {
   return (
-    <div className='overflow-hidden w-full bg-nomadGray shadow-main mx-4'>
+    <div className='overflow-hidden w-full bg-nomadGray dark:shadow-main mx-4'>
       <div className='relative p-6'>
         <figure className='relative z-10'>
           <blockquote className='p-6 text-lg leading-relaxed text-secondary'>
@@ -257,7 +257,7 @@ export function AuthLayoutCard({ children }: { children: React.ReactNode }) {
         "flex-row-reverse": pathname !== "/login",
       })}
     >
-      <div className='xl:w-1/3 w-1/2 bg-mainBg max-lg:w-full'>{children}</div>
+      <div className='2xl:w-1/3 w-1/2 bg-mainBg max-lg:w-full'>{children}</div>
       <div className='self-center flex-1 max-lg:hidden'>
         <div className='w-fit mx-auto'>
           <Image
@@ -266,8 +266,8 @@ export function AuthLayoutCard({ children }: { children: React.ReactNode }) {
             width={100}
             height={100}
             sizes='100vw'
-            style={{ width: "40%", height: "auto" }}
-            className='object-cover mx-auto'
+            style={{ height: "auto" }}
+            className='object-cover mx-auto w-2/5 lg:max-2xl:w-3/5'
             priority={true}
           />
         </div>
