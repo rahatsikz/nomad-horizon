@@ -12,11 +12,29 @@ import { getCookie } from "@/lib/cookies";
 export default function Sidebar({
   setShowSidebar,
   showSidebar,
+  reference,
 }: {
   showSidebar: boolean;
   setShowSidebar: (value: any) => void;
+  reference: React.RefObject<HTMLDivElement>;
 }) {
   const [accessToken, setAccessToken] = useState<string>("");
+
+  useEffect(() => {
+    const autoToggleSidebar = () => {
+      if (reference.current?.clientWidth) {
+        if (reference.current.clientWidth <= 1024) {
+          setShowSidebar(false);
+        } else {
+          setShowSidebar(true);
+        }
+      }
+    };
+
+    autoToggleSidebar();
+
+    window.addEventListener("resize", autoToggleSidebar);
+  }, [setShowSidebar, reference]);
 
   useEffect(() => {
     const getToken = async () => {

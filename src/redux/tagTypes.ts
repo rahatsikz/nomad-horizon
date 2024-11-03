@@ -8,6 +8,7 @@ export enum tagTypes {
   event = "event",
   news = "news",
   review = "review",
+  feedback = "feedback",
 }
 
 export const tagTypesList = Object.values(tagTypes);

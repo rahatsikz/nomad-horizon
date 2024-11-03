@@ -121,13 +121,15 @@ export function EventCard({ data }: { data: EventProps }) {
 export function NewsCard({ data }: { data: NewsProps }) {
   return (
     <div className='w-full overflow-hidden border dark:border-neutral rounded-lg p-4'>
-      <div>
-        <h2 className='text-secondary'>{data?.title}</h2>
-        <div className='flex items-center gap-2 mt-0.5 mb-3'>
-          <CalendarIcon />
-          <p className='mt-0.5 text-primary text-sm'>
-            {formatISODatetoHumanReadable(data?.date)}
-          </p>
+      <div className='flex flex-col justify-between h-full'>
+        <div>
+          <h2 className='text-secondary'>{data?.title}</h2>
+          <div className='flex items-center gap-2 mt-0.5 mb-3'>
+            <CalendarIcon />
+            <p className='mt-0.5 text-primary text-sm'>
+              {formatISODatetoHumanReadable(data?.date)}
+            </p>
+          </div>
         </div>
         <p className='text-neutral line-clamp-5'>{data?.content}</p>
       </div>

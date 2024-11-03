@@ -53,7 +53,7 @@ const Input = ({
                 ? onchange(e.target.value)
                 : field.onChange(e.target.value)
             }
-            className='h-10 w-full bg-transparent text-secondary rounded border dark:border-neutral px-4 text-sm  outline-none transition-all autofill:bg-transparent focus:border-primary focus:outline-none disabled:text-neutral disabled:cursor-not-allowed'
+            className='h-10 w-full bg-transparent text-secondary rounded border dark:border-neutral px-4 text-sm  outline-none transition-all autofill:bg-transparent focus:dark:border-primary focus:border-primary focus:outline-none disabled:text-neutral disabled:cursor-not-allowed'
             autoComplete='off'
             disabled={disabled}
           />

@@ -3,6 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
 import { editCart } from "@/redux/slice/cart/cartSlice";
+import LoadingComponent from "@/components/ui/LoadingComponent";
 
 const roleBasedPrivateRoutes = {
   customer: [/^\/dashboard\/customer/],
@@ -33,6 +34,16 @@ export default function withAuth<T extends object>(
     //checking if user in login and register routes
     const isPathInAuthRoutes = authRoutes.some((route) => route.test(pathname));
 
+    // checking if user is valid for going to specific role based route
+    const permittedToVisit = roleBasedPrivateRoutes[role as Role]?.some((r) =>
+      r.test(pathname)
+    );
+
+    //checking if user in booking routes
+    const isPathInCommonAccessibleRoutes = commonAccessibleRoutes.some(
+      (route) => route.test(pathname)
+    );
+
     useEffect(() => {
       if (!accessToken) {
         if (!isPathInAuthRoutes) {
@@ -47,11 +58,6 @@ export default function withAuth<T extends object>(
     useEffect(() => {
       // if there is no logged user
       if (isLoading) return;
-
-      //checking if user in booking routes
-      const isPathInCommonAccessibleRoutes = commonAccessibleRoutes.some(
-        (route) => route.test(pathname)
-      );
 
       //getting redirect private route from local storage
       const redirectRoute = localStorage.getItem("redirectAfterLogin");
@@ -114,11 +120,6 @@ export default function withAuth<T extends object>(
         return;
       }
 
-      // checking if user is valid for going to specific role based route
-      const permittedToVisit = roleBasedPrivateRoutes[role as Role]?.some((r) =>
-        r.test(pathname)
-      );
-
       // checking if user role is valid
       if (roleBasedPrivateRoutes[role as Role]) {
         // if user role is not valid, redirecting to home
@@ -137,10 +138,22 @@ export default function withAuth<T extends object>(
       loggedUser,
       isPathInAuthRoutes,
       dispatch,
+      permittedToVisit,
+      isPathInCommonAccessibleRoutes,
     ]);
 
     //if there is no logged in user and user in login or register page
-    if (!isLoading && !accessToken) return null;
+    if (
+      (!isLoading && !accessToken) ||
+      (!permittedToVisit &&
+        !isPathInAuthRoutes &&
+        !isPathInCommonAccessibleRoutes)
+    )
+      return (
+        <div className='w-full h-screen bg-mainBg'>
+          <LoadingComponent />
+        </div>
+      );
 
     // if user is logged in or user is in login or register page then showing component
     if (accessToken || isPathInAuthRoutes) {

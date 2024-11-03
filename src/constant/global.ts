@@ -216,6 +216,11 @@ export const sidebarRoutes: any = {
       label: "Content Management",
       path: "/dashboard/admin/management/content",
     },
+    {
+      id: 5,
+      label: "User Feedbacks",
+      path: "/dashboard/admin/feedbacks",
+    },
   ],
   superadmin: [
     {
