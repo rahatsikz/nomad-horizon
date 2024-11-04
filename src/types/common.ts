@@ -7,7 +7,7 @@ export type ServiceProps = {
   image: string;
   status: string;
   price: number;
-  categoryId: number;
+  category?: string;
 };
 
 export type ReviewProps = {

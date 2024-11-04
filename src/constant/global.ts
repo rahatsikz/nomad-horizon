@@ -20,7 +20,6 @@ export const dummyServices = [
     image: "https://images.pexels.com/photos/3767406/pexels-photo-3767406.jpeg",
     status: "active",
     price: 100,
-    categoryId: 1,
   },
   {
     id: "2",
@@ -32,7 +31,6 @@ export const dummyServices = [
     image: "https://images.pexels.com/photos/1212818/pexels-photo-1212818.jpeg",
     status: "active",
     price: 50,
-    categoryId: 2,
   },
   {
     id: "3",
@@ -44,7 +42,6 @@ export const dummyServices = [
     image: "https://images.pexels.com/photos/5701710/pexels-photo-5701710.jpeg",
     status: "upcoming",
     price: 30,
-    categoryId: 3,
   },
   {
     id: "4",
@@ -56,7 +53,6 @@ export const dummyServices = [
     image: "https://images.pexels.com/photos/5828664/pexels-photo-5828664.jpeg",
     status: "upcoming",
     price: 20,
-    categoryId: 4,
   },
   {
     id: "5",
@@ -67,7 +63,6 @@ export const dummyServices = [
     image: "https://images.pexels.com/photos/6755056/pexels-photo-6755056.jpeg",
     status: "active",
     price: 40,
-    categoryId: 2,
   },
   {
     id: "6",
@@ -79,7 +74,6 @@ export const dummyServices = [
     image: "https://images.pexels.com/photos/5828622/pexels-photo-5828622.jpeg",
     status: "upcoming",
     price: 150,
-    categoryId: 5,
   },
 ];
 

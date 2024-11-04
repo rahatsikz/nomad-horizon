@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { useAddServiceMutation } from "@/redux/api/serviceApi";
 import { serviceSchema } from "@/schemas/service";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function AddService() {
@@ -23,6 +23,8 @@ export default function AddService() {
 
   const imgBBUrl = `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`;
   const [addService] = useAddServiceMutation();
+
+  const [status, setStatus] = useState<string>("");
 
   const onSubmit = async (data: any) => {
     let result;
@@ -100,6 +102,22 @@ export default function AddService() {
     setRemovedDays(removedDays.filter((d) => d !== day));
   };
 
+  useEffect(() => {
+    if (status === "upcoming") {
+      setRemovedDays([
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ]);
+    } else {
+      setRemovedDays([]);
+    }
+  }, [status]);
+
   return (
     <section className='px-6 py-8'>
       <Form
@@ -123,6 +141,7 @@ export default function AddService() {
             placeholder='Select Service Status'
             options={serviceStatus}
             searchable={false}
+            onChange={(value) => setStatus(value)}
           />
         </div>
         <Textarea label='Description' name='content' />

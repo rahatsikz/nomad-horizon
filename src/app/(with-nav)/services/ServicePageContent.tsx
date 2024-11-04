@@ -39,6 +39,8 @@ export default function ServicePageContent() {
   query["sortBy"] = sortBy ? sortBy : undefined;
   query["sortOrder"] = sortOrder ? sortOrder : undefined;
 
+  query["status"] = "available";
+
   const {
     data: serviceData,
     isLoading,

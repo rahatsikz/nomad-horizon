@@ -56,7 +56,7 @@ export default function ServiceDetailsContent({ id }: { id: string }) {
         </figure>
         <div className='lg:w-3/5 flex flex-col lg:justify-between max-lg:gap-4'>
           <div className='space-y-0.5'>
-            <p className='text-secondary'>{service?.data?.content}</p>
+            <p className='text-secondary mb-1'>{service?.data?.content}</p>
             <p className='text-neutral'>
               Price:{" "}
               <span className='text-primary'>{service?.data?.price} USD</span>

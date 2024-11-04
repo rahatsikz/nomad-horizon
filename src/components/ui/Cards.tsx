@@ -197,7 +197,7 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
         <>
           <div className='space-y-3 sm:mx-6 pt-6'>
             <h3 className='text-xl font-medium'>{data?.serviceName}</h3>
-            <p className='text-neutral'>{data?.content}</p>
+            <p className='text-neutral line-clamp-3'>{data?.content}</p>
           </div>
           <div className='text-sm text-neutral sm:mx-6'>
             <span>Price: </span>
