@@ -134,7 +134,7 @@ export const AllBookingsColumn = (completeHandler: any, deleteModal: any) => [
     dataIndex: "action",
     renders: (data: any) => {
       return (
-        <div className='flex gap-2 flex-wrap'>
+        <div className='flex gap-2 flex-wrap  max-xl:justify-center'>
           {(data?.bookingStatus === "Adjusted" ||
             data?.bookingStatus === "Confirmed") && (
             <Button

@@ -7,8 +7,8 @@ type PaginationProps = {
   totalPages: number;
   currentPage: number;
   handlePageChange: (page: number) => void;
-  limit?: Option;
-  totalItems: number;
+  dbPageCount: number;
+  limit: Option;
   handleLimitChange: (limit: string) => void;
 };
 export default function Pagination({
@@ -16,15 +16,15 @@ export default function Pagination({
   currentPage,
   handlePageChange,
   handleLimitChange,
+  dbPageCount,
   limit,
-  totalItems,
 }: PaginationProps) {
   // if (totalPages < 1) return null;
   useEffect(() => {
-    if (totalItems <= Number(limit?.value)) {
+    if (dbPageCount > totalPages) {
       handlePageChange(1);
     }
-  }, [totalItems, limit?.value, handlePageChange]);
+  }, [dbPageCount, totalPages, handlePageChange]);
   return (
     <div className='flex gap-2 sm:gap-6 sm:justify-end justify-center items-center mt-8 '>
       <div className='flex flex-wrap gap-2'>
@@ -47,7 +47,7 @@ export default function Pagination({
         <Select
           // label='Category'
           name='categoryId'
-          placeholder='2'
+          placeholder={limit?.label}
           options={[
             { value: "2", label: "2" },
             { value: "4", label: "4" },

@@ -9,11 +9,14 @@ import { useGetServiceQuery } from "@/redux/api/serviceApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addingToCart } from "@/redux/slice/cart/cartSlice";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 export default function ServiceDetailsContent({ id }: { id: string }) {
   const { cart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
+  const { back } = useRouter();
   const { data: service, isFetching } = useGetServiceQuery(id);
   const { data: userReviews, isFetching: isFetchingReviews } =
     useGetReviewsQuery({
@@ -31,6 +34,22 @@ export default function ServiceDetailsContent({ id }: { id: string }) {
   const { accessToken } = user;
   const { user: loggedUser } = useLoggedUserInfo(accessToken);
 
+  const isAlreadyAdded = cart.find(
+    (item) => item.service === id && item.user === loggedUser?.data?.id
+  )
+    ? true
+    : false;
+
+  const handleAddToCart = () => {
+    dispatch(
+      addingToCart({
+        user: loggedUser?.data?.id,
+        service: id,
+      })
+    );
+    toast.success("Added.. Go to cart to checkout");
+  };
+
   if (isFetching || isFetchingReviews) {
     return <LoadingComponent />;
   }
@@ -41,6 +60,7 @@ export default function ServiceDetailsContent({ id }: { id: string }) {
         title={`${service?.data?.serviceName}`}
         subtitle="Details and Reviews about Service you're looking for"
       />
+      {/* service details */}
       <div className='flex flex-col lg:flex-row gap-8'>
         <figure className='h-auto lg:w-2/5 self-start'>
           <Image
@@ -100,33 +120,15 @@ export default function ServiceDetailsContent({ id }: { id: string }) {
           </div>
           <Button
             variant='solid'
-            disabled={
-              cart.find(
-                (item) =>
-                  item.service === id && item.user === loggedUser?.data?.id
-              )
-                ? true
-                : false
-            }
+            disabled={isAlreadyAdded}
             className='max-md:w-full px-3 text-sm'
-            onClick={() =>
-              dispatch(
-                addingToCart({
-                  user: loggedUser?.data?.id,
-                  service: id,
-                })
-              )
-            }
+            onClick={handleAddToCart}
           >
-            {cart.find(
-              (item) =>
-                item.service === id && item.user === loggedUser?.data?.id
-            )
-              ? "Added to cart"
-              : "Add to cart"}
+            {isAlreadyAdded ? "Added to cart" : "Add to cart"}
           </Button>
         </div>
       </div>
+      {/* User Reviews */}
       <div className='mt-8 space-y-2'>
         <h2 className='text-2xl font-semibold text-secondary'>User Reviews</h2>
         {userReviews?.data?.length > 0 ? (
@@ -151,6 +153,13 @@ export default function ServiceDetailsContent({ id }: { id: string }) {
           <p className='text-neutral'>No reviews yet</p>
         )}
       </div>
+
+      <button
+        className='text-primary hover:text-neutral mt-16'
+        onClick={() => back()}
+      >
+        Back to previous page
+      </button>
     </section>
   );
 }

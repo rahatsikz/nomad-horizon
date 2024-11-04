@@ -24,7 +24,7 @@ export const BlogsColumn = (
     dataIndex: "action",
     renders: (data: any) => {
       return (
-        <div className='flex gap-2 flex-wrap'>
+        <div className='flex gap-2 flex-wrap max-lg:justify-center'>
           <Button
             variant='solid'
             className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
@@ -91,7 +91,7 @@ export const EventColumn = (
     dataIndex: "action",
     renders: (data: any) => {
       return (
-        <div className='flex gap-2 flex-wrap'>
+        <div className='flex gap-2 flex-wrap max-lg:justify-center'>
           <Button
             variant='solid'
             className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
@@ -150,7 +150,7 @@ export const NewsColumn = (
     dataIndex: "action",
     renders: (data: any) => {
       return (
-        <div className='flex gap-2 flex-wrap'>
+        <div className='flex gap-2 flex-wrap max-lg:justify-center'>
           <Button
             variant='solid'
             className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'

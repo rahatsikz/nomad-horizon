@@ -27,7 +27,7 @@ export default function FeedbackPageContents() {
       </div>
       <div
         className={cn(
-          "grid gap-4 mt-4",
+          "grid gap-4 mt-1",
           allFeedbacks?.length > 2
             ? "grid-cols-1 lg:grid-cols-3"
             : "grid-cols-1 lg:grid-cols-2"

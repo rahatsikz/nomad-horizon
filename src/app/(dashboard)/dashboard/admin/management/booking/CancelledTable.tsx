@@ -14,7 +14,7 @@ import { toggleModal } from "@/redux/slice/modal/modalSlice";
 import toast from "react-hot-toast";
 
 export default function CancelledTable() {
-  const { data, isFetching } = useGetAllBookingsQuery({
+  const { data, isLoading } = useGetAllBookingsQuery({
     bookingStatus: "cancelled",
   });
 
@@ -22,7 +22,7 @@ export default function CancelledTable() {
   const dispatch = useAppDispatch();
   const [deleteBooking] = useDeleteBookingMutation();
 
-  const bookingData = data?.data?.map((data: any) => ({
+  const bookingData = data?.data?.data?.map((data: any) => ({
     id: data?.id,
     username: data?.user?.username,
     serviceName: data?.service?.serviceName,
@@ -30,7 +30,7 @@ export default function CancelledTable() {
       data?.bookingStatus[0].toUpperCase() + data?.bookingStatus.slice(1),
     updatedAt: formatDateTime(data?.updatedAt),
   }));
-  if (isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
 

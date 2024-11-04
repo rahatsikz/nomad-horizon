@@ -1,6 +1,12 @@
+"use client";
+import { useAppSelector } from "@/redux/hooks";
 import { Button } from "../ui/Button";
+import { useRouter } from "next/navigation";
 
 export function CallToAction() {
+  const { user } = useAppSelector((state) => state.user);
+  const { push } = useRouter();
+
   return (
     <div>
       <div className='text-center bg-nomadGray py-12 xl:px-12 px-4 rounded'>
@@ -12,7 +18,16 @@ export function CallToAction() {
           connected, productive, and on the move wherever your journey takes
           you.
         </p>
-        <Button variant='solid'>Register Now</Button>
+        <Button
+          variant='solid'
+          onClick={() => push(user.accessToken ? "/services" : "/register")}
+        >
+          {user.accessToken ? (
+            <span>Explore Services</span>
+          ) : (
+            <span>Register Now</span>
+          )}
+        </Button>
       </div>
     </div>
   );

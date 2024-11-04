@@ -26,9 +26,21 @@ import ImageInput from "@/components/ui/ImageInput";
 import Form from "@/components/ui/Form";
 import toast from "react-hot-toast";
 import { useUpdateScheduleMutation } from "@/redux/api/scheduleApi";
+import Pagination from "@/components/ui/Pagination";
 
 export default function ManageServices() {
-  const { data, isFetching } = useGetServicesQuery({});
+  // pagination
+  const query: any = {};
+  const [limit, setLimit] = useState({
+    value: "4",
+    label: "4",
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+
+  query["limit"] = limit.value ? limit.value : undefined;
+  query["page"] = currentPage ? currentPage : undefined;
+
+  const { data, isLoading } = useGetServicesQuery({ ...query });
   const imgBBUrl = `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`;
 
   const allServiceData = data?.data?.data?.map((data: any) => ({
@@ -220,7 +232,7 @@ export default function ManageServices() {
     })),
   };
 
-  if (isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
   return (
@@ -229,6 +241,18 @@ export default function ManageServices() {
         <DynamicTable
           columns={ServiceTableColumn(editModal, scheduleModal, deleteModal)}
           dataset={allServiceData}
+        />
+      </div>
+      <div>
+        <Pagination
+          totalPages={data?.data?.meta?.totalPage}
+          currentPage={currentPage}
+          handlePageChange={(page) => setCurrentPage(page)}
+          dbPageCount={data?.data?.meta?.page}
+          limit={limit}
+          handleLimitChange={(limit) =>
+            setLimit({ value: limit, label: limit })
+          }
         />
       </div>
       {/* Edit Modal */}

@@ -135,7 +135,7 @@ export default function ServicePageContent() {
             >
               <Pagination
                 totalPages={serviceData?.data?.meta?.totalPage}
-                totalItems={serviceData?.data?.meta?.total}
+                dbPageCount={serviceData?.data?.meta?.page}
                 currentPage={currentPage}
                 handlePageChange={(page) => setCurrentPage(page)}
                 limit={limit}

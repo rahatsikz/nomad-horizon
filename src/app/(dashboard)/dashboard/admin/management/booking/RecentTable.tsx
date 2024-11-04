@@ -22,13 +22,26 @@ import { ScheduleTimeProps } from "@/types/common";
 import { TimeTable } from "@/app/(with-nav)/booking/[id]/BookingPageContent";
 import Calendar from "@/components/ui/Calendar";
 import { useGetScheduleQuery } from "@/redux/api/scheduleApi";
+import Pagination from "@/components/ui/Pagination";
 
 export default function RecentTable() {
-  const { data, isFetching } = useGetAllBookingsQuery({
+  // pagination
+  const query: any = {};
+  const [limit, setLimit] = useState({
+    value: "4",
+    label: "4",
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+
+  query["limit"] = limit.value;
+  query["page"] = currentPage;
+
+  const { data, isLoading } = useGetAllBookingsQuery({
     bookingStatus: "processing",
+    ...query,
   });
 
-  const bookingData = data?.data?.map((data: any) => ({
+  const bookingData = data?.data?.data?.map((data: any) => ({
     id: data?.id,
     username: data?.user?.username,
     serviceName: data?.service?.serviceName,
@@ -139,12 +152,12 @@ export default function RecentTable() {
     date: formatSelectedDateLikeIso(selectedDate),
   });
 
-  if (isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
 
   return (
-    <div className='px-6'>
+    <section className='px-6'>
       <div className='w-full overflow-x-auto'>
         <DynamicTable
           columns={BookingProcessingColumn(
@@ -153,6 +166,18 @@ export default function RecentTable() {
             confirmHandler
           )}
           dataset={bookingData}
+        />
+      </div>
+      <div>
+        <Pagination
+          totalPages={data?.data?.meta?.totalPage}
+          currentPage={currentPage}
+          handlePageChange={(page) => setCurrentPage(page)}
+          dbPageCount={data?.data?.meta?.page}
+          limit={limit}
+          handleLimitChange={(limit) =>
+            setLimit({ value: limit, label: limit })
+          }
         />
       </div>
       <Modal id={"1"}>
@@ -243,6 +268,6 @@ export default function RecentTable() {
           </Button>
         </div>
       </Modal>
-    </div>
+    </section>
   );
 }

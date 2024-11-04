@@ -24,7 +24,7 @@ export default function ManageEvent() {
   const [rowId, setRowId] = useState("");
   const dispatch = useAppDispatch();
   // fething all
-  const { data: eventData, isFetching } = useGetEventsQuery({});
+  const { data: eventData, isLoading } = useGetEventsQuery({});
   const allEventsData = eventData?.data?.map((data: any) => ({
     ...data,
     date: formatISODatetoHumanReadable(data?.date),
@@ -45,8 +45,6 @@ export default function ManageEvent() {
     city: singleEventData?.data?.city,
     country: singleEventData?.data?.country,
   };
-
-  console.log(defaultValue);
 
   //   delete
   const [deleteEvent] = useDeleteEventMutation();
@@ -137,7 +135,7 @@ export default function ManageEvent() {
     }
   };
 
-  if (isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
 

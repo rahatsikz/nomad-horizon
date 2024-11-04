@@ -25,7 +25,7 @@ export default function ManageBlog() {
   const dispatch = useAppDispatch();
   const imgBBUrl = `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`;
   // fething all
-  const { data: blogsData, isFetching } = useGetBlogsQuery({});
+  const { data: blogsData, isLoading } = useGetBlogsQuery({});
   const allBlogsData = blogsData?.data?.map((data: any) => ({
     ...data,
     createdAt: formatDateTime(data?.createdAt),
@@ -45,8 +45,6 @@ export default function ManageBlog() {
     author: blogData?.data?.author,
     image: blogData?.data?.image,
   };
-
-  console.log(defaultValue);
 
   //   delete
   const [deleteBlog] = useDeleteBlogMutation();
@@ -155,7 +153,7 @@ export default function ManageBlog() {
     }
   };
 
-  if (isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
 

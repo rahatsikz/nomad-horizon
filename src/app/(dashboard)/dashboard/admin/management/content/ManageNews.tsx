@@ -24,7 +24,7 @@ export default function ManageNews() {
   const [rowId, setRowId] = useState("");
   const dispatch = useAppDispatch();
   // fething all
-  const { data: newsData, isFetching } = useGetNewsQuery({});
+  const { data: newsData, isLoading } = useGetNewsQuery({});
   const allNewsData = newsData?.data?.map((data: any) => ({
     ...data,
     date: formatISODatetoHumanReadable(data?.date),
@@ -43,8 +43,6 @@ export default function ManageNews() {
     content: singleNewsData?.data?.content,
     date: singleNewsData?.data?.date,
   };
-
-  console.log(defaultValue);
 
   //   delete
   const [deleteNews] = useDeleteNewsMutation();
@@ -135,7 +133,7 @@ export default function ManageNews() {
     }
   };
 
-  if (isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
 

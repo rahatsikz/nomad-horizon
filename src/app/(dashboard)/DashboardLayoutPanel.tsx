@@ -24,7 +24,7 @@ const DashboardLayoutPanel = ({
         />
         <div
           className={cn(
-            "transition-all duration-300 ease-in-out mt-6 w-full overflow-x-hidden",
+            "transition-all duration-300 ease-in-out mt-7 mb-6 max-xl:mb-12 w-full overflow-x-hidden",
             showSidebar ? "lg:ml-60" : "ml-0"
           )}
           ref={sidebarRef}

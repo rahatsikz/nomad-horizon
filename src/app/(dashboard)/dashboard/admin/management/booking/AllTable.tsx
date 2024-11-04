@@ -17,16 +17,28 @@ import { useAppDispatch } from "@/redux/hooks";
 import { toggleModal } from "@/redux/slice/modal/modalSlice";
 import Modal from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
+import Pagination from "@/components/ui/Pagination";
 
 export default function AllTable() {
-  const { data, isFetching } = useGetAllBookingsQuery({});
+  // pagination
+  const query: any = {};
+  const [limit, setLimit] = useState({
+    value: "6",
+    label: "6",
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+
+  query["limit"] = limit.value;
+  query["page"] = currentPage;
+
+  const { data, isLoading } = useGetAllBookingsQuery({ ...query });
   const [updateBookingStatus] = useUpdateBookingStatusMutation();
   const [deleteBooking] = useDeleteBookingMutation();
 
   const [rowId, setRowId] = useState<string>("");
   const dispatch = useAppDispatch();
 
-  const bookingData = data?.data?.map((data: any) => ({
+  const bookingData = data?.data?.data?.map((data: any) => ({
     id: data?.id,
     username: data?.user?.username,
     serviceName: data?.service?.serviceName,
@@ -37,7 +49,7 @@ export default function AllTable() {
       data?.bookingStatus[0].toUpperCase() + data?.bookingStatus.slice(1),
     createdAt: formatDateTime(data?.createdAt),
   }));
-  if (isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
 
@@ -70,11 +82,23 @@ export default function AllTable() {
   };
 
   return (
-    <div className='px-6'>
+    <section className='px-6'>
       <div className='w-full overflow-x-auto'>
         <DynamicTable
           columns={AllBookingsColumn(completeHandler, deleteModal)}
           dataset={bookingData}
+        />
+      </div>
+      <div>
+        <Pagination
+          totalPages={data?.data?.meta?.totalPage}
+          currentPage={currentPage}
+          handlePageChange={(page) => setCurrentPage(page)}
+          dbPageCount={data?.data?.meta?.page}
+          limit={limit}
+          handleLimitChange={(limit) =>
+            setLimit({ value: limit, label: limit })
+          }
         />
       </div>
       <Modal id={"1"}>
@@ -100,6 +124,6 @@ export default function AllTable() {
           </div>
         </div>
       </Modal>
-    </div>
+    </section>
   );
 }

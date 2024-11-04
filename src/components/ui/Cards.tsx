@@ -15,6 +15,7 @@ import loginImage from "@/assets/images/Login-amico.png";
 import { usePathname, useRouter } from "next/navigation";
 import { cn, formatISODatetoHumanReadable } from "@/lib/utils";
 import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
+import toast from "react-hot-toast";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
   return (
@@ -174,13 +175,29 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
   const { user: loggedUser } = useLoggedUserInfo(accessToken);
   const dispatch = useAppDispatch();
 
-  console.log(loggedUser);
+  const isAlreadyAdded = cart.find(
+    (item) => item.service === data.id && item.user === loggedUser?.data?.id
+  )
+    ? true
+    : false;
+
+  const handleAddToCart = () => {
+    dispatch(
+      addingToCart({
+        user: loggedUser?.data?.id,
+        service: data?.id,
+      })
+    );
+    toast.success("Added.. Go to cart to checkout");
+  };
+
+  // console.log(loggedUser);
 
   const router = useRouter();
 
   return (
     <div className='flex flex-col overflow-hidden bg-nomadGray rounded text-secondary shadow-main sm:flex-row'>
-      {/*  <!-- Image --> */}
+      {/*   Image  */}
       <figure className='h-auto flex-1'>
         <Image
           src={data?.image}
@@ -192,7 +209,7 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
           priority={true}
         />
       </figure>
-      {/*  <!-- Body--> */}
+      {/*   Body */}
       <div className='flex-1 px-6 sm:px-0 flex flex-col justify-between gap-4 max-sm:py-6'>
         <>
           <div className='space-y-3 sm:mx-6 pt-6'>
@@ -217,30 +234,11 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
           </Button>
           <Button
             variant='solid'
-            disabled={
-              cart.find(
-                (item) =>
-                  item.service === data.id && item.user === loggedUser?.data?.id
-              )
-                ? true
-                : false
-            }
+            disabled={isAlreadyAdded}
             className='max-sm:w-full px-3 text-sm sm:rounded-bl-none sm:rounded-tr-none'
-            onClick={() =>
-              dispatch(
-                addingToCart({
-                  user: loggedUser?.data?.id,
-                  service: data?.id,
-                })
-              )
-            }
+            onClick={handleAddToCart}
           >
-            {cart.find(
-              (item) =>
-                item.service === data.id && item.user === loggedUser?.data?.id
-            )
-              ? "Added to cart"
-              : "Add to cart"}
+            {isAlreadyAdded ? "Added to cart" : "Add to cart"}
           </Button>
         </div>
       </div>

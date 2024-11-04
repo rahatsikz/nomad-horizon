@@ -22,7 +22,7 @@ export default function UserManagePageContent() {
   const [rowId, setRowId] = useState<string>("");
   const dispatch = useAppDispatch();
 
-  const { data: allCustomerData, isFetching } = useGetAllCustomersQuery({});
+  const { data: allCustomerData, isLoading } = useGetAllCustomersQuery({});
 
   const customerDataFormated = allCustomerData?.data?.map((data: any) => ({
     ...data,
@@ -83,7 +83,7 @@ export default function UserManagePageContent() {
     (data: any) => data?.id === rowId
   );
 
-  if (isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
 
