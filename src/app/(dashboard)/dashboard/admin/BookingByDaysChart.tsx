@@ -34,7 +34,11 @@ export default function BookingByDaysChart() {
               }}
             >
               <CartesianGrid vertical={false} stroke={"var(--neutral)"} />
-              <XAxis dataKey='dayCount' tickMargin={10} />
+              <XAxis
+                dataKey='dayCount'
+                tickMargin={10}
+                stroke={"var(--neutral)"}
+              />
               <YAxis
                 stroke={"var(--neutral)"}
                 tickMargin={10}

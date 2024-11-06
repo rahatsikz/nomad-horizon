@@ -191,6 +191,11 @@ export const sidebarRoutes: any = {
   ],
   admin: [
     {
+      id: 0,
+      label: "Site Overview",
+      path: "/dashboard/admin",
+    },
+    {
       id: 1,
       label: "User Management",
       path: "/dashboard/admin/management/user",
