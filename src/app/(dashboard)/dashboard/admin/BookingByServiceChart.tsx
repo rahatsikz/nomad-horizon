@@ -60,7 +60,7 @@ export default function BookingByServiceChart() {
                   label.length > 10 ? `${label.slice(0, 10)}...` : label
                 }
               />
-              <YAxis stroke={"var(--neutral)"} tickMargin={10} />
+              <YAxis stroke={"var(--neutral)"} tickMargin={10} interval={0} />
               <Tooltip cursor={false} content={<CustomTooltip />} />
               <Bar
                 dataKey={"Booking-Count"}

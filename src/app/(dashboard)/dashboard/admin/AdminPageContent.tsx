@@ -3,6 +3,7 @@ import LoadingComponent from "@/components/ui/LoadingComponent";
 import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
 import { useAppSelector } from "@/redux/hooks";
 import BookingByServiceChart from "./BookingByServiceChart";
+import BookingByDaysChart from "./BookingByDaysChart";
 
 export default function AdminPageContent() {
   const { user } = useAppSelector((state) => state.user);
@@ -23,8 +24,9 @@ export default function AdminPageContent() {
         </h2>
       </div>
       {/*charts  */}
-      <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+      <div className='grid grid-cols-1 xl:grid-cols-2 gap-5'>
         <BookingByServiceChart />
+        <BookingByDaysChart />
       </div>
     </section>
   );

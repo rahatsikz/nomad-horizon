@@ -54,7 +54,7 @@ export default function Sidebar({
     <>
       <div
         className={cn(
-          "border-r dark:border-neutral transition-transform duration-300 ease-in-out fixed lg:top-[106px] top-[96px] left-0 bottom-0 bg-mainBg z-[2]",
+          "border-r dark:border-neutral transition-transform duration-300 ease-in-out fixed lg:top-[106px] top-[96px] left-0 bottom-0 bg-mainBg z-[2] overflow-auto",
           {
             "block w-60 ": showSidebar,
           },

@@ -64,6 +64,15 @@ export const bookingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.booking],
     }),
+    // booking count by interval
+    bookingCountByInterval: build.query({
+      query: (args: Record<string, any>) => ({
+        url: `${BOOKING_URL}/bookings-by-interval`,
+        method: "GET",
+        params: args,
+      }),
+      providesTags: [tagTypes.booking],
+    }),
   }),
 });
 
@@ -75,4 +84,5 @@ export const {
   useAdjustBookingMutation,
   useUpdateBookingStatusMutation,
   useDeleteBookingMutation,
+  useBookingCountByIntervalQuery,
 } = bookingApi;
