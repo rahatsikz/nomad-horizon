@@ -1,5 +1,5 @@
-import HistoryPageContent from "./HistoryPageContent";
+import HistoryPageTable from "./_components/table/HistoryPageTable";
 
 export default function HistoryPage() {
-  return <HistoryPageContent />;
+  return <HistoryPageTable />;
 }

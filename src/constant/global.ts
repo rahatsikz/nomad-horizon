@@ -230,49 +230,6 @@ export const sidebarRoutes: any = {
   ],
 };
 
-export const dataset = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john.doe@example.com",
-    mobileNo: "+1234567890",
-    address: "123 Main St, New York, NY",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    mobileNo: "+1987654321",
-    address: "456 Oak St, Los Angeles, CA",
-    status: "Inactive",
-  },
-  {
-    id: 3,
-    name: "Michael Brown",
-    email: "michael.brown@example.com",
-    mobileNo: "+1123456789",
-    address: "789 Maple Ave, Chicago, IL",
-    status: "Active",
-  },
-  {
-    id: 4,
-    name: "Emily Davis",
-    email: "emily.davis@example.com",
-    mobileNo: "+1098765432",
-    address: "321 Elm St, Houston, TX",
-    status: "Pending",
-  },
-  {
-    id: 5,
-    name: "David Wilson",
-    email: "david.wilson@example.com",
-    mobileNo: "+1987123456",
-    address: "654 Pine St, Miami, FL",
-    status: "Inactive",
-  },
-];
-
 export const serviceCategory = [
   {
     label: "Technical",
