@@ -81,12 +81,12 @@ const LoginPageContent = () => {
           Register
         </Link>
       </small>
-      <div className='divide-x space-x-2 text-primary mt-4'>
+      <div className='md:divide-x md:space-x-2 text-primary mt-4 max-md:text-center max-md:space-y-1'>
         <button className='text-xs' onClick={() => setShowCredential("user")}>
           Demo User Login Credential
         </button>
         <button
-          className='pl-2 text-xs'
+          className='md:pl-2 text-xs max-md:block'
           onClick={() => setShowCredential("admin")}
         >
           Demo Admin Login Credential

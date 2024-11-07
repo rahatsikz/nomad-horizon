@@ -5,7 +5,9 @@ import { CardVariantThree } from "@/components/ui/Cards";
 import Form from "@/components/ui/Form";
 import { HeaderText } from "@/components/ui/Headers";
 import Input from "@/components/ui/Input";
-import LoadingComponent from "@/components/ui/LoadingComponent";
+import LoadingComponent, {
+  SkeletonServiceLoading,
+} from "@/components/ui/LoadingComponent";
 import Pagination from "@/components/ui/Pagination";
 import { RangeSlide } from "@/components/ui/RangeSlide";
 import Select from "@/components/ui/Select";
@@ -90,12 +92,6 @@ export default function ServicePageContent() {
           </h1>
         )}
 
-        {isFetching && (
-          <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-2xl:mt-20'>
-            <LoadingComponent />
-          </div>
-        )}
-
         <div className='flex gap-12'>
           <div className='w-1/5 hidden 2xl:block'>
             <FilterDiv
@@ -120,13 +116,15 @@ export default function ServicePageContent() {
               />
             )}
             <div>
-              {!isFetching && serviceData?.data?.data.length > 0 ? (
-                <div className='grid xl:grid-cols-2 gap-8'>
-                  {serviceData?.data.data?.map((data: any, idx: any) => (
-                    <CardVariantThree key={idx} data={data} />
-                  ))}
-                </div>
-              ) : null}
+              <div className='grid xl:grid-cols-2 gap-8'>
+                {!isFetching
+                  ? serviceData?.data.data?.map((data: any, idx: any) => (
+                      <CardVariantThree key={idx} data={data} />
+                    ))
+                  : Array.from({ length: Number(limit?.value) }, (_, idx) => (
+                      <SkeletonServiceLoading key={idx} />
+                    ))}
+              </div>
             </div>
             <div
               className={cn(
