@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Nomad Horizon - Frontend
 
-## Getting Started
+Nomad Horizon is a `Online Service Reservation and Administration Portal` application. It is developed to attract Digital Nomads around the world and help them on course. It gives them options like book a service online, track their order and avail them on their journey.
 
-First, run the development server:
+## Who are Digital Nomads?
+
+Digital nomads are individuals who leverage technology to work remotely from anywhere in the world, often traveling frequently and embracing a location-independent lifestyle.
+
+## Notable Features
+
+- **Role-Based Access Control (RBAC)** – Implemented role-specific access for customers, admins and super admins to ensure secure and customized user interactions.
+
+- **User Profile Management** – Users can manage personal profiles with options to edit information.
+
+- **Service Discovery and Filtering** – Users can browse services with search and Filtering functionality.
+
+- **Efficient Booking System** – A streamlined, user-friendly booking process with date and time selection, confirmations and booking status tracking.
+
+- **Service Reviews and Ratings** – Users can leave feedback on booked services, enhancing trust and transparency with ratings displayed on service listings.
+
+- **Admin Dashboard and Controls** – Central dashboard for admins to monitor website activity, manage user, service, and bookings with options for schedule adjustments.
+
+- **Booking Management for Admins** – A complete booking management system that allows admins to accept, reject or adjust bookings, optimizing service availability.
+
+- **User Notifications Center** – A notifications hub where customers receive real-time updates on bookings and confirmations
+
+- **Super Admin Role Management** – Super admins have control over adding and managing admins, demonstrating a layered approach to administrative authority.
+
+- **User Dashboard with Booking History** – A personalized user dashboard displaying booking history and statuses which ensures comprehensive view of their interactions.
+
+## Deployed Link
+
+Project has been deployed in vercel. To Visit:
+[https://nomad-horizon.vercel.app](https://nomad-horizon.vercel.app)
+
+## Technology Used
+
+- Next.js (version 14.2.8)
+- TypeScript (for type safety)
+- Tailwind (for css styling)
+- Redux (for state management)
+- RTK Query (for data fetching)
+
+## Library Used
+
+- React hook form (for managing forms)
+- Recharts (for creating bar and line chart)
+- Axios (for intercepting request and response)
+- Redux Persist (for persisting store between sessions)
+
+## Procedure to run project in your device
+
+At First, Clone the Repository
+
+```bash
+git clone https://github.com/rahatsikz/nomad-horizon.git
+```
+
+Then, install all dependencies by
+
+```bash
+npm install
+```
+
+after that, add the `.env.local` file in the root directory and add these environment variables with additional values
+
+```bash
+NEXT_PUBLIC_API_BASE_URL = https://nomad-horizon-backend.vercel.app/api/v1
+NEXT_PUBLIC_IMGBB_KEY = "Enter your imgBB API key"
+```
+
+Finally, run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to access the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## For backend
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To visit Project's Backend Repository, click this [link](https://github.com/rahatsikz/nomad-horizon-backend)

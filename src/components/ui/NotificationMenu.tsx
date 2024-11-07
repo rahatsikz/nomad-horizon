@@ -152,9 +152,9 @@ export default function NotificationMenu() {
   // showing toast when new notification comes
   useEffect(() => {
     const previousSeenNotificationIds = [...seenNotifications];
-    const newNotification = notificationData?.data?.filter(
-      (n: any) => !previousSeenNotificationIds.includes(n.id)
-    );
+    const newNotification = notificationData?.data
+      ?.slice(0, 3)
+      .filter((n: any) => !previousSeenNotificationIds.includes(n.id));
 
     if (newNotification) {
       newNotification.forEach((n: any) => {

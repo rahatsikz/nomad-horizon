@@ -32,6 +32,9 @@ export default function AllTable() {
   query["limit"] = limit.value;
   query["page"] = currentPage;
 
+  query["sortBy"] = "createdAt";
+  query["sortOrder"] = "desc";
+
   const { data, isLoading } = useGetAllBookingsQuery({ ...query });
   const [updateBookingStatus] = useUpdateBookingStatusMutation();
   const [deleteBooking] = useDeleteBookingMutation();

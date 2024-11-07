@@ -37,6 +37,9 @@ export default function RecentTable() {
   query["limit"] = limit.value;
   query["page"] = currentPage;
 
+  query["sortBy"] = "createdAt";
+  query["sortOrder"] = "desc";
+
   const { data, isLoading } = useGetAllBookingsQuery({
     bookingStatus: "processing",
     ...query,
