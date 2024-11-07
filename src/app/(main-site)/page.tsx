@@ -11,7 +11,7 @@ const Homepage = () => {
   return (
     <>
       <HeroSection />
-      <div className='container mx-auto px-4 2xl:px-0 space-y-16 mt-16 pb-16'>
+      <div className='container mx-auto px-4 2xl:px-0 space-y-16 mt-16 pb-16 overflow-hidden'>
         <TopService />
         <UpcomingService />
         <Testimonial />

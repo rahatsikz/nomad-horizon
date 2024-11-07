@@ -16,10 +16,22 @@ import { usePathname, useRouter } from "next/navigation";
 import { cn, formatISODatetoHumanReadable } from "@/lib/utils";
 import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export function CardVariantOne({ data }: { data: ServiceProps }) {
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
-    <div className='overflow-hidden rounded shadow-main'>
+    <div
+      className='overflow-hidden rounded shadow-main'
+      data-aos='fade-right'
+      data-aos-easing='linear'
+      data-aos-duration='1000'
+    >
       <figure className='relative'>
         <Image
           src={data?.image}
@@ -45,7 +57,12 @@ export function CardVariantOne({ data }: { data: ServiceProps }) {
 
 export function CardVariantTwo({ data }: { data: ServiceProps }) {
   return (
-    <div className='overflow-hidden rounded shadow-main bg-nomadGray'>
+    <div
+      className='overflow-hidden rounded shadow-main bg-nomadGray'
+      data-aos='fade-left'
+      data-aos-easing='linear'
+      data-aos-duration='1000'
+    >
       <figure>
         <Image
           src={data?.image}
@@ -97,7 +114,12 @@ export function TestimonialCard({ data }: { data: ReviewProps }) {
 
 export function EventCard({ data }: { data: EventProps }) {
   return (
-    <div className='overflow-hidden w-full p-6 space-y-3'>
+    <div
+      className='overflow-hidden w-full p-6 space-y-3'
+      data-aos='fade-right'
+      data-aos-easing='linear'
+      data-aos-duration='1000'
+    >
       <h2 className='text-secondary'>{data?.title}</h2>
       <p className='text-neutral line-clamp-3'>{data?.content}</p>
       <div className='flex justify-between'>
@@ -121,7 +143,12 @@ export function EventCard({ data }: { data: EventProps }) {
 
 export function NewsCard({ data }: { data: NewsProps }) {
   return (
-    <div className='w-full overflow-hidden border dark:border-neutral rounded-lg p-4'>
+    <div
+      className='w-full overflow-hidden border dark:border-neutral rounded-lg p-4'
+      data-aos='fade-up'
+      data-aos-easing='linear'
+      data-aos-duration='1000'
+    >
       <div className='flex flex-col justify-between h-full'>
         <div>
           <h2 className='text-secondary'>{data?.title}</h2>
@@ -140,7 +167,12 @@ export function NewsCard({ data }: { data: NewsProps }) {
 
 export function BlogCard({ data }: { data: BlogProps }) {
   return (
-    <div className='overflow-hidden min-w-80 h-fit bg-nomadGray shadow-md rounded w-full'>
+    <div
+      className='overflow-hidden min-w-80 h-fit bg-nomadGray shadow-md rounded w-full'
+      data-aos='fade-left'
+      data-aos-easing='linear'
+      data-aos-duration='1000'
+    >
       <div className='p-6'>
         <div className='grid gap-6 grid-cols-2'>
           <Image

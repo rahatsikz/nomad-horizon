@@ -17,8 +17,16 @@ export function Overview() {
           sizes='30vw'
           style={{ width: "100%", height: "auto" }}
           className='aspect-[4/3] object-cover'
+          data-aos='fade-right'
+          data-aos-easing='linear'
+          data-aos-duration='1000'
         />
-        <div className='w-full flex flex-col max-2xl:gap-4 2xl:justify-between text-lg leading-relaxed text-secondary p-8'>
+        <div
+          className='w-full flex flex-col max-2xl:gap-4 2xl:justify-between text-lg leading-relaxed text-secondary p-8'
+          data-aos='fade-left'
+          data-aos-easing='linear'
+          data-aos-duration='1000'
+        >
           <p className='max-lg:line-clamp-5'>
             At Nomad Horizon, we specialize in offering digital services that
             cater to the unique needs of nomads and remote workers. Our platform

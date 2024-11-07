@@ -50,7 +50,7 @@ export default function AdminPageContent() {
   return (
     <section className='h-full px-6 py-4 lg:py-2 space-y-6'>
       <div className='flex justify-center w-full items-center'>
-        <h2 className='text-3xl text-secondary w-full text-center'>
+        <h2 className='text-2xl text-secondary w-full text-center'>
           Welcome <span className='text-primary'>{username}</span> <br /> Have a
           look at your Admin dashboard
         </h2>

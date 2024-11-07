@@ -133,7 +133,7 @@ export function Navbar() {
           ))}
           {username && accessToken ? (
             <div className='border-t w-full space-y-2'>
-              <p className='pt-2 text-neutral'>{username}</p>
+              <p className='pt-3 text-neutral'>{username}</p>
               <NavLink
                 route={`/dashboard/${role}`}
                 label='Dashboard'
