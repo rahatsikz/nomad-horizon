@@ -8,12 +8,7 @@ export function CallToAction() {
   const { push } = useRouter();
 
   return (
-    <div
-      className='text-center bg-nomadGray py-12 xl:px-12 px-4 sm:px-6 rounded'
-      data-aos='fade-down'
-      data-aos-easing='linear'
-      data-aos-duration='1000'
-    >
+    <div className='text-center bg-nomadGray py-12 xl:px-12 px-4 sm:px-6 rounded'>
       <h1 className='text-2xl text-secondary font-semibold'>
         Ready to Elevate Your Nomadic Lifestyle?
       </h1>

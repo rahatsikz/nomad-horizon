@@ -1,6 +1,6 @@
 ## Nomad Horizon - Frontend
 
-Nomad Horizon is a `Online Service Reservation and Administration Portal` application. It is developed to attract Digital Nomads around the world and help them on course. It gives them options like book a service online, track their order and avail them on their journey.
+Nomad Horizon is an `Online Service Reservation and Administration Portal` application. It is developed to attract Digital Nomads around the world and help them on course. It gives them options like book a service online, track their order and avail them on their journey.
 
 ## Who are Digital Nomads?
 
@@ -80,3 +80,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to access th
 ## For backend
 
 To visit Project's Backend Repository, click this [link](https://github.com/rahatsikz/nomad-horizon-backend)
+
+## Comprehensive Project Overview Video
+
+Click the thumbnail below to view video
+
+[![Thumbnail](https://i.ibb.co.com/yNCfP62/image.png)](https://www.loom.com/share/0217f9bff95f43f6a73f37a19239c9ef?sid=15c72e5f-0df2-49f7-a46b-c2997a8f30e7)

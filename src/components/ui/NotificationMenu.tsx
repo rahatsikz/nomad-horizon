@@ -191,7 +191,7 @@ export default function NotificationMenu() {
           ref={menuRef}
           className='absolute mt-2 w-72 bg-mainBg shadow-main rounded-md overflow-hidden'
         >
-          <ul role='menu' className='divide-y divide-secondary'>
+          <ul role='menu' className='divide-y dark:divide-secondary'>
             {notificationData?.data?.length > 0 ? (
               notificationData?.data
                 ?.slice(0, 5)

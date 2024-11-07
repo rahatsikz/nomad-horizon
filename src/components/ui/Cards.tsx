@@ -28,7 +28,7 @@ export function CardVariantOne({ data }: { data: ServiceProps }) {
   return (
     <div
       className='overflow-hidden rounded shadow-main'
-      data-aos='fade-right'
+      data-aos='fade-left'
       data-aos-easing='linear'
       data-aos-duration='1000'
     >
@@ -59,7 +59,7 @@ export function CardVariantTwo({ data }: { data: ServiceProps }) {
   return (
     <div
       className='overflow-hidden rounded shadow-main bg-nomadGray'
-      data-aos='fade-left'
+      data-aos='fade-right'
       data-aos-easing='linear'
       data-aos-duration='1000'
     >
@@ -114,12 +114,7 @@ export function TestimonialCard({ data }: { data: ReviewProps }) {
 
 export function EventCard({ data }: { data: EventProps }) {
   return (
-    <div
-      className='overflow-hidden w-full p-6 space-y-3'
-      data-aos='fade-right'
-      data-aos-easing='linear'
-      data-aos-duration='1000'
-    >
+    <div className='overflow-hidden w-full p-6 space-y-3'>
       <h2 className='text-secondary'>{data?.title}</h2>
       <p className='text-neutral line-clamp-3'>{data?.content}</p>
       <div className='flex justify-between'>
@@ -143,12 +138,7 @@ export function EventCard({ data }: { data: EventProps }) {
 
 export function NewsCard({ data }: { data: NewsProps }) {
   return (
-    <div
-      className='w-full overflow-hidden border dark:border-neutral rounded-lg p-4'
-      data-aos='fade-up'
-      data-aos-easing='linear'
-      data-aos-duration='1000'
-    >
+    <div className='w-full overflow-hidden border dark:border-neutral rounded-lg p-4'>
       <div className='flex flex-col justify-between h-full'>
         <div>
           <h2 className='text-secondary'>{data?.title}</h2>
@@ -167,12 +157,7 @@ export function NewsCard({ data }: { data: NewsProps }) {
 
 export function BlogCard({ data }: { data: BlogProps }) {
   return (
-    <div
-      className='overflow-hidden min-w-80 h-fit bg-nomadGray shadow-md rounded w-full'
-      data-aos='fade-left'
-      data-aos-easing='linear'
-      data-aos-duration='1000'
-    >
+    <div className='overflow-hidden min-w-80 h-fit bg-nomadGray shadow-md rounded w-full'>
       <div className='p-6'>
         <div className='grid gap-6 grid-cols-2'>
           <Image
