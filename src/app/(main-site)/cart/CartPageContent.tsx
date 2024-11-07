@@ -1,4 +1,5 @@
 "use client";
+import EmptyCart from "@/assets/svgs/empty-cart";
 import { Button } from "@/components/ui/Button";
 import { HeaderText } from "@/components/ui/Headers";
 import LoadingComponent from "@/components/ui/LoadingComponent";
@@ -20,7 +21,8 @@ export default function CartPageContent() {
 
   if (cart.filter((item) => item.user === loggedUser?.data?.id)?.length === 0) {
     return (
-      <div className='flex h-96 items-center justify-center'>
+      <div className='flex h-96 items-center justify-center flex-col gap-6 py-8'>
+        <EmptyCart />
         <h1 className='text-2xl text-primary'>Your cart is empty</h1>
       </div>
     );

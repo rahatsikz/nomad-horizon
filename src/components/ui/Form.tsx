@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 type FormConfig = {
@@ -9,6 +9,7 @@ type FormConfig = {
 type FormProps = {
   children: React.ReactNode | React.ReactElement;
   submitHandler: SubmitHandler<any>;
+  isDefaultValueResetable?: boolean;
 } & FormConfig &
   React.HTMLAttributes<HTMLDivElement>;
 
@@ -17,6 +18,7 @@ export default function Form({
   submitHandler,
   defaultValues,
   resolver,
+  isDefaultValueResetable = false,
   ...props
 }: FormProps) {
   const formConfig: FormConfig = {};
@@ -31,9 +33,11 @@ export default function Form({
     reset();
   };
 
-  // useEffect(() => {
-  //   reset(defaultValues);
-  // }, [defaultValues, reset, methods]);
+  useEffect(() => {
+    if (isDefaultValueResetable) {
+      reset(defaultValues);
+    }
+  }, [defaultValues, reset, methods, isDefaultValueResetable]);
 
   return (
     <FormProvider {...methods}>

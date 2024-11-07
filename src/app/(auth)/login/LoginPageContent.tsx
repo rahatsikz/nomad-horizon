@@ -13,14 +13,14 @@ import { loginSchema } from "@/schemas/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 // import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const LoginPageContent = () => {
   const [userLogin] = useUserLoginMutation();
   const dispatch = useAppDispatch();
-  // const router = useRouter();
+  const [showCredential, setShowCredential] = useState<any>("");
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
     try {
@@ -31,10 +31,6 @@ const LoginPageContent = () => {
         setCookie("accessToken", response.data.accessToken);
         dispatch(setAccessToken(response.data.accessToken));
         toast.success(response.message);
-
-        // setTimeout(() => {
-        //   router.back();
-        // }, 3000);
       }
     } catch (error: any) {
       // console.log(error);
@@ -42,10 +38,21 @@ const LoginPageContent = () => {
     }
   };
 
+  const defaultValues = {
+    admin: {
+      email: process.env.NEXT_PUBLIC_ADMIN_EMAIL,
+      password: process.env.NEXT_PUBLIC_ADMIN_PASS,
+    },
+    user: {
+      email: process.env.NEXT_PUBLIC_USER_EMAIL,
+      password: process.env.NEXT_PUBLIC_USER_PASS,
+    },
+  } as any;
+
   return (
     <div className='container mx-auto px-8 flex flex-col items-center justify-center w-full h-full'>
       <div className='flex flex-col items-center'>
-        <Link href='/'>
+        <Link href='/' title='Click to go homepage'>
           <Logo />
         </Link>
         <HeaderText
@@ -57,6 +64,8 @@ const LoginPageContent = () => {
         submitHandler={onSubmit}
         resolver={yupResolver(loginSchema)}
         className='space-y-8 w-full'
+        defaultValues={defaultValues[showCredential]}
+        isDefaultValueResetable={true}
       >
         <div className='space-y-4'>
           <Input label='Email' name='email' type='text' />
@@ -72,6 +81,17 @@ const LoginPageContent = () => {
           Register
         </Link>
       </small>
+      <div className='divide-x space-x-2 text-primary mt-4'>
+        <button className='text-xs' onClick={() => setShowCredential("user")}>
+          Demo User Login Credential
+        </button>
+        <button
+          className='pl-2 text-xs'
+          onClick={() => setShowCredential("admin")}
+        >
+          Demo Admin Login Credential
+        </button>
+      </div>
     </div>
   );
 };

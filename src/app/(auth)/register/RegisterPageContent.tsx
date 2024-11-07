@@ -34,7 +34,7 @@ const RegisterPageContent = () => {
   return (
     <div className='container mx-auto px-8 flex flex-col items-center justify-center w-full h-full'>
       <div className='flex flex-col items-center'>
-        <Link href='/'>
+        <Link href='/' title='Click to go homepage'>
           <Logo />
         </Link>
         <HeaderText
