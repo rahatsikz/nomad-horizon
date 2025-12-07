@@ -41,6 +41,10 @@ export default function BookingByDaysChart() {
       textStyle: {
         color: resolvedTheme === 'dark' ? '#F3F4F6' : '#111827',
       },
+      formatter: (params: any) => {
+        const item = params[0];
+        return `${item.marker} ${item.seriesName}: ${item.value}`;
+      },
     },
     grid: {
       left: '3%',

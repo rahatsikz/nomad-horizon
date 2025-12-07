@@ -126,7 +126,7 @@ export default function BookingByServiceChart() {
         <ReactECharts
           theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
           option={option}
-          style={{ height: '425px', width: '100%' }}
+          style={{ height: '424px', width: '100%' }}
           opts={{ renderer: 'canvas' }}
           notMerge={true}
           lazyUpdate={true}
