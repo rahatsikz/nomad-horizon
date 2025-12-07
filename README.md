@@ -35,7 +35,7 @@ Project has been deployed in vercel. To Visit:
 
 ## Technology Used
 
-- Next.js (version 14.2.8)
+- Next.js (version 14.2.8) 👉🏼 (Updated to 16.0.7)
 - TypeScript (for type safety)
 - Tailwind (for css styling)
 - Redux (for state management)
@@ -44,7 +44,7 @@ Project has been deployed in vercel. To Visit:
 ## Library Used
 
 - React hook form (for managing forms)
-- Recharts (for creating bar and line chart)
+- Recharts (for creating bar and line chart) 👉🏼 (Updated to Apache ECharts and ECharts for React)
 - Axios (for intercepting request and response)
 - Redux Persist (for persisting store between sessions)
 
@@ -59,7 +59,7 @@ git clone https://github.com/rahatsikz/nomad-horizon.git
 Then, install all dependencies by
 
 ```bash
-npm install
+bun install
 ```
 
 after that, add the `.env.local` file in the root directory and add these environment variables with additional values
@@ -72,7 +72,7 @@ NEXT_PUBLIC_IMGBB_KEY = "Enter your imgBB API key"
 Finally, run the development server
 
 ```bash
-npm run dev
+bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to access the site.
