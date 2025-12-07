@@ -1,85 +1,134 @@
-import LoadingComponent from "@/components/ui/LoadingComponent";
-import { useBookingCountByIntervalQuery } from "@/redux/api/bookingApi";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+'use client';
+
+import LoadingComponent from '@/components/ui/LoadingComponent';
+import { useBookingCountByIntervalQuery } from '@/redux/api/bookingApi';
+import ReactECharts from 'echarts-for-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 export default function BookingByDaysChart() {
   const { data, isLoading } = useBookingCountByIntervalQuery({});
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  return (
-    <section className='border dark:border-neutral p-4 rounded'>
-      <h3 className='font-medium text-secondary mb-4 text-center'>
-        Bookings Count Across Service for last{" "}
-        {data?.data[data?.data?.length - 1]?.dayCount} days
-      </h3>
-      {!isLoading ? (
-        <div className='h-96'>
-          <ResponsiveContainer width='100%' height='100%'>
-            <LineChart
-              width={500}
-              height={300}
-              data={data?.data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: -20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid vertical={false} stroke={"var(--neutral)"} />
-              <XAxis
-                dataKey='dayCount'
-                tickMargin={10}
-                stroke={"var(--neutral)"}
-              />
-              <YAxis
-                stroke={"var(--neutral)"}
-                tickMargin={10}
-                interval={0}
-                allowDecimals={false}
-              />
-              <Tooltip content={CustomTooltip} />
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-              <Line
-                type='monotone'
-                dataKey='bookingCountInInterval'
-                stroke='var(--primary)'
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      ) : (
-        <LoadingComponent />
-      )}
-    </section>
-  );
-}
+  if (!mounted) return null;
 
-const CustomTooltip = ({
-  active,
-  payload,
-}: {
-  active?: boolean;
-  payload?: any;
-}) => {
-  if (active && payload && payload.length) {
+  // Transform the API data for the chart
+  const chartData = data?.data || [];
+  const days = chartData.map((item: any) => item.dayCount);
+  const counts = chartData.map((item: any) => item.bookingCountInInterval);
+  const totalDays = chartData.length > 0 ? chartData[chartData.length - 1]?.dayCount : 0;
+
+  const option = {
+    backgroundColor: 'transparent',
+    title: {
+      text: `Bookings Count Across Service for last ${totalDays} days`,
+      left: 'center',
+      textStyle: {
+        color: resolvedTheme === 'dark' ? '#E5E7EB' : '#374151', // text-gray-200 : text-gray-700
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
+    },
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: resolvedTheme === 'dark' ? '#1F2937' : '#fff',
+      borderColor: resolvedTheme === 'dark' ? '#374151' : '#E5E7EB',
+      textStyle: {
+        color: resolvedTheme === 'dark' ? '#F3F4F6' : '#111827',
+      },
+    },
+    grid: {
+      left: '3%',
+      right: '3%',
+      top: '18%',
+      bottom: '5%',
+      containLabel: true,
+    },
+    xAxis: {
+      type: 'category',
+      data: days,
+      axisLabel: {
+        show: true,
+        // interval: 0, // Show all labels if manageable, or let standard be 'money'
+        color: resolvedTheme === 'dark' ? '#9CA3AF' : '#6B7280',
+      },
+      axisLine: {
+        lineStyle: {
+          color: resolvedTheme === 'dark' ? '#374151' : '#E5E7EB',
+        },
+      },
+    },
+    yAxis: {
+      type: 'value',
+      minInterval: 1, // ensure integer y-axis
+      axisLabel: {
+        formatter: '{value}',
+        color: resolvedTheme === 'dark' ? '#9CA3AF' : '#6B7280',
+      },
+      splitLine: {
+        lineStyle: {
+          color: resolvedTheme === 'dark' ? '#374151' : '#E5E7EB',
+        },
+      },
+    },
+    series: [
+      {
+        name: 'Bookings',
+        data: counts,
+        type: 'line',
+        smooth: 0.5,
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              { offset: 0, color: 'rgba(118, 171, 174, 0.5)' },
+              { offset: 1, color: 'rgba(118, 171, 174, 0)' },
+            ],
+          },
+        },
+        lineStyle: { color: 'rgb(118, 171, 174)', width: 3 },
+        symbol: 'circle',
+        symbolSize: 6,
+        itemStyle: { color: 'rgb(118, 171, 174)' },
+      },
+    ],
+  };
+
+  if (isLoading) {
     return (
-      <div className='bg-lightPrimary p-2 rounded text-secondary'>
-        <p className='text-center'>
-          {payload[0].value < 2
-            ? `${payload[0].value} Booking`
-            : `${payload[0].value} Bookings`}
-        </p>
-      </div>
+      <section className="border dark:border-neutral p-4 rounded h-96 flex items-center justify-center">
+        <LoadingComponent />
+      </section>
     );
   }
 
-  return null;
-};
+  return (
+    <section className="border dark:border-neutral p-4 rounded">
+      <div className="w-full h-full">
+        <ReactECharts
+          theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
+          option={option}
+          style={{ height: '430px', width: '100%' }}
+          opts={{ renderer: 'canvas' }}
+          notMerge={true}
+          lazyUpdate={true}
+          onChartReady={(chart) => {
+            const handleResize = () => {
+              chart.resize();
+            };
+            window.addEventListener('resize', handleResize);
+          }}
+        />
+      </div>
+    </section>
+  );
+}

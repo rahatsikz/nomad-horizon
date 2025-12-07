@@ -1,13 +1,13 @@
-"use client";
-import { CloseSidebarIcon, OpenSidebarIcon } from "@/assets/svgs/heroIcons";
-import { sidebarRoutes } from "@/constant/global";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { Button } from "./Button";
-import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
-import { getCookie } from "@/lib/cookies";
+'use client';
+import { CloseSidebarIcon, OpenSidebarIcon } from '@/assets/svgs/heroIcons';
+import { sidebarRoutes } from '@/constant/global';
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { Button } from './Button';
+import { useLoggedUserInfo } from '@/hooks/useLoggedUser';
+import { getCookie } from '@/lib/cookies';
 
 export default function Sidebar({
   setShowSidebar,
@@ -16,9 +16,9 @@ export default function Sidebar({
 }: {
   showSidebar: boolean;
   setShowSidebar: (value: any) => void;
-  reference: React.RefObject<HTMLDivElement>;
+  reference: React.RefObject<HTMLDivElement | null>;
 }) {
-  const [accessToken, setAccessToken] = useState<string>("");
+  const [accessToken, setAccessToken] = useState<string>('');
 
   useEffect(() => {
     const autoToggleSidebar = () => {
@@ -33,12 +33,12 @@ export default function Sidebar({
 
     autoToggleSidebar();
 
-    window.addEventListener("resize", autoToggleSidebar);
+    window.addEventListener('resize', autoToggleSidebar);
   }, [setShowSidebar, reference]);
 
   useEffect(() => {
     const getToken = async () => {
-      const token = await getCookie("accessToken");
+      const token = await getCookie('accessToken');
       if (!token) {
         return;
       }
@@ -54,26 +54,22 @@ export default function Sidebar({
     <>
       <div
         className={cn(
-          "border-r dark:border-neutral transition-transform duration-300 ease-in-out fixed lg:top-[106px] top-[96px] left-0 bottom-0 bg-mainBg z-[2] overflow-auto",
+          'border-r dark:border-neutral transition-transform duration-300 ease-in-out fixed lg:top-[106px] top-[96px] left-0 bottom-0 bg-mainBg z-[2] overflow-auto',
           {
-            "block w-60 ": showSidebar,
+            'block w-60 ': showSidebar,
           },
-          showSidebar ? "translate-x-0" : "-translate-x-full"
+          showSidebar ? 'translate-x-0' : '-translate-x-full',
         )}
       >
-        <div className='flex flex-col justify-between h-full'>
-          <ul className='py-4 px-4 space-y-3'>
+        <div className="flex flex-col justify-between h-full">
+          <ul className="py-4 px-4 space-y-3">
             {sidebarRoutes[role]?.map((route: any) => (
-              <SidebarItem
-                key={route.id}
-                label={route.label}
-                path={route.path}
-              />
+              <SidebarItem key={route.id} label={route.label} path={route.path} />
             ))}
           </ul>
           <Button
-            className='w-full flex justify-center items-center rounded-none hover:bg-primary hover:text-white'
-            variant='solid'
+            className="w-full flex justify-center items-center rounded-none hover:bg-primary hover:text-white"
+            variant="solid"
             onClick={() => setShowSidebar(false)}
           >
             <CloseSidebarIcon />
@@ -82,10 +78,10 @@ export default function Sidebar({
       </div>
       <div>
         <Button
-          variant='solid'
+          variant="solid"
           className={cn(
-            "block rounded-none hover:bg-primary hover:text-white fixed top-[106px] mt-0 lg:mt-2.5 left-0 z-[2]",
-            { hidden: showSidebar }
+            'block rounded-none hover:bg-primary hover:text-white fixed top-[106px] mt-0 lg:mt-2.5 left-0 z-[2]',
+            { hidden: showSidebar },
           )}
           onClick={() => setShowSidebar((prev: any) => !prev)}
         >
@@ -103,8 +99,8 @@ function SidebarItem({ label, path }: { label: string; path: string }) {
     <li>
       <Link
         href={path}
-        className={cn("hover:text-primary text-secondary", {
-          "text-primary": path === pathname,
+        className={cn('hover:text-primary text-secondary', {
+          'text-primary': path === pathname,
         })}
       >
         {label}

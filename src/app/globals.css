@@ -38,9 +38,9 @@
   --main-bg: rgb(34, 40, 49);
   --secondary: rgb(253, 253, 253);
   --primary: rgb(118, 171, 174);
-  --light-primary: rgb(118, 171, 174, 0.6);
-  --nomad-gray: rgb(31 41 55);
-  --neutral:rgb(156 163 175);
+  --light-primary: rgba(118, 171, 174, 0.6);
+  --nomad-gray: rgba(46, 56, 72, 0.5);
+  --neutral:rgb(193 196 202);
   --main-boxShadow:  0px 0px 4px 1px rgba(0, 0, 0, 0.1);
 }
 

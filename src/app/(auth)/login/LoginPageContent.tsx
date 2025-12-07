@@ -30,7 +30,7 @@ const LoginPageContent = () => {
       if (response.statusCode === 200) {
         setCookie("accessToken", response.data.accessToken);
         dispatch(setAccessToken(response.data.accessToken));
-        toast.success(response.message);
+        toast.success("Login successful");
       }
     } catch (error: any) {
       // console.log(error);

@@ -1,18 +1,19 @@
-"use server";
-import { cookies } from "next/headers";
+'use server';
+import { cookies } from 'next/headers';
 
-export const setCookie = (name: string, value: string) => {
-  cookies().set(name, value, {
+export const setCookie = async (name: string, value: string) => {
+  (await cookies()).set(name, value, {
     secure: true,
   });
 };
 
-export const getCookie = (name: string) => {
-  return cookies().get(name)?.value;
+export const getCookie = async (name: string) => {
+  return (await cookies()).get(name)?.value;
 };
 
-export const deleteCookie = (names: string[]) => {
+export const deleteCookie = async (names: string[]) => {
+  const cookieStore = await cookies();
   names.forEach((name) => {
-    cookies().delete(name);
+    cookieStore.delete(name);
   });
 };

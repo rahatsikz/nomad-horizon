@@ -1,16 +1,12 @@
-"use client";
-import React, { useEffect, useState, useRef } from "react";
+'use client';
+import React, { useEffect, useState, useRef } from 'react';
 
-export const InfiniteSlider = ({
-  cardArr,
-}: {
-  cardArr: React.ReactElement[];
-}) => {
+export const InfiniteSlider = ({ cardArr }: { cardArr: React.ReactElement[] }) => {
   const [translateX, setTranslateX] = useState(0);
   const [cardWidth, setCardWidth] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
-  const lastTimeRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
+  const lastTimeRef = useRef<number | undefined>(undefined);
   const speedRef = useRef<number>(0.09);
 
   useEffect(() => {
@@ -31,9 +27,9 @@ export const InfiniteSlider = ({
     };
 
     updateCardWidth();
-    window.addEventListener("resize", updateCardWidth);
+    window.addEventListener('resize', updateCardWidth);
 
-    return () => window.removeEventListener("resize", updateCardWidth);
+    return () => window.removeEventListener('resize', updateCardWidth);
   }, []);
 
   useEffect(() => {
@@ -75,16 +71,16 @@ export const InfiniteSlider = ({
       }, 200);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
-    <div className='w-full overflow-hidden'>
+    <div className="w-full overflow-hidden">
       <div
         ref={containerRef}
-        className='flex'
+        className="flex"
         style={{
           transform: `translateX(${translateX}px)`,
           width: `${cardArr.length * cardWidth}px`,
