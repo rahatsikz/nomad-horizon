@@ -1,6 +1,8 @@
 import React from "react";
 import ServiceDetailsContent from "./ServiceDetailsContent";
 
-export default function ServiceDetails({ params }: { params: { id: string } }) {
-  return <ServiceDetailsContent id={params.id} />;
+export default async function ServiceDetails({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  console.log(id);
+  return <ServiceDetailsContent id={id} />;
 }
