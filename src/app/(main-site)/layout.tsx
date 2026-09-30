@@ -1,5 +1,5 @@
-import { Footer } from "@/components/ui/Footer";
-import { Navbar } from "@/components/ui/Navbar";
+import { Footer } from '@/components/ui/Footer';
+import { Navbar } from '@/components/ui/Navbar';
 
 export default function NavLayout({
   children,
@@ -7,9 +7,9 @@ export default function NavLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className='flex-1 bg-mainBg'>{children}</div>
+      <div className="flex-1 bg-mainBg">{children}</div>
       <Footer />
     </div>
   );

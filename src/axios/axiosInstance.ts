@@ -1,23 +1,23 @@
-import { getCookie, setCookie } from "@/lib/cookies";
-import { getNewAccessToken } from "@/lib/utils";
-import { ResponseSuccessType } from "@/types/common";
-import axios from "axios";
+import { getCookie, setCookie } from '@/lib/cookies';
+import { getNewAccessToken } from '@/lib/utils';
+import { ResponseSuccessType } from '@/types/common';
+import axios from 'axios';
 
 const instance = axios.create();
 
-instance.defaults.headers.post["Content-Type"] = "application/json";
-instance.defaults.headers["Accept"] = "application/json";
+instance.defaults.headers.post['Content-Type'] = 'application/json';
+instance.defaults.headers['Accept'] = 'application/json';
 instance.defaults.timeout = 60000;
 
 // Add a request interceptor
 instance.interceptors.request.use(
   async function (config) {
     // Do something before request is sent
-    const accessToken = await getCookie("accessToken");
-    console.log(accessToken);
+    const accessToken = await getCookie('accessToken');
+    // console.log(accessToken);
 
     if (accessToken) {
-      config.headers.Authorization = accessToken;
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
     return config;
@@ -25,7 +25,7 @@ instance.interceptors.request.use(
   function (error) {
     // Do something with request error
     return Promise.reject(error);
-  }
+  },
 );
 
 // Add a response interceptor
@@ -47,15 +47,15 @@ instance.interceptors.response.use(
 
       if (newAccessToken) {
         config.headers.Authorization = newAccessToken;
-        console.log("newAccessToken", newAccessToken);
-        await setCookie("accessToken", newAccessToken);
+        console.log('newAccessToken', newAccessToken);
+        await setCookie('accessToken', newAccessToken);
 
         return instance(config);
       }
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export { instance };

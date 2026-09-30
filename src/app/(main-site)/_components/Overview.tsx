@@ -1,46 +1,71 @@
-import Image from "next/image";
-import { HeaderText } from "../../../components/ui/Headers";
+import Image from 'next/image';
+import { HeaderText } from '../../../components/ui/Headers';
 
 export function Overview() {
   return (
-    <div>
+    <section className="relative">
       <HeaderText
-        title='Overview'
-        subtitle='Focus on your adventures and career without the worry of losing connectivity or facing tech issues'
+        title="Overview"
+        subtitle="Focus on your adventures and career without the worry of losing connectivity or facing tech issues"
       />
-      <div className='flex max-lg:flex-col xl:gap-12 bg-nomadGray'>
-        <Image
-          src='https://images.pexels.com/photos/17767273/pexels-photo-17767273/free-photo-of-man-sitting-with-laptop-on-wooden-bench-on-meadow-under-tree.jpeg'
-          alt='overview'
-          width={100}
-          height={100}
-          sizes='30vw'
-          style={{ width: "100%", height: "auto" }}
-          className='aspect-[4/3] object-cover'
-        />
-        <div className='w-full flex flex-col max-2xl:gap-4 2xl:justify-between text-lg leading-relaxed text-secondary p-8'>
-          <p className='max-lg:line-clamp-5'>
-            At Nomad Horizon, we specialize in offering digital services that
-            cater to the unique needs of nomads and remote workers. Our platform
-            ensures that you can stay connected and efficient while traveling.
-            From high-speed internet solutions to reliable mobile and laptop
-            servicing, we are here to make your journey as seamless as possible.
-            Wherever you go, we ensure you&apos;re always equipped with the
-            tools to stay productive.
-          </p>
-          <p className='hidden xl:block'>
-            Whether you&apos;re crossing borders or working from a new city,
-            Nomad Horizon ensures that you have the support and technology
-            needed to thrive. Our mission is to provide dependable services,
-            from fast and secure internet access to quick device repairs. With
-            us by your side.
-          </p>
-          <p className='hidden xl:block'>
-            No matter where you are in the world, we help you stay online, stay
-            productive, and stay ahead.
-          </p>
+      <div className="relative overflow-hidden bg-nomadGray rounded-2xl shadow-main">
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(118,171,174,0.12),transparent_42%),linear-gradient(315deg,rgba(34,40,49,0.08),transparent_55%)]" />
+        <div className="relative grid lg:grid-cols-[1.08fr_0.92fr]">
+          <div className="group relative min-h-[24rem] overflow-hidden lg:min-h-[34rem]">
+            <Image
+              src="https://images.pexels.com/photos/17767273/pexels-photo-17767273/free-photo-of-man-sitting-with-laptop-on-wooden-bench-on-meadow-under-tree.jpeg"
+              alt="Remote worker using a laptop outdoors"
+              width={1200}
+              height={900}
+              sizes="(max-width: 1024px) 100vw, 55vw"
+              className="absolute inset-0 h-full w-full origin-center transform-gpu object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-secondary/5 to-transparent" />
+            <div className="absolute bottom-6 left-6 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-white sm:bottom-8 sm:left-8">
+              <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_0_5px_rgba(118,171,174,0.25)]" />
+              Work without borders
+            </div>
+          </div>
+
+          <div className="relative flex flex-col justify-between gap-10 bg-nomadGray p-7 sm:p-10 lg:p-12">
+            <div className="absolute right-0 top-0 h-40 w-40 bg-[radial-gradient(circle_at_top_right,rgba(118,171,174,0.45),transparent_68%)]" />
+            <div className="relative">
+              <p className="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-primary">
+                The Nomad Horizon standard
+              </p>
+              <h3 className="max-w-md text-3xl font-bold leading-[1.05] sm:text-5xl">
+                Your workday should travel as well as you do.
+              </h3>
+            </div>
+            <div className="relative space-y-6 text-base leading-relaxed text-neutral sm:text-lg">
+              <p>
+                We keep nomads and remote teams connected, productive, and ready for whatever comes
+                next. From dependable internet to quick device support, the essentials stay within
+                reach.
+              </p>
+              <div className="grid grid-cols-2 gap-4 border-t dark:border-white/15 border-slate-600/20 pt-6">
+                {overviewStats.map((stat) => (
+                  <OverviewStat key={stat.label} {...stat} />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+function OverviewStat({ value, label }: { value: string; label: string }) {
+  return (
+    <div>
+      <p className="text-2xl font-bold text-secondary sm:text-3xl">{value}</p>
+      <p className="mt-1 text-xs font-medium uppercase tracking-widest text-neutral">{label}</p>
     </div>
   );
 }
+
+const overviewStats = [
+  { value: '24/7', label: 'Support mindset' },
+  { value: '1', label: 'Connected mission' },
+];

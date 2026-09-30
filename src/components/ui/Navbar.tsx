@@ -61,8 +61,9 @@ export function Navbar() {
   };
 
   return (
-    <header className='sticky top-0 left-0 z-10' ref={myRef}>
-      <nav className='relative flex justify-between items-center py-8 px-4 sm:px-8 lg:px-16 z-50 bg-mainBg shadow dark:shadow-gray-900'>
+    <header className='sticky top-0 left-0 z-50' ref={myRef}>
+      <div className="absolute inset-0 bg-mainBg shadow dark:shadow-gray-900 z-20 pointer-events-none" />
+      <nav className='relative flex justify-between items-center py-8 px-4 2xl:px-5 z-30 container mx-auto'>
         <Link href='/' className='mt-1.5'>
           <Logo />
         </Link>
