@@ -1,15 +1,15 @@
 'use client';
-import { ServiceProps } from '@/types/common';
+import { BlogProps, EventProps, NewsProps, ReviewProps, ServiceProps } from '@/types/common';
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { addingToCart } from '@/redux/slice/cart/cartSlice';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import { cn, formatISODatetoHumanReadable } from '@/lib/utils';
 import { useLoggedUserInfo } from '@/hooks/useLoggedUser';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import { Wordmark } from './Wordmark';
-
+import { CalendarIcon, MapIcon, RightArrowIcon } from '../../assets/svgs/heroIcons';
 
 export function CardVariantOne({
   data,
@@ -225,7 +225,7 @@ export function BlogCard({ data }: { data: BlogProps }) {
   );
 }
 
-export function CardVariantThree({ data }: { data: ServiceProps }) {
+export function CardVariantThree({ data, index }: { data: ServiceProps; index?: number }) {
   const { cart } = useAppSelector((state) => state.cart);
   const { user } = useAppSelector((state) => state.user);
   const { accessToken } = user;
@@ -261,9 +261,16 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
           sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
           className="object-cover brightness-[0.62] saturate-[0.85] transition duration-[900ms] ease-out group-hover:scale-[1.04] group-hover:brightness-100 group-hover:saturate-100"
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-film via-film/45 via-45% to-transparent" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-film via-film/45 via-45% to-transparent"
+        />
         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5 text-[10px] font-medium uppercase tracking-[0.3em] text-cream/80">
-          <span>{typeof index === 'number' ? `No. ${String(index + 1).padStart(2, '0')}` : 'Now showing'}</span>
+          <span>
+            {typeof index === 'number'
+              ? `No. ${String(index + 1).padStart(2, '0')}`
+              : 'Now showing'}
+          </span>
           {data.category && <span>{data.category}</span>}
         </div>
         <div className="absolute inset-x-0 bottom-0 p-6">
@@ -273,7 +280,9 @@ export function CardVariantThree({ data }: { data: ServiceProps }) {
           <h3 className="mt-3 font-display text-2xl font-extrabold uppercase leading-[0.95] tracking-[-0.03em] sm:text-3xl">
             {data?.serviceName}
           </h3>
-          <p className="mt-3 line-clamp-2 text-sm font-light leading-relaxed text-cream/80">{data?.content}</p>
+          <p className="mt-3 line-clamp-2 text-sm font-light leading-relaxed text-cream/80">
+            {data?.content}
+          </p>
         </div>
       </Link>
       <div className="flex items-center justify-between gap-3 border-t border-cream/10 px-6 py-4">
@@ -326,9 +335,24 @@ export function AuthLayoutCard({ children }: { children: React.ReactNode }) {
       <div aria-hidden="true" className="nh-grain" />
 
       {/* photographic half */}
-      <div className={cn('relative hidden overflow-hidden bg-film text-cream lg:block', !isLogin && 'lg:order-2')}>
-        <Image src={scene.image} alt="" fill priority sizes="50vw" className="nh-kenburns object-cover object-[50%_45%]" />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-film via-film/40 to-film/30" />
+      <div
+        className={cn(
+          'relative hidden overflow-hidden bg-film text-cream lg:block',
+          !isLogin && 'lg:order-2',
+        )}
+      >
+        <Image
+          src={scene.image}
+          alt=""
+          fill
+          priority
+          sizes="50vw"
+          className="nh-kenburns object-cover object-[50%_45%]"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-film via-film/40 to-film/30"
+        />
         <div aria-hidden="true" className="nh-vignette absolute inset-0" />
         <div className="relative flex h-full flex-col justify-between p-12 xl:p-16">
           <Wordmark className="w-fit text-xl text-cream" />
@@ -349,7 +373,10 @@ export function AuthLayoutCard({ children }: { children: React.ReactNode }) {
 
       {/* form half */}
       <div className="relative isolate flex items-center justify-center overflow-hidden px-4 py-16 sm:px-10">
-        <div aria-hidden="true" className="nh-glow absolute -right-[30vw] -top-[30vw] -z-10 size-[60vw] lg:-right-[20vw]" />
+        <div
+          aria-hidden="true"
+          className="nh-glow absolute -right-[30vw] -top-[30vw] -z-10 size-[60vw] lg:-right-[20vw]"
+        />
         <div className="w-full max-w-md">{children}</div>
       </div>
     </section>
