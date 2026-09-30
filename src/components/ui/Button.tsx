@@ -17,14 +17,14 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const basicStyle =
-    "w-fit text-base tracking-wider rounded px-5 py-1.5 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral focus-visible:ring-offset-2";
+    "inline-flex w-fit items-center justify-center gap-2 rounded-full border px-6 py-2.5 text-sm font-medium tracking-wide transition-[background-color,color,border-color,box-shadow] duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber";
 
   const variantStyle = {
     solid:
-      "bg-primary text-white border-2 border-transparent hover:bg-transparent hover:text-primary hover:border-primary disabled:bg-primary disabled:text-white",
+      "border-amber bg-amber text-onAmber hover:bg-transparent hover:text-amberText disabled:hover:bg-amber disabled:hover:text-onAmber",
     outline:
-      "border-2 border-primary text-primary hover:text-white hover:bg-primary hover:border-transparent",
-    ghost: "text-primary hover:bg-primary hover:text-white",
+      "border-fg/30 text-fg hover:border-amber hover:bg-amber hover:text-onAmber",
+    ghost: "border-transparent text-amberText hover:bg-amber/15",
   };
 
   return (

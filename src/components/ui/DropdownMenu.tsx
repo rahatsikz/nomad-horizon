@@ -149,7 +149,7 @@ export const DropdownMenu = ({
       <button
         ref={buttonRef}
         className={cn(
-          "px-4 py-2 border rounded-md focus:outline-none focus-visible:ring-1",
+          "px-4 py-2 border rounded-md focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber",
           props?.className
         )}
         onClick={handleButtonClick}
@@ -161,14 +161,14 @@ export const DropdownMenu = ({
       {open && (
         <div
           ref={dropdownRef}
-          className='absolute mt-2 w-48 bg-mainBg shadow-main rounded-md overflow-hidden'
+          className='absolute z-20 mt-3 w-52 overflow-hidden rounded-xl border border-fg/10 bg-raised shadow-[0_24px_48px_-24px_rgb(0_0_0/0.6)]'
         >
-          <ul role='menu' className='divide-y divide-gray-200'>
+          <ul role='menu' className='divide-y divide-fg/10 py-1 text-sm'>
             {contents.map((item, index) => (
               <li
                 key={index}
-                className={`px-4 py-2 cursor-pointer ${
-                  focusedIndex === index ? "text-primary" : "text-secondary"
+                className={`cursor-pointer px-4 py-2.5 transition-colors ${
+                  focusedIndex === index ? "bg-amber/10 text-amberText" : "text-fg"
                 }`}
                 tabIndex={-1}
                 role='menuitem'

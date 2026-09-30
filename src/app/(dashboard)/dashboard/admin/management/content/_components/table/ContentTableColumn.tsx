@@ -27,7 +27,7 @@ export const BlogsColumn = (
         <div className='flex gap-2 flex-wrap max-lg:justify-center'>
           <Button
             variant='solid'
-            className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
+            className='text-sm px-2.5 py-0.5 border-danger bg-danger text-onDanger hover:text-danger'
             onClick={() => deleteModal(data?.id)}
           >
             Delete
@@ -42,7 +42,7 @@ export const BlogsColumn = (
           {data?.showOnHomepage && (
             <Button
               variant='solid'
-              className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
+              className='text-sm px-2.5 py-0.5 border-danger bg-danger text-onDanger hover:text-danger'
               onClick={() => hideHandler(data?.id)}
             >
               Hide from Homepage
@@ -94,7 +94,7 @@ export const EventColumn = (
         <div className='flex gap-2 flex-wrap max-lg:justify-center'>
           <Button
             variant='solid'
-            className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
+            className='text-sm px-2.5 py-0.5 border-danger bg-danger text-onDanger hover:text-danger'
             onClick={() => deleteModal(data?.id)}
           >
             Delete
@@ -109,7 +109,7 @@ export const EventColumn = (
           {data?.showOnHomepage && (
             <Button
               variant='solid'
-              className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
+              className='text-sm px-2.5 py-0.5 border-danger bg-danger text-onDanger hover:text-danger'
               onClick={() => hideHandler(data?.id)}
             >
               Hide from Homepage
@@ -153,7 +153,7 @@ export const NewsColumn = (
         <div className='flex gap-2 flex-wrap max-lg:justify-center'>
           <Button
             variant='solid'
-            className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
+            className='text-sm px-2.5 py-0.5 border-danger bg-danger text-onDanger hover:text-danger'
             onClick={() => deleteModal(data?.id)}
           >
             Delete
@@ -168,7 +168,7 @@ export const NewsColumn = (
           {data?.showOnHomepage && (
             <Button
               variant='solid'
-              className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
+              className='text-sm px-2.5 py-0.5 border-danger bg-danger text-onDanger hover:text-danger'
               onClick={() => hideHandler(data?.id)}
             >
               Hide from Homepage

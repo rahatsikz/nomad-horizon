@@ -152,8 +152,8 @@ export default function AddService() {
           <div className='h-px w-full bg-secondary'></div>
         </div>
         <ImageInput name='image' />
-        <div className='border dark:border-neutral px-4 xl:px-8 py-6 rounded'>
-          <div className='w-full space-y-6 md:space-y-4 max-lg:divide-y-2 dark:divide-neutral'>
+        <div className='border border-fg/15 px-4 xl:px-8 py-6 rounded'>
+          <div className='w-full space-y-6 md:space-y-4 max-lg:divide-y-2 divide-fg/15'>
             {days.map((day, idx) => (
               <div
                 key={day}
@@ -217,7 +217,7 @@ export default function AddService() {
                   ) : (
                     <Button
                       variant='outline'
-                      className='border-red-400 text-red-400 hover:bg-red-400 max-lg:w-full'
+                      className='border-danger text-danger hover:bg-danger hover:text-onDanger max-lg:w-full'
                       onClick={() => removeDay(day)}
                     >
                       Remove

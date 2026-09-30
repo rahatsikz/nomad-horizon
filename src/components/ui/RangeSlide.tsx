@@ -15,20 +15,28 @@ export function RangeSlide({
   step,
   label,
 }: RangeSlideProps) {
+  const fill = ((value - min) / (max - min)) * 100;
+
   return (
-    <div className='flex flex-col '>
-      <div className='flex justify-between items-center mb-0.5'>
-        <span className='text-secondary text-sm'> {label} </span>
-        <span className='text-neutral'>{value} </span>
+    <div className='flex flex-col gap-3'>
+      <div className='flex items-center justify-between'>
+        <label htmlFor={`range-${label}`} className='nh-label text-fgMuted'>
+          {label}
+        </label>
+        <span className='font-display text-lg font-bold text-fg'>
+          <span className='text-sm text-fgMuted'>up to </span>${value}
+        </span>
       </div>
       <input
+        id={`range-${label}`}
         type='range'
         min={min}
         max={max}
         step={step}
         value={value}
         onChange={handleChange}
-        className='w-full h-4 rounded-full bg-gradient-to-r dark:from-neutral dark:to-primary from-slate-200 to-primary  appearance-none focus:outline-none'
+        className='nh-range w-full rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber'
+        style={{ ["--nh-range-fill" as string]: `${fill}%` }}
       />
     </div>
   );

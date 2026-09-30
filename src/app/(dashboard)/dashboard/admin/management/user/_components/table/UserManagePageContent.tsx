@@ -115,7 +115,7 @@ export default function UserManagePageContent() {
             <Button
               variant='solid'
               type='submit'
-              className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
+              className='py-1 border-danger bg-danger text-onDanger hover:text-danger'
             >
               Update
             </Button>
@@ -137,7 +137,7 @@ export default function UserManagePageContent() {
           <div className='flex justify-end gap-2'>
             <Button
               variant='solid'
-              className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
+              className='py-1 border-danger bg-danger text-onDanger hover:text-danger'
               onClick={deleteHandler}
             >
               Yes

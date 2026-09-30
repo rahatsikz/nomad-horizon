@@ -4,11 +4,13 @@ import LoadingComponent from '@/components/ui/LoadingComponent';
 import { useBookingCountByIntervalQuery } from '@/redux/api/bookingApi';
 import ReactECharts from 'echarts-for-react';
 import { useTheme } from 'next-themes';
+import { getChartPalette } from '@/lib/chartTheme';
 import { useEffect, useState } from 'react';
 
 export default function BookingByDaysChart() {
   const { data, isLoading } = useBookingCountByIntervalQuery({});
   const { resolvedTheme } = useTheme();
+  const palette = getChartPalette(resolvedTheme);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -29,17 +31,17 @@ export default function BookingByDaysChart() {
       text: `Bookings Count Across Service for last ${totalDays} days`,
       left: 'center',
       textStyle: {
-        color: resolvedTheme === 'dark' ? '#E5E7EB' : '#374151', // text-gray-200 : text-gray-700
+        color: palette.title,
         fontSize: 16,
         fontWeight: 'bold',
       },
     },
     tooltip: {
       trigger: 'axis',
-      backgroundColor: resolvedTheme === 'dark' ? '#1F2937' : '#fff',
-      borderColor: resolvedTheme === 'dark' ? '#374151' : '#E5E7EB',
+      backgroundColor: palette.tooltipBg,
+      borderColor: palette.line,
       textStyle: {
-        color: resolvedTheme === 'dark' ? '#F3F4F6' : '#111827',
+        color: palette.tooltipText,
       },
       formatter: (params: any) => {
         const item = params[0];
@@ -59,11 +61,11 @@ export default function BookingByDaysChart() {
       axisLabel: {
         show: true,
         // interval: 0, // Show all labels if manageable, or let standard be 'money'
-        color: resolvedTheme === 'dark' ? '#9CA3AF' : '#6B7280',
+        color: palette.axisLabel,
       },
       axisLine: {
         lineStyle: {
-          color: resolvedTheme === 'dark' ? '#374151' : '#E5E7EB',
+          color: palette.line,
         },
       },
     },
@@ -72,11 +74,11 @@ export default function BookingByDaysChart() {
       minInterval: 1, // ensure integer y-axis
       axisLabel: {
         formatter: '{value}',
-        color: resolvedTheme === 'dark' ? '#9CA3AF' : '#6B7280',
+        color: palette.axisLabel,
       },
       splitLine: {
         lineStyle: {
-          color: resolvedTheme === 'dark' ? '#374151' : '#E5E7EB',
+          color: palette.line,
         },
       },
     },
@@ -94,29 +96,29 @@ export default function BookingByDaysChart() {
             x2: 0,
             y2: 1,
             colorStops: [
-              { offset: 0, color: 'rgba(118, 171, 174, 0.5)' },
-              { offset: 1, color: 'rgba(118, 171, 174, 0)' },
+              { offset: 0, color: palette.accentFade },
+              { offset: 1, color: palette.accentClear },
             ],
           },
         },
-        lineStyle: { color: 'rgb(118, 171, 174)', width: 3 },
+        lineStyle: { color: palette.accent, width: 3 },
         symbol: 'circle',
         symbolSize: 6,
-        itemStyle: { color: 'rgb(118, 171, 174)' },
+        itemStyle: { color: palette.accent },
       },
     ],
   };
 
   if (isLoading) {
     return (
-      <section className="border dark:border-neutral p-4 rounded h-96 flex items-center justify-center">
+      <section className="flex h-96 items-center justify-center rounded-2xl border border-fg/10 bg-raised/40 p-4">
         <LoadingComponent />
       </section>
     );
   }
 
   return (
-    <section className="border dark:border-neutral p-4 rounded">
+    <section className="rounded-2xl border border-fg/10 bg-raised/40 p-4">
       <div className="w-full h-full">
         <ReactECharts
           theme={resolvedTheme === 'dark' ? 'dark' : 'light'}

@@ -36,14 +36,14 @@ export const HistoryTableColumn = (openModal: any, reviewModal: any) => [
             data?.bookingStatus === "Adjusted") && (
             <Button
               variant='solid'
-              className='text-sm px-2.5 py-0.5 bg-red-400 hover:border-red-400 hover:text-red-400'
+              className='text-sm px-2.5 py-0.5 border-danger bg-danger text-onDanger hover:text-danger'
               onClick={() => openModal(data?.id)}
             >
               Cancel Booking
             </Button>
           )}
           {data?.bookingStatus === "Cancelled" && (
-            <p className='text-red-400'>Cancelled</p>
+            <p className='text-danger'>Cancelled</p>
           )}
           {data?.bookingStatus === "Completed" && !data?.isReviewed && (
             <Button
@@ -58,7 +58,7 @@ export const HistoryTableColumn = (openModal: any, reviewModal: any) => [
             <p className='text-primary'>Reviewed</p>
           )}
           {data?.bookingStatus === "Rejected" && (
-            <p className='text-red-400'>Rejected by Admin</p>
+            <p className='text-danger'>Rejected by Admin</p>
           )}
         </>
       );

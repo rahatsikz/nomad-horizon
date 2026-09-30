@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/Button";
 import Calendar from "@/components/ui/Calendar";
-import { HeaderText } from "@/components/ui/Headers";
+import { PageHero } from "@/components/ui/Headers";
 import LoadingComponent from "@/components/ui/LoadingComponent";
 import { TimeTable } from "@/components/ui/TimeGrid";
 import { useLoggedUserInfo } from "@/hooks/useLoggedUser";
@@ -89,57 +89,69 @@ const BookingPageContent = ({ id }: { id: string }) => {
   };
 
   if (isLoading) {
-    return <LoadingComponent />;
+    return (
+      <div className='pt-32'>
+        <LoadingComponent />
+      </div>
+    );
   }
 
   return (
-    <section className='container mx-auto px-4 2xl:px-0 py-8'>
-      <HeaderText
-        title={service?.data?.serviceName}
+    <>
+      <PageHero
+        label='Booking'
+        title={service?.data?.serviceName ?? "Book a session"}
         subtitle='Book your desired service on your preferred date and time'
       />
 
-      <div className='border dark:border-neutral rounded-lg'>
-        {/* topbar */}
-        <div className='w-full h-fit md:h-20 border-b dark:border-neutral sticky top-[94px] left-0 bg-nomadGray rounded-tr-md rounded-tl-md z-[2]'>
-          <div className='flex items-center justify-between  h-full px-8 py-4'>
-            {selectedDate && (
-              <div>
-                <p className='text-lg text-secondary'>
-                  {selectedDate.getDate()}{" "}
-                  {selectedDate.toLocaleString("default", { month: "short" })}{" "}
-                  {selectedDate.getFullYear()}
-                </p>
-                <p className='text-neutral'>
-                  {selectedDate.toLocaleString("default", { weekday: "long" })}
-                </p>
-              </div>
-            )}
-
-            <div className='flex gap-2 md:gap-4 md:items-center md:flex-row flex-col md:divide-x-2'>
-              {selectedTime && (
-                <div className=''>
-                  <p className='md:text-lg text-sm text-secondary'>
-                    {selectedTime.sessionStarts} - {selectedTime.sessionEnds}
+      <section className='nh-container'>
+        {/* summary bar */}
+        <div className='sticky top-16 z-[2] -mx-4 border-y border-fg/10 bg-canvas/90 px-4 py-4 backdrop-blur-md sm:mx-0 sm:rounded-2xl sm:border sm:px-6 lg:top-24'>
+          <div className='flex flex-wrap items-center justify-between gap-4'>
+            <div className='flex flex-wrap items-center gap-x-8 gap-y-2'>
+              {selectedDate && (
+                <div>
+                  <p className='nh-label text-fgMuted'>
+                    {selectedDate.toLocaleString("default", { weekday: "long" })}
+                  </p>
+                  <p className='font-display text-xl font-extrabold uppercase tracking-[-0.02em]'>
+                    {selectedDate.getDate()}{" "}
+                    {selectedDate.toLocaleString("default", { month: "short" })}{" "}
+                    {selectedDate.getFullYear()}
                   </p>
                 </div>
               )}
-              <div className='md:pl-4'>
-                <Button
-                  variant='solid'
-                  disabled={!selectedTime}
-                  className='max-md:text-sm'
-                  onClick={handleBooking}
-                >
-                  Book
-                </Button>
+              <div>
+                <p className='nh-label text-fgMuted'>Session</p>
+                <p className='font-display text-xl font-extrabold tabular-nums tracking-[-0.02em]' aria-live='polite'>
+                  {selectedTime
+                    ? `${selectedTime.sessionStarts} – ${selectedTime.sessionEnds}`
+                    : "Pick a time"}
+                </p>
               </div>
             </div>
+            <Button
+              variant='solid'
+              disabled={!selectedTime}
+              className='px-8 py-3'
+              onClick={handleBooking}
+            >
+              Book session
+            </Button>
           </div>
         </div>
+
         {/* booking content */}
-        <div className='flex md:flex-row flex-col-reverse gap-8 md:items-center'>
-          <div className='flex-1 md:pl-8 pl-4'>
+        <div className='mt-10 grid gap-10 lg:grid-cols-[auto_1fr] lg:gap-16'>
+          <div>
+            <p className='nh-label mb-4 text-fgMuted'>01 — Choose a date</p>
+            <Calendar
+              onDateClick={handleDateClick}
+              selectedDate={selectedDate}
+            />
+          </div>
+          <div>
+            <p className='nh-label mb-4 text-fgMuted'>02 — Choose a session</p>
             <TimeTable
               onTimeClick={handleTimeClick}
               selectedTime={selectedTime}
@@ -148,15 +160,9 @@ const BookingPageContent = ({ id }: { id: string }) => {
               isError={error}
             />
           </div>
-          <div className='md:pr-8'>
-            <Calendar
-              onDateClick={handleDateClick}
-              selectedDate={selectedDate}
-            />
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

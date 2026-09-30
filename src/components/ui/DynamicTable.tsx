@@ -10,23 +10,23 @@ export default function DynamicTable({
   dataset: any[];
 }) {
   return (
-    <table className='w-full border-separate border-spacing-0 shadow-lg'>
-      <thead className='bg-lightPrimary text-secondary uppercase text-sm font-medium text-left'>
+    <table className='w-full border-separate border-spacing-0 overflow-hidden rounded-xl border border-fg/10 text-sm'>
+      <thead className='bg-raised text-left text-[11px] font-medium uppercase tracking-[0.2em] text-fgMuted'>
         <tr>
           {columns.map((column) => (
-            <th className='xl:px-4 px-2 py-3' key={column.dataIndex}>
+            <th className='border-b border-fg/10 px-2 py-3.5 xl:px-4' key={column.dataIndex}>
               {column.tableHeader}
             </th>
           ))}
         </tr>
       </thead>
-      <tbody className='text-left text-secondary'>
+      <tbody className='text-left font-light text-fg'>
         {dataset?.map((data, rowIdx) => (
-          <tr key={rowIdx} className='odd:bg-nomadGray even:bg-mainBg'>
+          <tr key={rowIdx} className='transition-colors even:bg-raised/40 hover:bg-amber/[0.06]'>
             {columns.map((column) =>
               column.dataIndex !== "action" ? (
                 <td
-                  className='xl:px-4 px-2 py-3 border-b border-l first:border-l-0 min-w-32'
+                  className='min-w-32 border-b border-fg/10 px-2 py-3 xl:px-4'
                   key={column.dataIndex}
                 >
                   {data[column.dataIndex]}
@@ -34,7 +34,7 @@ export default function DynamicTable({
               ) : (
                 // column.actions(data.id)
                 <td
-                  className='xl:px-4 px-2 py-3 border-b border-l min-w-32 2xl:space-x-2 max-2xl:space-y-2'
+                  className='min-w-32 border-b border-fg/10 px-2 py-3 max-2xl:space-y-2 xl:px-4 2xl:space-x-2'
                   key={column.dataIndex}
                 >
                   {column.renders && column.renders(data)}
@@ -46,7 +46,7 @@ export default function DynamicTable({
         {dataset?.length === 0 && (
           <tr>
             <td
-              className='xl:px-4 px-2 py-3 text-center border-b border-l first:border-l-0 min-w-32'
+              className='min-w-32 px-2 py-8 text-center text-fgMuted xl:px-4'
               colSpan={columns.length}
             >
               No data Found

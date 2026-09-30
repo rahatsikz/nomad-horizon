@@ -47,9 +47,10 @@ export default function Accordion({ header, children, id }: AccordionProps) {
     <div ref={panelRef} className='w-full px-4 py-2'>
       <button
         onClick={handleToggle}
+        aria-expanded={isExpanded}
         className={cn(
-          "flex items-center justify-between w-full font-medium tracking-wide cursor-pointer py-4 px-6 rounded  border-2 border-primary text-secondary",
-          isExpanded && "rounded-b-none"
+          "flex w-full cursor-pointer items-center justify-between rounded-xl border border-fg/15 bg-raised/60 px-6 py-4 font-display text-sm font-bold uppercase tracking-[0.02em] text-fg transition-colors hover:border-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber",
+          isExpanded && "rounded-b-none border-amber"
         )}
       >
         {header}
@@ -72,7 +73,7 @@ export default function Accordion({ header, children, id }: AccordionProps) {
         className={cn(
           "grid transition-all duration-500 ease-in-out",
           isExpanded
-            ? "grid-rows-[1fr] border-2 border-t-0 dark:border-neutral rounded rounded-t-none -mt-0.5 pb-4"
+            ? "-mt-px grid-rows-[1fr] rounded-xl rounded-t-none border border-t-0 border-amber pb-4"
             : "grid-rows-[0fr]"
         )}
       >

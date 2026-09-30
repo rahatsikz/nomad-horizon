@@ -1,67 +1,59 @@
 import Image from 'next/image';
-import { HeaderText } from '../../../components/ui/Headers';
+import { Reveal } from '@/components/ui/Reveal';
 
 export function Overview() {
   return (
-    <section className="relative">
-      <HeaderText
-        title="Overview"
-        subtitle="Focus on your adventures and career without the worry of losing connectivity or facing tech issues"
-      />
-      <div className="relative overflow-hidden bg-nomadGray rounded-2xl shadow-main">
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(118,171,174,0.12),transparent_42%),linear-gradient(315deg,rgba(34,40,49,0.08),transparent_55%)]" />
-        <div className="relative grid lg:grid-cols-[1.08fr_0.92fr]">
-          <div className="group relative min-h-[24rem] overflow-hidden lg:min-h-[34rem]">
-            <Image
-              src="https://images.pexels.com/photos/17767273/pexels-photo-17767273/free-photo-of-man-sitting-with-laptop-on-wooden-bench-on-meadow-under-tree.jpeg"
-              alt="Remote worker using a laptop outdoors"
-              width={1200}
-              height={900}
-              sizes="(max-width: 1024px) 100vw, 55vw"
-              className="absolute inset-0 h-full w-full origin-center transform-gpu object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-secondary/5 to-transparent" />
-            <div className="absolute bottom-6 left-6 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-white sm:bottom-8 sm:left-8">
-              <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_0_5px_rgba(118,171,174,0.25)]" />
-              Work without borders
-            </div>
-          </div>
+    <section className="relative lg:grid lg:grid-cols-2">
+      {/* sticky photo half */}
+      <div className="relative h-[70svh] lg:sticky lg:top-0 lg:h-[100svh] lg:self-start">
+        <Image
+          src="https://images.pexels.com/photos/17767273/pexels-photo-17767273/free-photo-of-man-sitting-with-laptop-on-wooden-bench-on-meadow-under-tree.jpeg"
+          alt="Remote worker using a laptop outdoors"
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="object-cover object-[45%_50%]"
+        />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-film/80 via-transparent to-film/20" />
+        <p className="nh-label absolute bottom-8 left-6 flex items-center gap-3 text-cream sm:left-10">
+          <span className="size-2 rounded-full bg-amber shadow-[0_0_14px_rgb(var(--nh-amber))]" />
+          Work without borders
+        </p>
+      </div>
 
-          <div className="relative flex flex-col justify-between gap-10 bg-nomadGray p-7 sm:p-10 lg:p-12">
-            <div className="absolute right-0 top-0 h-40 w-40 bg-[radial-gradient(circle_at_top_right,rgba(118,171,174,0.45),transparent_68%)]" />
-            <div className="relative">
-              <p className="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-primary">
-                The Nomad Horizon standard
-              </p>
-              <h3 className="max-w-md text-3xl font-bold leading-[1.05] sm:text-5xl">
-                Your workday should travel as well as you do.
-              </h3>
-            </div>
-            <div className="relative space-y-6 text-base leading-relaxed text-neutral sm:text-lg">
-              <p>
-                We keep nomads and remote teams connected, productive, and ready for whatever comes
-                next. From dependable internet to quick device support, the essentials stay within
-                reach.
-              </p>
-              <div className="grid grid-cols-2 gap-4 border-t dark:border-white/15 border-slate-600/20 pt-6">
-                {overviewStats.map((stat) => (
-                  <OverviewStat key={stat.label} {...stat} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* scrolling copy half */}
+      <div className="flex flex-col gap-24 px-4 py-20 sm:px-10 lg:gap-40 lg:px-16 lg:py-40 xl:px-24">
+        <Reveal>
+          <p className="nh-label text-amberText">Overview</p>
+          <p className="mt-6 font-accent text-3xl italic leading-tight sm:text-4xl">
+            Focus on your adventures and career without the worry of losing connectivity or facing
+            tech issues
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="nh-label text-fgMuted">The Nomad Horizon standard</p>
+          <h2 className="mt-6 font-display text-[clamp(2rem,4.6vw,4.75rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.04em]">
+            Your workday should travel as well as{' '}
+            <span className="font-accent font-normal normal-case italic tracking-normal text-amberText">you do.</span>
+          </h2>
+          <p className="mt-8 max-w-lg text-lg leading-relaxed text-fgMuted sm:text-xl">
+            We keep nomads and remote teams connected, productive, and ready for whatever comes next.
+            From dependable internet to quick device support, the essentials stay within reach.
+          </p>
+        </Reveal>
+
+        <dl className="grid gap-16 sm:grid-cols-2 lg:grid-cols-1 lg:gap-24">
+          {overviewStats.map((stat, idx) => (
+            <Reveal key={stat.label} delay={idx * 120}>
+              <dt className="nh-label text-fgMuted">{stat.label}</dt>
+              <dd className="mt-3 font-display text-[clamp(4.5rem,9vw,9rem)] font-extrabold leading-none tracking-[-0.05em]">
+                {stat.value}
+              </dd>
+            </Reveal>
+          ))}
+        </dl>
       </div>
     </section>
-  );
-}
-
-function OverviewStat({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <p className="text-2xl font-bold text-secondary sm:text-3xl">{value}</p>
-      <p className="mt-1 text-xs font-medium uppercase tracking-widest text-neutral">{label}</p>
-    </div>
   );
 }
 

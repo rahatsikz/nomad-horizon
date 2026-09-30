@@ -1,71 +1,85 @@
 "use client";
-import { HeaderText } from "@/components/ui/Headers";
+import { PageHero } from "@/components/ui/Headers";
 import LoadingComponent from "@/components/ui/LoadingComponent";
+import { Reveal } from "@/components/ui/Reveal";
+import { cn } from "@/lib/utils";
 import { useGetBlogsQuery } from "@/redux/api/blogApi";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import React from "react";
 
 export default function BlogPageContent() {
   const { data, isFetching } = useGetBlogsQuery({});
-
-  if (isFetching) {
-    return <LoadingComponent />;
-  }
+  const blogs: any[] = data?.data ?? [];
+  const [feature, ...rest] = blogs;
 
   return (
-    <section className='container mx-auto px-4 2xl:px-0 py-8'>
-      <HeaderText
-        title='Useful Blogs'
+    <>
+      <PageHero
+        label='Stories from the road'
+        title='Useful'
+        accent='Blogs'
         subtitle="We've got you covered for all your nomadic needs"
       />
-      <div className='grid grid-cols-1 xl:grid-cols-2  gap-4'>
-        {data?.data?.map((data: any) => (
-          <BlogCard key={data?.id} data={data} />
-        ))}
-      </div>
-    </section>
+
+      {isFetching ? (
+        <LoadingComponent />
+      ) : (
+        <section className='nh-container space-y-6'>
+          {feature && <BlogCard data={feature} featured />}
+          {rest.length > 0 && (
+            <div className='grid gap-6 md:grid-cols-2'>
+              {rest.map((blog, idx) => (
+                <Reveal key={blog?.id} delay={(idx % 2) * 120}>
+                  <BlogCard data={blog} />
+                </Reveal>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+    </>
   );
 }
 
-function BlogCard({ data }: { data: any }) {
-  const router = useRouter();
-
+function BlogCard({ data, featured }: { data: any; featured?: boolean }) {
   return (
-    <div className='overflow-hidden min-w-80 h-fit bg-nomadGray shadow-md rounded w-full'>
-      <div className='p-6'>
-        <div className='grid gap-6 grid-cols-2'>
-          <div className='w-full'>
-            <h2 className='xl:text-xl text-secondary font-semibold text-balance'>
-              {data?.title}
-            </h2>
-            <p className='text-neutral text-xs tracking-wider mt-1'>
-              {data?.author}
-            </p>
-            <div className='mt-4 text-sm text-balance'>
-              <span className=' line-clamp-3 text-neutral'>
-                {data?.content}
-              </span>
-              <button
-                className='text-primary'
-                onClick={() => router.push(`/blogs/${data?.id}`)}
-              >
-                Read More
-              </button>
-            </div>
-          </div>
-          <div className='w-full'>
-            <Image
-              sizes='100vw'
-              width={100}
-              height={100}
-              src={data?.image}
-              alt={data?.title}
-              className='aspect-[4/1] w-full h-full object-cover rounded'
-            />
-          </div>
-        </div>
+    <Link
+      href={`/blogs/${data?.id}`}
+      className={cn(
+        "group relative block overflow-hidden bg-film text-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber",
+        featured ? "aspect-[4/5] sm:aspect-[16/9] lg:aspect-[21/9]" : "aspect-[4/3]"
+      )}
+    >
+      <Image
+        sizes={featured ? "100vw" : "(min-width: 768px) 45vw, 100vw"}
+        fill
+        src={data?.image}
+        alt={data?.title}
+        priority={featured}
+        className='object-cover brightness-[0.6] transition duration-[900ms] group-hover:scale-[1.03] group-hover:brightness-90'
+      />
+      <div aria-hidden='true' className='absolute inset-0 bg-gradient-to-t from-film via-film/40 to-transparent' />
+      <div className={cn("absolute inset-x-0 bottom-0 p-6", featured ? "sm:p-10 lg:p-14" : "lg:p-8")}>
+        <p className='text-[11px] font-medium uppercase tracking-[0.3em] text-amber'>
+          {featured && <span className='mr-3 text-cream/70'>Featured ·</span>}
+          By {data?.author}
+        </p>
+        <h2
+          className={cn(
+            "mt-3 font-display font-extrabold uppercase leading-[0.95] tracking-[-0.03em] text-balance",
+            featured ? "max-w-4xl text-3xl sm:text-5xl lg:text-6xl" : "text-2xl lg:text-3xl"
+          )}
+        >
+          {data?.title}
+        </h2>
+        <p className={cn("mt-4 line-clamp-2 font-light leading-relaxed text-cream/80", featured ? "max-w-2xl text-base sm:text-lg" : "text-sm")}>
+          {data?.content}
+        </p>
+        <span className='relative mt-6 inline-flex items-center gap-2 pb-1 text-sm after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-amber after:transition-transform after:duration-700 group-hover:after:scale-x-100'>
+          Read More <span aria-hidden='true'>→</span>
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }

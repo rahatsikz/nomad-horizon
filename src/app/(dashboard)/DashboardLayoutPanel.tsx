@@ -14,9 +14,9 @@ const DashboardLayoutPanel = ({
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex min-h-screen flex-col bg-canvas'>
       <Navbar />
-      <div className='flex-1 bg-mainBg flex'>
+      <div className='flex flex-1 pt-16 lg:pt-20'>
         <Sidebar
           showSidebar={showSidebar}
           setShowSidebar={setShowSidebar}
@@ -24,8 +24,8 @@ const DashboardLayoutPanel = ({
         />
         <div
           className={cn(
-            "transition-all duration-300 ease-in-out mt-7 mb-6 max-xl:mb-12 w-full overflow-x-hidden",
-            showSidebar ? "lg:ml-60" : "ml-0"
+            "mb-6 mt-8 w-full overflow-x-hidden transition-all duration-300 ease-in-out max-xl:mb-12 lg:px-4",
+            showSidebar ? "lg:ml-64" : "ml-0"
           )}
           ref={sidebarRef}
         >

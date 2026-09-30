@@ -1,51 +1,45 @@
 'use client';
-import { cn } from '@/lib/utils';
-import { NewsCard } from '@/components/ui/Cards';
-import { HeaderText } from '@/components/ui/Headers';
 import { useGetNewsQuery } from '@/redux/api/newsApi';
+import { formatISODatetoHumanReadable } from '@/lib/utils';
 import { NewsProps } from '@/types/common';
-
-function getNewsCardClassName(index: number, total: number) {
-  const isLastCard = index === total - 1;
-
-  return cn(
-    isLastCard && total % 2 === 1 && 'md:max-lg:col-span-2',
-    isLastCard && total % 3 === 1 && 'lg:col-span-3',
-    isLastCard && total % 3 === 2 && 'lg:col-span-2',
-  );
-}
+import { Reveal } from '@/components/ui/Reveal';
 
 export function LatestNews() {
   const { data: newsData } = useGetNewsQuery({
     showOnHomepage: true,
   });
 
-  const newsDataLength = newsData?.data?.length;
+  const news: NewsProps[] = newsData?.data ?? [];
+
+  if (news.length === 0) return null;
 
   return (
-    <section className="relative isolate overflow-hidden rounded-2xl border border-nomadGray bg-[radial-gradient(circle_at_100%_100%,rgba(34,40,49,0.12),transparent_40%),rgb(var(--nomad-gray))] p-5 shadow-main sm:p-8">
-      <div className="pointer-events-none absolute -left-20 -top-20 h-52 w-52 rounded-full bg-primary opacity-15 blur-3xl" />
-      {newsDataLength > 0 && (
-        <>
-          <div className="relative">
-            <HeaderText
-              title="Latest News"
-              subtitle="Stay Updated with the Latest Trends and Insights in the Digital Nomad World"
-            />
-            <div
-              className={cn(
-                'grid gap-4',
-                newsDataLength >= 3 && 'md:grid-cols-2 lg:grid-cols-3',
-                newsDataLength === 2 && 'md:grid-cols-1 lg:grid-cols-2',
-              )}
-            >
-              {newsData?.data?.map((data: NewsProps, idx: number, arr: NewsProps[]) => (
-                <NewsCard key={idx} data={data} className={getNewsCardClassName(idx, arr.length)} />
-              ))}
-            </div>
-          </div>
-        </>
-      )}
+    <section className="nh-container pt-24 lg:pt-36">
+      <Reveal>
+        <p className="nh-label text-amberText">Bulletins</p>
+        <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <h2 className="font-display text-[clamp(2rem,4.6vw,4.5rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.035em]">
+            Latest News
+          </h2>
+          <p className="max-w-md text-lg leading-relaxed text-fgMuted lg:text-right">
+            Stay Updated with the Latest Trends and Insights in the Digital Nomad World
+          </p>
+        </div>
+      </Reveal>
+
+      <div className="mt-12 grid gap-x-10 gap-y-12 border-t border-fg/15 pt-10 md:grid-cols-2 lg:grid-cols-3">
+        {news.map((item, idx) => (
+          <Reveal key={item.id} delay={idx * 100}>
+            <article>
+              <p className="nh-label text-fgMuted">{formatISODatetoHumanReadable(item.date)}</p>
+              <h3 className="mt-4 font-display text-xl font-bold uppercase leading-tight tracking-[-0.01em]">
+                {item.title}
+              </h3>
+              <p className="mt-3 line-clamp-5 leading-relaxed text-fgMuted">{item.content}</p>
+            </article>
+          </Reveal>
+        ))}
+      </div>
     </section>
   );
 }

@@ -1,56 +1,65 @@
-import Logo from "@/assets/svgs/logo";
-import Link from "next/link";
+import Link from 'next/link';
 
+const credits: { role: string; items: { label: string; href?: string }[] }[] = [
+  { role: 'Phone', items: [{ label: '+1 (123) 456-7890' }] },
+  { role: 'Address', items: [{ label: '123 Street, Virginia, USA' }] },
+  {
+    role: 'Important Links',
+    items: [
+      { label: 'About Us', href: '/' },
+      { label: 'Contact Us', href: '/' },
+      { label: 'Privacy Policy', href: '/' },
+      { label: 'Terms & Conditions', href: '/' },
+    ],
+  },
+  {
+    role: 'Social Links',
+    items: [
+      { label: 'Facebook', href: '/' },
+      { label: 'Twitter', href: '/' },
+      { label: 'Instagram', href: '/' },
+      { label: 'LinkedIn', href: '/' },
+    ],
+  },
+];
+
+/** End-credits footer. */
 export function Footer() {
   return (
-    <footer className='bg-nomadGray w-full px-4 2xl:px-0'>
-      <div className='container mx-auto py-16 max-xl:space-y-8 md:flex justify-between items-center'>
-        <div className='flex-1'>
-          <Logo />
-          <div className='text-sm text-neutral mt-2 space-y-1'>
-            <p>Phone: +1 (123) 456-7890 </p>
-            <p>Address: 123 Street, Virginia, USA</p>
-            <p>
-              © {new Date().getFullYear()} Nomad Horizon. All rights reserved.
-            </p>
-          </div>
-        </div>
-        <div className='flex justify-between flex-1'>
-          <div>
-            <h2 className='text-lg text-secondary'>Important Links</h2>
-            <div className='text-sm text-neutral space-y-1 mt-2'>
-              <Link href='/' className='block hover:text-primary'>
-                About Us
-              </Link>
-              <Link href='/' className='block hover:text-primary'>
-                Contact Us
-              </Link>
-              <Link href='/' className='block hover:text-primary'>
-                Privacy Policy
-              </Link>
-              <Link href='/' className='block hover:text-primary'>
-                Terms & Conditions
-              </Link>
+    <footer className="relative isolate mt-32 overflow-hidden border-t border-fg/10 pt-24 lg:mt-44">
+      <div aria-hidden="true" className="nh-glow absolute -bottom-[35vw] left-1/2 -z-10 size-[70vw] -translate-x-1/2" />
+      <div className="nh-container">
+        <p className="nh-label text-center text-amberText">Credits</p>
+        <dl className="mx-auto mt-12 max-w-3xl space-y-8">
+          {credits.map(({ role, items }) => (
+            <div key={role} className="grid grid-cols-2 gap-6 sm:gap-10">
+              <dt className="nh-label pt-1 text-right text-fgMuted">{role}</dt>
+              <dd className="space-y-1.5">
+                {items.map((item) =>
+                  item.href ? (
+                    <Link key={item.label} href={item.href} className="block w-fit transition-colors hover:text-amberText">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <span key={item.label} className="block">
+                      {item.label}
+                    </span>
+                  ),
+                )}
+              </dd>
             </div>
-          </div>
-          <div>
-            <h2 className='text-lg text-secondary'>Social Links</h2>
-            <div className='text-sm text-neutral space-y-1 mt-2'>
-              <Link href='/' className='block hover:text-primary'>
-                Facebook
-              </Link>
-              <Link href='/' className='block hover:text-primary'>
-                Twitter
-              </Link>
-              <Link href='/' className='block hover:text-primary'>
-                Instagram
-              </Link>
-              <Link href='/' className='block hover:text-primary'>
-                LinkedIn
-              </Link>
-            </div>
-          </div>
-        </div>
+          ))}
+        </dl>
+
+        <p
+          aria-hidden="true"
+          className="mt-24 select-none text-center font-display text-[clamp(2.2rem,11.2vw,11.5rem)] font-extrabold uppercase leading-[0.8] tracking-[-0.06em]"
+        >
+          Nomad Horizon
+        </p>
+        <p className="nh-label pb-10 pt-8 text-center text-fgMuted">
+          © {new Date().getFullYear()} Nomad Horizon. All rights reserved.
+        </p>
       </div>
     </footer>
   );

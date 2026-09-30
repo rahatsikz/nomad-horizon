@@ -171,7 +171,7 @@ export default function NotificationMenu() {
       <button
         ref={buttonRef}
         className={cn(
-          " py-2 rounded-md focus:outline-none focus-visible:ring-1"
+          "rounded-md py-2 text-fg focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber"
         )}
         onClick={handleButtonClick}
         aria-expanded={open}
@@ -181,7 +181,7 @@ export default function NotificationMenu() {
           <span>
             <NotificationIcon />
           </span>
-          <span className='text-white bg-primary rounded-full size-4 text-xs flex items-center justify-center absolute bottom-3.5 -right-1'>
+          <span className='absolute -right-1.5 bottom-3.5 flex size-4 items-center justify-center rounded-full bg-amber text-[10px] font-medium text-onAmber'>
             {notificationCount}
           </span>
         </div>
@@ -189,16 +189,16 @@ export default function NotificationMenu() {
       {open && (
         <div
           ref={menuRef}
-          className='absolute mt-2 w-72 bg-mainBg shadow-main rounded-md overflow-hidden'
+          className='absolute z-20 mt-3 w-72 overflow-hidden rounded-xl border border-fg/10 bg-raised shadow-[0_24px_48px_-24px_rgb(0_0_0/0.6)]'
         >
-          <ul role='menu' className='divide-y dark:divide-secondary'>
+          <ul role='menu' className='divide-y divide-fg/10'>
             {notificationData?.data?.length > 0 ? (
               notificationData?.data
                 ?.slice(0, 5)
                 .map((item: any, index: number) => (
                   <li
                     key={index}
-                    className={`px-6 py-2 cursor-pointer text-secondary text-sm`}
+                    className='cursor-pointer px-5 py-3 text-sm font-light text-fg'
                     tabIndex={-1}
                     role='menuitem'
                   >
@@ -207,7 +207,7 @@ export default function NotificationMenu() {
                 ))
             ) : (
               <li
-                className={`px-6 py-2 cursor-pointer text-secondary text-sm text-center`}
+                className='px-5 py-4 text-center text-sm text-fgMuted'
                 tabIndex={-1}
                 role='menuitem'
               >

@@ -297,7 +297,7 @@ export default function ManageServices() {
               <Button
                 type='submit'
                 variant='solid'
-                className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
+                className='py-1 border-danger bg-danger text-onDanger hover:text-danger'
                 //   onClick={editHandler}
               >
                 Update
@@ -326,7 +326,7 @@ export default function ManageServices() {
               defaultValues={defaultScheduleValue}
               className='w-full space-y-6'
             >
-              <div className='space-y-6 md:space-y-4 max-md:divide-y-2 dark:divide-neutral'>
+              <div className='space-y-6 md:space-y-4 max-md:divide-y-2 divide-fg/15'>
                 {singleServiceData?.data?.schedules
                   ?.map((schedule: any) => schedule.daysOfWeek)
                   .map((day: string, idx: number) => (
@@ -392,7 +392,7 @@ export default function ManageServices() {
                         ) : (
                           <Button
                             variant='outline'
-                            className='border-red-400 text-red-400 hover:bg-red-400 max-sm:w-full'
+                            className='border-danger text-danger hover:bg-danger hover:text-onDanger max-sm:w-full'
                             onClick={() => removeDay(day)}
                           >
                             Remove
@@ -478,7 +478,7 @@ export default function ManageServices() {
                         ) : (
                           <Button
                             variant='outline'
-                            className='border-red-400 text-red-400 hover:bg-red-400 max-sm:w-full'
+                            className='border-danger text-danger hover:bg-danger hover:text-onDanger max-sm:w-full'
                             onClick={() => removeDay(day)}
                           >
                             Remove
@@ -493,7 +493,7 @@ export default function ManageServices() {
                 <Button
                   type='submit'
                   variant='solid'
-                  className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
+                  className='py-1 border-danger bg-danger text-onDanger hover:text-danger'
                   //   onClick={editHandler}
                 >
                   Update
@@ -521,7 +521,7 @@ export default function ManageServices() {
           <div className='flex justify-end gap-2'>
             <Button
               variant='solid'
-              className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
+              className='py-1 border-danger bg-danger text-onDanger hover:text-danger'
               onClick={deleteHandler}
             >
               Yes

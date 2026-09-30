@@ -31,10 +31,10 @@ const Input = ({
   return (
     <div>
       <div className='flex justify-between'>
-        <label htmlFor={name} className='text-sm text-secondary mb-1'>
+        <label htmlFor={name} className='nh-label mb-2 text-fgMuted'>
           {label}
         </label>
-        <small className='text-red-400'>{errorMessage}</small>
+        <small className='text-xs text-danger'>{errorMessage}</small>
       </div>
       <Controller
         control={control}
@@ -53,7 +53,7 @@ const Input = ({
                 ? onchange(e.target.value)
                 : field.onChange(e.target.value)
             }
-            className='h-10 w-full bg-transparent text-secondary rounded border dark:border-neutral px-4 text-sm  outline-none transition-all autofill:bg-transparent focus:dark:border-primary focus:border-primary focus:outline-none disabled:text-neutral disabled:cursor-not-allowed'
+            className='h-11 w-full rounded-lg border border-fg/20 bg-raised/60 px-4 text-sm text-fg outline-none transition-colors placeholder:text-fgMuted/70 hover:border-fg/35 focus:border-amber focus:ring-1 focus:ring-amber disabled:cursor-not-allowed disabled:text-fgMuted'
             autoComplete='off'
             disabled={disabled}
           />

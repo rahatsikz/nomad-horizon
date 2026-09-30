@@ -6,6 +6,7 @@ import { useGetAllBookingsQuery } from '@/redux/api/bookingApi';
 import { useGetServicesQuery } from '@/redux/api/serviceApi';
 import ReactECharts from 'echarts-for-react';
 import { useTheme } from 'next-themes';
+import { getChartPalette } from '@/lib/chartTheme';
 import { useEffect, useState } from 'react';
 
 export default function BookingByServiceChart() {
@@ -16,6 +17,7 @@ export default function BookingByServiceChart() {
   const { data: bookingData, isLoading: isBookingLoading } = useGetAllBookingsQuery({});
 
   const { resolvedTheme } = useTheme();
+  const palette = getChartPalette(resolvedTheme);
   const [mounted, setMounted] = useState(false);
   const isLargerDevice = useMediaQuery('(min-width: 1536px)');
 
@@ -50,17 +52,17 @@ export default function BookingByServiceChart() {
     backgroundColor: 'transparent',
     tooltip: {
       trigger: 'axis',
-      backgroundColor: resolvedTheme === 'dark' ? '#1F2937' : '#fff',
-      borderColor: resolvedTheme === 'dark' ? '#374151' : '#E5E7EB',
+      backgroundColor: palette.tooltipBg,
+      borderColor: palette.line,
       textStyle: {
-        color: resolvedTheme === 'dark' ? '#F3F4F6' : '#111827',
+        color: palette.tooltipText,
       },
     },
     title: {
       text: 'Bookings For Each Available Service',
       left: 'center',
       textStyle: {
-        color: resolvedTheme === 'dark' ? '#E5E7EB' : '#374151',
+        color: palette.title,
         fontSize: 16,
         fontWeight: 'bold',
       },
@@ -77,11 +79,11 @@ export default function BookingByServiceChart() {
       minInterval: 1,
       axisLabel: {
         formatter: '{value}',
-        color: resolvedTheme === 'dark' ? '#9CA3AF' : '#6B7280',
+        color: palette.axisLabel,
       },
       splitLine: {
         lineStyle: {
-          color: resolvedTheme === 'dark' ? '#374151' : '#E5E7EB',
+          color: palette.line,
         },
       },
     },
@@ -89,7 +91,7 @@ export default function BookingByServiceChart() {
       type: 'category',
       data: serviceNames,
       axisLabel: {
-        color: resolvedTheme === 'dark' ? '#9CA3AF' : '#6B7280',
+        color: palette.axisLabel,
         margin: 15,
         width: 150, // Limit width if labels are long
         overflow: 'truncate',
@@ -97,7 +99,7 @@ export default function BookingByServiceChart() {
       axisLine: {
         show: true,
         lineStyle: {
-          color: resolvedTheme === 'dark' ? '#374151' : '#E5E7EB',
+          color: palette.line,
         },
       },
     },
@@ -106,7 +108,7 @@ export default function BookingByServiceChart() {
         name: 'Total Bookings',
         type: 'bar',
         data: serviceCounts,
-        itemStyle: { color: 'rgb(118, 171, 174)' },
+        itemStyle: { color: palette.accent },
         barWidth: '60%',
       },
     ],
@@ -114,14 +116,14 @@ export default function BookingByServiceChart() {
 
   if (isLoading || isBookingLoading) {
     return (
-      <section className="border dark:border-neutral p-4 rounded h-96 flex items-center justify-center">
+      <section className="flex h-96 items-center justify-center rounded-2xl border border-fg/10 bg-raised/40 p-4">
         <LoadingComponent />
       </section>
     );
   }
 
   return (
-    <section className="border dark:border-neutral p-4 rounded">
+    <section className="rounded-2xl border border-fg/10 bg-raised/40 p-4">
       <div className="w-full">
         <ReactECharts
           theme={resolvedTheme === 'dark' ? 'dark' : 'light'}

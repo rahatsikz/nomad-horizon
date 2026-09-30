@@ -21,11 +21,11 @@ const Textarea = ({ name, label, placeholder, rows = 3 }: TextAreaProps) => {
 
   return (
     <div>
-      <div className='flex justify-between mb-1'>
-        <label htmlFor={name} className='text-sm text-secondary'>
+      <div className='mb-2 flex justify-between'>
+        <label htmlFor={name} className='nh-label text-fgMuted'>
           {label}
         </label>
-        <small className='text-red-400'>{errorMessage}</small>
+        <small className='text-xs text-danger'>{errorMessage}</small>
       </div>
       <Controller
         control={control}
@@ -36,7 +36,7 @@ const Textarea = ({ name, label, placeholder, rows = 3 }: TextAreaProps) => {
             id={name}
             placeholder={placeholder}
             value={field.value ?? ""}
-            className='w-full bg-transparent text-secondary rounded border dark:border-neutral px-4 py-2 text-sm outline-none transition-all autofill:bg-transparent focus:dark:border-primary focus:border-primary focus:outline-none resize-none'
+            className='w-full resize-none rounded-lg border border-fg/20 bg-raised/60 px-4 py-3 text-sm text-fg outline-none transition-colors placeholder:text-fgMuted/70 hover:border-fg/35 focus:border-amber focus:ring-1 focus:ring-amber'
             autoComplete='off'
             rows={rows}
           ></textarea>

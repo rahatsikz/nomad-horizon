@@ -82,12 +82,13 @@ export const CloseSidebarIcon = () => (
 export const StarIcon = () => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
-    fill='#ca8a04'
+    fill='currentColor'
     viewBox='0 0 24 24'
     strokeWidth={1}
     width={24}
     height={24}
-    className='size-6'
+    aria-hidden='true'
+    className='size-5 text-amber'
   >
     <path
       strokeLinecap='round'
