@@ -16,6 +16,11 @@ const config: Config = {
         neutral: 'var(--neutral)',
         nomadGray: 'var(--nomad-gray)',
         lightPrimary: 'var(--light-primary)',
+        paper: 'rgb(var(--nh-paper) / <alpha-value>)',
+        ink: 'rgb(var(--nh-ink) / <alpha-value>)',
+        inkMuted: 'rgb(var(--nh-ink-muted) / <alpha-value>)',
+        signal: 'rgb(var(--nh-signal) / <alpha-value>)',
+        onSignal: 'rgb(var(--nh-on-signal) / <alpha-value>)',
       },
       backgroundColor: {
         primary: 'var(--primary)',
@@ -27,6 +32,10 @@ const config: Config = {
       },
       boxShadow: {
         main: 'var(--main-boxShadow)',
+      },
+      // Home page (Swiss utility) tokens — values live in src/app/(home)/home.css
+      fontFamily: {
+        archivo: ['var(--font-archivo)', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
     },
   },

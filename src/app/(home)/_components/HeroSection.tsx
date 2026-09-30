@@ -1,40 +1,79 @@
+import Link from 'next/link';
+import { FitLines } from './FitLines';
+import { LiveCounts } from './LiveCounts';
+
+const columnLabels = Array.from({ length: 8 }, (_, i) => String(i + 5).padStart(2, '0'));
+
+const cellDelay = (ms: number) => ({ '--d': `${ms}ms` }) as React.CSSProperties;
+
 export function HeroSection() {
   return (
-    <div className="group relative isolate overflow-hidden border-b border-black/10 bg-[radial-gradient(circle_at_20%_10%,rgba(118,171,174,0.2),transparent_34%),linear-gradient(135deg,var(--nomad-gray),var(--main-bg))] dark:border-white/10">
-      <HeroClipPathGradient />
-      <div className="mx-auto px-6 pb-24 pt-10 sm:pb-32 lg:flex justify-center items-center lg:px-8 lg:py-40">
-        <div className="mx-auto flex-shrink-0 text-center lg:mx-0 lg:max-w-3xl">
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-mainBg/60 px-4 py-2 text-xs font-bold uppercase tracking-[0.24em] text-primary shadow-main backdrop-blur transition-transform duration-500 group-hover:-translate-y-1">
-            <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_0_4px_rgba(118,171,174,0.18)]" />
-            Built for the moving life
+    <section className="relative border-b border-ink">
+      <div aria-hidden="true" className="nh-dot-grid absolute inset-0" />
+
+      <div className="nh-container relative">
+        <div className="border-x border-ink">
+          {/* Row 1 — visible column index */}
+          <div className="grid grid-cols-4 md:grid-cols-12">
+            <div
+              className="nh-cell nh-cell-no-left col-span-4 flex items-center gap-3 px-4 py-3 text-xs font-bold uppercase tracking-[0.14em]"
+              style={cellDelay(0)}
+            >
+              <span aria-hidden="true" className="size-2.5 shrink-0 bg-signal" />
+              <span className="nh-wipe" style={cellDelay(650)}>
+                Built for the moving life
+              </span>
+              <span className="ml-auto text-inkMuted">01—04</span>
+            </div>
+            {columnLabels.map((label, idx) => (
+              <div
+                key={label}
+                aria-hidden="true"
+                className="nh-cell hidden px-2 py-3 text-[10px] font-semibold text-inkMuted md:block"
+                style={cellDelay(60 + idx * 40)}
+              >
+                {label}
+              </div>
+            ))}
           </div>
-          <h1 className="text-5xl font-black leading-[0.95] tracking-[-0.04em] text-secondary sm:text-7xl lg:text-8xl">
-            Digital services
-            <span className="block text-primary">for nomads worldwide</span>
-          </h1>
-          <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-neutral sm:text-xl">
-            Your ultimate hub for seamless internet connectivity and mobile solutions to expert
-            laptop servicing, we ensure you stay productive and worry-free
-          </p>
+
+          {/* Row 2 — headline set to the full measure */}
+          <div className="nh-cell nh-cell-no-left px-3 pb-6 pt-8 sm:px-5 lg:px-6 lg:pb-10 lg:pt-12" style={cellDelay(180)}>
+            <h1 className="nh-wide font-black leading-[0.84] tracking-[-0.04em]">
+              <span className="sr-only">Digital services for nomads worldwide</span>
+              <span aria-hidden="true" className="nh-wipe block" style={cellDelay(750)}>
+                <FitLines
+                  lines={['Digital services', 'for nomads', 'worldwide.']}
+                  lineClassNames={[undefined, 'text-inkMuted']}
+                />
+              </span>
+            </h1>
+          </div>
+
+          {/* Row 3 — live info strip */}
+          <div className="grid grid-cols-2 md:grid-cols-12">
+            <LiveCounts />
+            <div className="nh-cell col-span-2 flex items-end px-4 py-5 md:col-span-4" style={cellDelay(420)}>
+              <p className="nh-wipe max-w-md text-[0.95rem] leading-relaxed" style={cellDelay(1300)}>
+                Your ultimate hub for seamless internet connectivity and mobile solutions to expert
+                laptop servicing, we ensure you stay productive and worry-free.
+              </p>
+            </div>
+            <div className="nh-cell col-span-2 flex md:col-span-2" style={cellDelay(480)}>
+              <Link
+                href="/services"
+                className="nh-focus nh-wipe group flex w-full items-end justify-between gap-4 bg-signal p-4 text-onSignal hover:bg-ink hover:text-paper"
+                style={cellDelay(1400)}
+              >
+                <span className="nh-semi-wide text-lg font-black uppercase leading-tight">Browse services</span>
+                <span aria-hidden="true" className="text-3xl font-light leading-none">
+                  →
+                </span>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-export function HeroClipPathGradient() {
-  return (
-    <div
-      className="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
-      aria-hidden="true"
-    >
-      <div
-        className="hero-gradient-drift aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-primary via-cyan-700 to-amber-300 opacity-25 transition-opacity duration-700 group-hover:opacity-35"
-        style={{
-          clipPath:
-            'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)',
-        }}
-      />
-    </div>
+    </section>
   );
 }
