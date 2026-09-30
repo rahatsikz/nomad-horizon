@@ -46,8 +46,8 @@ export function CardVariantOne({
                 {data?.price} USD
               </span>
             </div>
-            <span className="mt-3 inline-flex translate-y-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-              Explore service <span className="ml-2">-&gt;</span>
+            <span className="mt-3 inline-flex items-center translate-y-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+              Explore service <RightArrowIcon />
             </span>
           </figcaption>
         </figure>
