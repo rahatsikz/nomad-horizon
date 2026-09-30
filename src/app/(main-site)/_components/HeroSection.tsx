@@ -25,18 +25,30 @@ export function HeroSection() {
           className="nh-kenburns object-cover object-[50%_55%]"
         />
       </div>
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-canvas from-[18%] via-canvas/75 via-[48%] to-canvas/0" />
-      <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-44 bg-gradient-to-b from-canvas/70 to-transparent" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-canvas from-[18%] via-canvas/75 via-[48%] to-canvas/0"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 -z-10 h-44 bg-gradient-to-b from-canvas/70 to-transparent"
+      />
       <div aria-hidden="true" className="nh-vignette absolute inset-0 -z-10" />
-      <div aria-hidden="true" className="nh-glow absolute -right-[20vw] -top-[25vw] -z-10 size-[70vw]" />
+      <div
+        aria-hidden="true"
+        className="nh-glow absolute -right-[20vw] -top-[25vw] -z-10 size-[70vw]"
+      />
 
       <div className="nh-container pb-10 pt-32 lg:pb-12">
-        <p className="nh-label nh-fade-up flex items-center gap-4 text-fg" style={{ animationDelay: '900ms' }}>
+        <p
+          className="nh-label nh-fade-up flex items-center gap-4 text-fg"
+          style={{ animationDelay: '900ms' }}
+        >
           <span className="h-px w-12 bg-amber" />
           Built for the moving life
         </p>
 
-        <h1 className="mt-6 font-display text-[clamp(1.9rem,8.2vw,10rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.045em]">
+        <h1 className="mt-6 font-display text-[clamp(1.9rem,8.2vw,8rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.045em]">
           <span className="sr-only">Digital services for nomads worldwide</span>
           <span aria-hidden="true">
             {headlineLines.map((line, lineIdx) => (
@@ -85,7 +97,10 @@ export function HeroSection() {
               className="group inline-flex shrink-0 items-center gap-3 rounded-full bg-amber px-7 py-4 font-text text-sm font-medium text-onAmber transition-[box-shadow,transform] duration-500 hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgb(var(--nh-amber)/0.55)]"
             >
               Explore services
-              <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
                 →
               </span>
             </Link>
