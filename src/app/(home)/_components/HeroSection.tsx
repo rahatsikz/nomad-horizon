@@ -53,13 +53,13 @@ export function HeroSection() {
           {/* Row 3 — live info strip */}
           <div className="grid grid-cols-2 md:grid-cols-12">
             <LiveCounts />
-            <div className="nh-cell col-span-2 flex items-end px-4 py-5 md:col-span-4" style={cellDelay(420)}>
+            <div className="nh-cell col-span-2 flex items-end px-4 py-5 md:col-span-6 lg:col-span-4" style={cellDelay(420)}>
               <p className="nh-wipe max-w-md text-[0.95rem] leading-relaxed" style={cellDelay(1300)}>
                 Your ultimate hub for seamless internet connectivity and mobile solutions to expert
                 laptop servicing, we ensure you stay productive and worry-free.
               </p>
             </div>
-            <div className="nh-cell col-span-2 flex md:col-span-2" style={cellDelay(480)}>
+            <div className="nh-cell nh-cell-no-left col-span-2 flex md:col-span-12 lg:col-span-2 lg:[&::after]:!block" style={cellDelay(480)}>
               <Link
                 href="/services"
                 className="nh-focus nh-wipe group flex w-full items-end justify-between gap-4 bg-signal p-4 text-onSignal hover:bg-ink hover:text-paper"
