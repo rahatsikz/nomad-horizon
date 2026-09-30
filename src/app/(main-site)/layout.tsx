@@ -7,9 +7,10 @@ export default function NavLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="relative flex min-h-screen flex-col overflow-x-clip bg-canvas font-light">
+      <div aria-hidden="true" className="nh-grain" />
       <Navbar />
-      <div className="flex-1 bg-mainBg">{children}</div>
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );

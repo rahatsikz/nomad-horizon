@@ -1,10 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { DropdownMenu } from "./DropdownMenu";
 import { usePathname, useRouter } from "next/navigation";
-import Logo from "@/assets/svgs/logo";
 import { loginRouteOptions, navOptions } from "@/constant/global";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { deleteCookie } from "@/lib/cookies";
@@ -17,11 +16,11 @@ import Form from "./Form";
 import Input from "./Input";
 import Textarea from "./Textarea";
 import { Button } from "./Button";
+import { Wordmark } from "./Wordmark";
 import { toggleModal } from "@/redux/slice/modal/modalSlice";
 import { useUpdateProfileMutation } from "@/redux/api/userApi";
 import toast from "react-hot-toast";
-import { useTheme } from "next-themes";
-import { MoonIcon, SunIcon } from "@/assets/svgs/heroIcons";
+import { useThemeToggle } from "@/hooks/useThemeToggle";
 
 export function useNavbarSession() {
   const dispatch = useAppDispatch();
@@ -57,44 +56,53 @@ export function useCartCount() {
   return userCart?.length ?? 0;
 }
 
+/**
+ * Fixed, transparent over the page until scrolled, then a blurred canvas bar.
+ * Pages sit underneath it, so they add their own top offset (PageHero does).
+ */
 export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { accessToken, username, role, loggedUser, handleLogOut, editModal } =
     useNavbarSession();
-
-  const myRef = useRef<HTMLDivElement>(null);
+  const isLoggedIn = Boolean(username && accessToken);
 
   useEffect(() => {
-    const autoCloseNavbar = () => {
-      if (myRef.current?.clientWidth) {
-        if (myRef.current.clientWidth >= 1024) {
-          setShowMobileMenu(false);
-        }
-      }
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    const closeOnDesktop = () => {
+      if (window.innerWidth >= 1024) setShowMobileMenu(false);
     };
-
-    autoCloseNavbar();
-
-    window.addEventListener("resize", autoCloseNavbar);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", closeOnDesktop);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", closeOnDesktop);
+    };
   }, []);
 
+  const solid = scrolled || showMobileMenu;
+
   return (
-    <header className='sticky top-0 left-0 z-50' ref={myRef}>
-      <div className="absolute inset-0 bg-mainBg shadow dark:shadow-gray-900 z-20 pointer-events-none" />
-      <nav className='relative flex justify-between items-center py-8 px-4 2xl:px-5 z-30 container mx-auto'>
-        <Link href='/' className='mt-1.5'>
-          <Logo />
-        </Link>
-        <ul className='lg:flex items-center gap-6 hidden h-10'>
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500",
+        solid
+          ? "border-b border-fg/10 bg-canvas/85 backdrop-blur-md"
+          : "border-b border-transparent"
+      )}
+    >
+      <nav className='nh-container flex h-16 items-center justify-between gap-6 lg:h-20'>
+        <Wordmark className='shrink-0 text-base sm:text-lg lg:text-xl' />
+
+        <ul className='hidden items-center gap-9 lg:flex'>
           {navOptions.map(({ label, route }) => (
-            <NavLink
-              key={label}
-              route={route}
-              label={label}
-              isVisible={!showMobileMenu}
-            />
+            <NavLink key={label} route={route} label={label} />
           ))}
-          {username && accessToken ? (
+        </ul>
+
+        <div className='hidden items-center gap-7 lg:flex'>
+          {isLoggedIn ? (
             <>
               <NotificationMenu />
               <DropdownMenu
@@ -104,8 +112,79 @@ export function Navbar() {
                   { label: "Logout", onClick: handleLogOut },
                 ]}
                 trigger={username[0]}
-                className='bg-primary rounded-full text-white'
+                className='size-9 rounded-full border-fg/40 p-0 font-display font-bold uppercase text-fg'
               />
+            </>
+          ) : (
+            <ul className='flex items-center gap-7'>
+              {loginRouteOptions.map(({ label, route }) => (
+                <NavLink key={label} route={route} label={label} />
+              ))}
+            </ul>
+          )}
+          <ThemeSwitch />
+        </div>
+
+        <div className='flex items-center gap-4 lg:hidden'>
+          {isLoggedIn && <NotificationMenu />}
+          <ThemeSwitch />
+          <button
+            className='nh-label focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber'
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            aria-expanded={showMobileMenu}
+            aria-controls='site-mobile-menu'
+          >
+            {showMobileMenu ? "Close" : "Menu"}
+          </button>
+        </div>
+      </nav>
+
+      <div
+        id='site-mobile-menu'
+        className={cn(
+          "grid overflow-hidden transition-[grid-template-rows] duration-500 ease-out lg:hidden",
+          showMobileMenu ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        )}
+      >
+        <ul className='nh-container flex min-h-0 flex-col gap-1 font-display text-3xl font-bold uppercase tracking-[-0.02em]'>
+          {navOptions.map(({ label, route }) => (
+            <NavLink
+              key={label}
+              route={route}
+              label={label}
+              isVisible={showMobileMenu}
+              onClick={() => setShowMobileMenu(false)}
+              large
+            />
+          ))}
+          {isLoggedIn ? (
+            <>
+              <li className='nh-label pt-4 text-fgMuted'>{username}</li>
+              <NavLink
+                route={`/dashboard/${role}`}
+                label='Dashboard'
+                isVisible={showMobileMenu}
+                onClick={() => setShowMobileMenu(false)}
+                large
+              />
+              <li className='py-2'>
+                <button
+                  tabIndex={showMobileMenu ? 0 : -1}
+                  onClick={editModal}
+                  className='uppercase'
+                >
+                  Edit Profile
+                </button>
+              </li>
+              <li className='py-2 pb-6'>
+                <button
+                  tabIndex={showMobileMenu ? 0 : -1}
+                  onClick={handleLogOut}
+                  className='uppercase text-amberText'
+                >
+                  Logout
+                </button>
+              </li>
             </>
           ) : (
             loginRouteOptions.map(({ label, route }) => (
@@ -113,72 +192,9 @@ export function Navbar() {
                 key={label}
                 route={route}
                 label={label}
-                isVisible={!showMobileMenu}
-              />
-            ))
-          )}
-          <ThemeToggler />
-        </ul>
-        <div className='lg:hidden flex items-center gap-4'>
-          {username && accessToken && <NotificationMenu />}
-          <ThemeToggler />
-          <button
-            className='lg:hidden focus-visible:ring-2 focus-visible:ring-offset-8 focus:outline-none'
-            onClick={() => setShowMobileMenu(!showMobileMenu)}
-            aria-label='Open Mobile Menu'
-            title='Open Mobile Menu'
-          >
-            <HamburgerMenu showMobileMenu={showMobileMenu} />
-          </button>
-        </div>
-      </nav>
-      <div
-        className={cn(
-          "absolute z-10 w-full bg-mainBg transition-transform duration-700 ease-in-out backdrop-blur-sm shadow-md",
-          {
-            "translate-y-14 top-10": showMobileMenu,
-            "-translate-y-full top-0": !showMobileMenu,
-          }
-        )}
-      >
-        <ul className='flex flex-col gap-4 px-8 py-6'>
-          {navOptions.map(({ label, route }) => (
-            <NavLink
-              key={label}
-              route={route}
-              label={label}
-              isVisible={showMobileMenu}
-            />
-          ))}
-          {username && accessToken ? (
-            <div className='border-t w-full space-y-2'>
-              <p className='pt-3 text-neutral'>{username}</p>
-              <NavLink
-                route={`/dashboard/${role}`}
-                label='Dashboard'
                 isVisible={showMobileMenu}
-              />
-              <NavLink
-                route=''
-                onClick={editModal}
-                label='Edit Profile'
-                isVisible={showMobileMenu}
-              />
-              <button
-                tabIndex={showMobileMenu ? 0 : -1}
-                onClick={handleLogOut}
-                className='text-secondary hover:text-primary transition-colors duration-300'
-              >
-                Logout
-              </button>
-            </div>
-          ) : (
-            loginRouteOptions.map(({ label, route }) => (
-              <NavLink
-                key={label}
-                route={route}
-                label={label}
-                isVisible={showMobileMenu}
+                onClick={() => setShowMobileMenu(false)}
+                large
               />
             ))
           )}
@@ -189,85 +205,80 @@ export function Navbar() {
   );
 }
 
-const NavLink = ({
+function NavLink({
   route,
   label,
-  isVisible,
+  isVisible = true,
   onClick,
+  large,
 }: {
   route: string;
   label: string;
   isVisible?: boolean;
   onClick?: () => void;
-}) => {
+  large?: boolean;
+}) {
   const pathname = usePathname();
   const cartCount = useCartCount();
-
-  if (label === "Cart") {
-    return (
-      <li>
-        <Link
-          href={route}
-          tabIndex={isVisible ? 0 : -1}
-          className={cn(
-            "hover:text-primary transition-colors duration-300 relative",
-            {
-              "text-primary": route === pathname,
-              "text-secondary": route !== pathname,
-            }
-          )}
-        >
-          <span>{label}</span>
-          <span className='text-white bg-primary rounded-full size-4 text-xs flex items-center justify-center absolute bottom-4 -right-4'>
-            {cartCount}
-          </span>
-        </Link>
-      </li>
-    );
-  }
+  const isActive =
+    route === "/" ? pathname === "/" : pathname === route || pathname.startsWith(`${route}/`);
 
   return (
-    <li onClick={onClick}>
+    <li className={cn(large && "py-2 first:pt-4 last:pb-6")}>
       <Link
         href={route}
         tabIndex={isVisible ? 0 : -1}
-        className={cn("hover:text-primary transition-colors duration-300", {
-          "text-primary": route === pathname,
-          "text-secondary": route !== pathname,
-        })}
+        onClick={onClick}
+        aria-current={isActive ? "page" : undefined}
+        className={cn(
+          "group relative inline-flex items-center gap-2 transition-colors duration-300 hover:text-amberText",
+          !large && "nh-label",
+          !large &&
+            "after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-amber after:transition-transform after:duration-500 hover:after:scale-x-100",
+          isActive && !large && "after:scale-x-100",
+          isActive && large && "text-amberText"
+        )}
       >
         {label}
+        {label === "Cart" && (
+          <span
+            aria-label={`${cartCount} items in cart`}
+            className='inline-flex size-5 items-center justify-center rounded-full bg-amber font-text text-[10px] font-medium tracking-normal text-onAmber'
+          >
+            {cartCount}
+          </span>
+        )}
       </Link>
     </li>
   );
-};
+}
 
-const HamburgerMenu = ({ showMobileMenu }: { showMobileMenu: boolean }) => {
+function ThemeSwitch() {
+  const { mounted, isDark, toggleTheme } = useThemeToggle();
+
   return (
-    <div className={cn({ "space-y-1": !showMobileMenu })}>
+    <button
+      onClick={toggleTheme}
+      aria-label={
+        isDark ? "Switch to noon (light) theme" : "Switch to golden hour (dark) theme"
+      }
+      className='nh-label flex items-center gap-2 text-fgMuted transition-colors hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber'
+    >
       <span
+        aria-hidden='true'
         className={cn(
-          "block w-6 h-0.5 bg-secondary transition-transform duration-300",
-          { "rotate-45": showMobileMenu }
+          "size-2.5 rounded-full",
+          mounted && isDark
+            ? "bg-amber shadow-[0_0_12px_rgb(var(--nh-amber))]"
+            : "border border-fg"
         )}
-      ></span>
-      <span
-        className={cn("w-3 h-0.5 bg-secondary", {
-          "opacity-0": showMobileMenu,
-          block: !showMobileMenu,
-        })}
-      ></span>
-      <span
-        className={cn(
-          "block w-6 h-0.5 bg-secondary  transition-transform duration-300",
-          {
-            "-rotate-45 -translate-y-full": showMobileMenu,
-          }
-        )}
-      ></span>
-    </div>
+      />
+      <span className='hidden sm:inline'>
+        {mounted && isDark ? "Dusk" : "Noon"}
+      </span>
+    </button>
   );
-};
+}
 
 export const EditProfileModal = (userData: any) => {
   const dispatch = useAppDispatch();
@@ -299,7 +310,7 @@ export const EditProfileModal = (userData: any) => {
     userData?.userData?.data || {};
 
   return (
-    <Modal id='edit-profile'>
+    <Modal id='edit-profile' title='Edit profile'>
       <Form
         submitHandler={onUpdate}
         className='space-y-4'
@@ -314,38 +325,20 @@ export const EditProfileModal = (userData: any) => {
         <Input label='Email' name='email' type='email' disabled />
         <Input label='Contact No' name='contactNo' type='text' />
         <Textarea label='Address' name='address' />
-        <div className='flex justify-end gap-2'>
-          <Button
-            variant='solid'
-            type='submit'
-            className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
-          >
-            Update
-          </Button>
+        <div className='flex justify-end gap-3 pt-2'>
           <Button
             variant='outline'
-            className='py-1'
             onClick={() =>
               dispatch(toggleModal({ isModalOpen: false, id: "edit-profile" }))
             }
           >
             Cancel
           </Button>
+          <Button variant='solid' type='submit'>
+            Update
+          </Button>
         </div>
       </Form>
     </Modal>
-  );
-};
-
-const ThemeToggler = () => {
-  const { theme, setTheme } = useTheme();
-  return (
-    <Button
-      variant='ghost'
-      className='px-0 py-1 hover:bg-transparent'
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-    >
-      {theme === "light" ? <SunIcon /> : <MoonIcon />}
-    </Button>
   );
 };

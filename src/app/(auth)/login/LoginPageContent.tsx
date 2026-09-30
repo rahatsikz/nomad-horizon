@@ -1,8 +1,7 @@
 "use client";
-import Logo from "@/assets/svgs/logo";
 import { Button } from "@/components/ui/Button";
 import Form from "@/components/ui/Form";
-import { HeaderText } from "@/components/ui/Headers";
+import { Wordmark } from "@/components/ui/Wordmark";
 import Input from "@/components/ui/Input";
 import { setCookie } from "@/lib/cookies";
 import withAuth from "@/lib/withAuth";
@@ -50,47 +49,55 @@ const LoginPageContent = () => {
   } as any;
 
   return (
-    <div className='container mx-auto px-8 flex flex-col items-center justify-center w-full h-full'>
-      <div className='flex flex-col items-center'>
-        <Link href='/' title='Click to go homepage'>
-          <Logo />
-        </Link>
-        <HeaderText
-          title='Sign in'
-          subtitle='sign in to your account to continue'
-        />
-      </div>
+    <div className='nh-fade-up flex w-full flex-col'>
+      <Wordmark className='w-fit text-lg lg:hidden' />
+      <p className='nh-label mt-10 text-amberText lg:mt-0'>Check in</p>
+      <h1 className='mt-4 font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-[-0.045em] sm:text-6xl'>
+        Sign <span className='font-accent font-normal normal-case italic tracking-normal text-amberText'>in</span>
+      </h1>
+      <p className='mt-4 text-fgMuted'>Sign in to your account to continue</p>
+
       <Form
         submitHandler={onSubmit}
         resolver={yupResolver(loginSchema)}
-        className='space-y-8 w-full'
+        className='mt-10 w-full space-y-8'
         defaultValues={defaultValues[showCredential]}
         isDefaultValueResetable={true}
       >
-        <div className='space-y-4'>
+        <div className='space-y-5'>
           <Input label='Email' name='email' type='text' />
           <Input label='Password' name='password' type='password' />
         </div>
-        <Button variant='solid' type='submit' className='w-full'>
+        <Button variant='solid' type='submit' className='w-full py-3.5'>
           Login
         </Button>
       </Form>
-      <small className='mt-4'>
+
+      <p className='mt-6 text-sm text-fgMuted'>
         New to Nomad Horizon?&nbsp;
-        <Link href='/register' className='text-primary'>
+        <Link href='/register' className='text-amberText underline decoration-amber/50 underline-offset-4 hover:decoration-amber'>
           Register
         </Link>
-      </small>
-      <div className='md:divide-x md:space-x-2 text-primary mt-4 max-md:text-center max-md:space-y-1'>
-        <button className='text-xs' onClick={() => setShowCredential("user")}>
-          Demo User Login Credential
-        </button>
-        <button
-          className='md:pl-2 text-xs max-md:block'
-          onClick={() => setShowCredential("admin")}
-        >
-          Demo Admin Login Credential
-        </button>
+      </p>
+
+      <div className='mt-10 border-t border-fg/10 pt-6'>
+        <p className='nh-label text-fgMuted'>Just looking around?</p>
+        <div className='mt-4 flex flex-wrap gap-2'>
+          <button
+            type='button'
+            className='rounded-full border border-fg/20 px-4 py-2 text-xs transition-colors hover:border-amber hover:text-amberText focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber'
+            onClick={() => setShowCredential("user")}
+          >
+            Demo User Login Credential
+          </button>
+          <button
+            type='button'
+            className='rounded-full border border-fg/20 px-4 py-2 text-xs transition-colors hover:border-amber hover:text-amberText focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber'
+            onClick={() => setShowCredential("admin")}
+          >
+            Demo Admin Login Credential
+          </button>
+        </div>
       </div>
     </div>
   );

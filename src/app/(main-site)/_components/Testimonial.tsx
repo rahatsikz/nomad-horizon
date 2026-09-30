@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { dummyReview } from '@/constant/global';
 import { cn } from '@/lib/utils';
-import { Reveal } from './Reveal';
+import { Reveal } from '@/components/ui/Reveal';
 
 const SCENE_MS = 8000;
 

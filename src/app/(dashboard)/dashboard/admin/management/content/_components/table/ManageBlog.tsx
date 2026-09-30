@@ -181,7 +181,7 @@ export default function ManageBlog() {
           <div className='flex justify-end gap-2'>
             <Button
               variant='solid'
-              className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
+              className='py-1 border-danger bg-danger text-onDanger hover:text-danger'
               onClick={deleteHandler}
             >
               Yes
@@ -222,7 +222,7 @@ export default function ManageBlog() {
             <ImageInput name='image' />
             <div className='space-x-4'>
               <Button
-                className='bg-red-400 hover:border-red-400 hover:text-red-400'
+                className='border-danger bg-danger text-onDanger hover:text-danger'
                 variant='solid'
                 type='submit'
               >
@@ -247,7 +247,7 @@ export default function ManageBlog() {
           <div className='flex justify-end gap-2'>
             <Button
               variant='solid'
-              className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
+              className='py-1 border-danger bg-danger text-onDanger hover:text-danger'
               onClick={showHandler}
             >
               Yes

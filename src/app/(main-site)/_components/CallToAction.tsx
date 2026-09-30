@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useAppSelector } from '@/redux/hooks';
-import { Reveal } from './Reveal';
+import { Reveal } from '@/components/ui/Reveal';
 
 export function CallToAction() {
   const { user } = useAppSelector((state) => state.user);

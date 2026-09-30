@@ -21,7 +21,7 @@ export default function RatingInput({
 
   return (
     <div className='flex items-center gap-4'>
-      <p className='text-sm text-secondary'>{label}</p>
+      <p className='nh-label text-fgMuted'>{label}</p>
 
       <Controller
         control={control}
@@ -38,11 +38,13 @@ export default function RatingInput({
                   onClick={() => field.onChange(starValue)}
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 24 24'
-                  fill={
-                    starValue <= (hover || field.value) ? "#ca8a04" : "gray"
-                  }
+                  role='button'
+                  aria-label={`${starValue} star${starValue > 1 ? "s" : ""}`}
                   className={cn(
-                    "size-6 cursor-pointer transition-colors duration-200"
+                    "size-6 cursor-pointer transition-colors duration-200",
+                    starValue <= (hover || field.value)
+                      ? "fill-amber"
+                      : "fill-fg/20"
                   )}
                 >
                   <path d='M12 .587l3.668 7.431 8.2 1.2-5.917 5.787 1.398 8.163-7.349-3.863-7.349 3.863 1.398-8.163-5.917-5.787 8.2-1.2z' />

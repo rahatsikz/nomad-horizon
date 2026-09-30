@@ -2,7 +2,7 @@
 import { useGetEventsQuery } from '@/redux/api/eventApi';
 import { formatISODatetoHumanReadable } from '@/lib/utils';
 import { EventProps } from '@/types/common';
-import { Reveal } from './Reveal';
+import { Reveal } from '@/components/ui/Reveal';
 
 export function Events() {
   const { data: eventData } = useGetEventsQuery({

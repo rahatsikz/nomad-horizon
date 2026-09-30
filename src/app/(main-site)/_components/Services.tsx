@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 import { useGetServicesQuery } from '@/redux/api/serviceApi';
 import { ServiceProps } from '@/types/common';
-import { Reveal } from './Reveal';
+import { Reveal } from '@/components/ui/Reveal';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -153,7 +153,7 @@ export function UpcomingService() {
   const services: ServiceProps[] = serviceData?.data?.data ?? [];
 
   return (
-    <section className="nh-container pt-24 lg:pt-36">
+    <section id="upcoming" className="nh-container scroll-mt-24 pt-24 lg:pt-36">
       <Reveal className="grid gap-6 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-6">
           <p className="nh-label text-amberText">Coming attractions</p>

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useGetBlogsQuery } from '@/redux/api/blogApi';
 import { BlogProps } from '@/types/common';
-import { Reveal } from './Reveal';
+import { Reveal } from '@/components/ui/Reveal';
 
 export function BlogSection() {
   const { data: allBlogs, isFetching } = useGetBlogsQuery({

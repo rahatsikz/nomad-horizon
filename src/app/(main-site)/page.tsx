@@ -10,6 +10,8 @@ import { Testimonial } from "./_components/Testimonial";
 const Homepage = () => {
   return (
     <>
+      {/* film-opening curtain, home page only */}
+      <div aria-hidden="true" className="nh-curtain" />
       <HeroSection />
       <TopService />
       <UpcomingService />

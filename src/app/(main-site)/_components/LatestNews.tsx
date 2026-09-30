@@ -2,7 +2,7 @@
 import { useGetNewsQuery } from '@/redux/api/newsApi';
 import { formatISODatetoHumanReadable } from '@/lib/utils';
 import { NewsProps } from '@/types/common';
-import { Reveal } from './Reveal';
+import { Reveal } from '@/components/ui/Reveal';
 
 export function LatestNews() {
   const { data: newsData } = useGetNewsQuery({

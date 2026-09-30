@@ -43,7 +43,7 @@ export default function FeedbackPageContents() {
 
 function FeedbackCard({ data }: { data: any }) {
   return (
-    <div className='w-full overflow-hidden border dark:border-neutral rounded-lg p-4'>
+    <div className='w-full overflow-hidden border border-fg/15 rounded-lg p-4'>
       <div className='space-y-3'>
         <div className='flex justify-between'>
           <div>

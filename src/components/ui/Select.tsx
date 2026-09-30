@@ -137,8 +137,8 @@ const Select = ({
   return (
     <div className='relative lg:w-full w-full ' ref={selectRef}>
       <div className='flex justify-between'>
-        <p className='text-sm text-secondary mb-1'>{label}</p>
-        <small className='text-red-400'>{errorMessage}</small>
+        {label && <p className='nh-label mb-2 text-fgMuted'>{label}</p>}
+        <small className='text-xs text-danger'>{errorMessage}</small>
       </div>
 
       <Controller
@@ -148,18 +148,21 @@ const Select = ({
           <>
             <button
               onClick={handleOpen}
-              className='text-left outline-none w-full flex justify-between items-center border dark:border-neutral rounded px-4 py-[9px] text-sm bg-transparent text-secondary focus:border-primary'
+              type='button'
+              aria-haspopup='listbox'
+              aria-expanded={isOpen}
+              className='flex h-11 w-full items-center justify-between gap-2 rounded-lg border border-fg/20 bg-raised/60 px-4 text-left text-sm text-fg outline-none transition-colors hover:border-fg/35 focus-visible:border-amber focus-visible:ring-1 focus-visible:ring-amber'
             >
               {options.find((option) => option.value.includes(field.value))
                 ?.label || placeholder}
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className={`h-3 w-3  transition-transform ${
+                className={`h-3 w-3 shrink-0 text-fgMuted transition-transform ${
                   isArrowRotated ? "transform rotate-180" : ""
                 }`}
                 viewBox='0 0 20 20'
                 fill='none'
-                stroke='#B3B8C2'
+                stroke='currentColor'
               >
                 <path
                   strokeLinecap='round'
@@ -171,7 +174,8 @@ const Select = ({
             </button>
             {isOpen && (
               <div
-                className='absolute  mt-2 w-full  bg-mainBg text-secondary border dark:border-neutral rounded shadow-lg z-[1]'
+                role='listbox'
+                className='absolute z-20 mt-2 w-full overflow-hidden rounded-lg border border-fg/15 bg-raised text-fg shadow-[0_24px_48px_-24px_rgb(0_0_0/0.6)]'
                 ref={dropdownRef}
               >
                 {searchable && (
@@ -181,7 +185,7 @@ const Select = ({
                     value={searchQuery}
                     ref={inputRef}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className='block w-full border-b  bg-mainBg  dark:border-neutral py-2 px-3 focus:outline-none'
+                    className='block w-full border-b border-fg/10 bg-transparent px-4 py-2.5 text-sm text-fg placeholder:text-fgMuted focus:outline-none'
                   />
                 )}
                 <div className='max-h-60 h-fit overflow-y-auto'>
@@ -194,7 +198,9 @@ const Select = ({
                         setIsOpen(false);
                         setIsArrowRotated(false);
                       }}
-                      className='px-4 py-2 flex items-center gap-2 cursor-pointer hover:text-primary'
+                      role='option'
+                      aria-selected={field.value === option.value}
+                      className='flex cursor-pointer items-center gap-2 px-4 py-2.5 text-sm transition-colors hover:bg-amber/15 hover:text-amberText'
                     >
                       {option.label}
                     </div>

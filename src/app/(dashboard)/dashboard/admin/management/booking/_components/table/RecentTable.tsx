@@ -200,7 +200,7 @@ export default function RecentTable() {
           <div className='flex justify-end gap-2'>
             <Button
               variant='solid'
-              className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
+              className='py-1 border-danger bg-danger text-onDanger hover:text-danger'
               onClick={rejcetHandler}
             >
               Yes
@@ -221,7 +221,7 @@ export default function RecentTable() {
       {/* adjust modal */}
       <Modal id={"adjust"} className='max-w-4xl overflow-y-auto py-0 px-0 pb-6'>
         {/* topbar */}
-        <div className='w-full h-fit md:h-20 border-b dark:border-neutral sticky top-0 left-0 bg-nomadGray rounded-tr-md rounded-tl-md z-[2]'>
+        <div className='w-full h-fit md:h-20 border-b border-fg/15 sticky top-0 left-0 bg-nomadGray rounded-tr-md rounded-tl-md z-[2]'>
           <div className='flex items-center justify-between  h-full px-8 py-4'>
             {selectedDate && (
               <div>
@@ -268,7 +268,7 @@ export default function RecentTable() {
         <div className='flex justify-end gap-2 px-6'>
           <Button
             variant='solid'
-            className='py-1 bg-red-400 hover:border-red-400 hover:text-red-400'
+            className='py-1 border-danger bg-danger text-onDanger hover:text-danger'
             onClick={adjustHandler}
           >
             Update
