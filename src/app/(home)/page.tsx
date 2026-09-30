@@ -1,5 +1,6 @@
 import { BlogSection } from "./_components/BlogSection";
 import { CallToAction } from "./_components/CallToAction";
+import { DepartureBoard } from "./_components/DepartureBoard";
 import { Events } from "./_components/Events";
 import { HeroSection } from "./_components/HeroSection";
 import { LatestNews } from "./_components/LatestNews";
@@ -11,16 +12,15 @@ const Homepage = () => {
   return (
     <>
       <HeroSection />
-      <div className='container mx-auto px-4 2xl:px-5 space-y-16 mt-16 pb-16 overflow-hidden'>
-        <TopService />
-        <UpcomingService />
-        <Testimonial />
-        <Overview />
-        <CallToAction />
-        <Events />
-        <BlogSection />
-        <LatestNews />
-      </div>
+      <DepartureBoard />
+      <TopService />
+      <UpcomingService />
+      <Testimonial />
+      <Overview />
+      <CallToAction />
+      <Events />
+      <BlogSection />
+      <LatestNews />
     </>
   );
 };
