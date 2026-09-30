@@ -11,16 +11,14 @@ const Homepage = () => {
   return (
     <>
       <HeroSection />
-      <div className='container mx-auto px-4 2xl:px-5 space-y-16 mt-16 pb-16 overflow-hidden'>
-        <TopService />
-        <UpcomingService />
-        <Testimonial />
-        <Overview />
-        <CallToAction />
-        <Events />
-        <BlogSection />
-        <LatestNews />
-      </div>
+      <TopService />
+      <UpcomingService />
+      <Testimonial />
+      <Overview />
+      <CallToAction />
+      <Events />
+      <BlogSection />
+      <LatestNews />
     </>
   );
 };

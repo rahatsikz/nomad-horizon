@@ -16,6 +16,12 @@ const config: Config = {
         neutral: 'var(--neutral)',
         nomadGray: 'var(--nomad-gray)',
         lightPrimary: 'var(--light-primary)',
+        paper: 'rgb(var(--nh-paper) / <alpha-value>)',
+        paperAlt: 'rgb(var(--nh-paper-alt) / <alpha-value>)',
+        ink: 'rgb(var(--nh-ink) / <alpha-value>)',
+        inkMuted: 'rgb(var(--nh-ink-muted) / <alpha-value>)',
+        terracotta: 'rgb(var(--nh-terracotta) / <alpha-value>)',
+        terracottaInk: 'rgb(var(--nh-terracotta-ink) / <alpha-value>)',
       },
       backgroundColor: {
         primary: 'var(--primary)',
@@ -27,6 +33,12 @@ const config: Config = {
       },
       boxShadow: {
         main: 'var(--main-boxShadow)',
+      },
+      // Home page (editorial) tokens — values live in src/app/(home)/home.css
+      fontFamily: {
+        display: ['var(--font-fraunces)', 'Georgia', 'serif'],
+        text: ['var(--font-instrument-sans)', 'Helvetica Neue', 'sans-serif'],
+        meta: ['var(--font-plex-mono)', 'ui-monospace', 'monospace'],
       },
     },
   },

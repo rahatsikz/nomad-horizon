@@ -1,67 +1,59 @@
 import Image from 'next/image';
-import { HeaderText } from '../../../components/ui/Headers';
+import { Folio } from './Folio';
 
 export function Overview() {
   return (
-    <section className="relative">
-      <HeaderText
-        title="Overview"
-        subtitle="Focus on your adventures and career without the worry of losing connectivity or facing tech issues"
-      />
-      <div className="relative overflow-hidden bg-nomadGray rounded-2xl shadow-main">
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(118,171,174,0.12),transparent_42%),linear-gradient(315deg,rgba(34,40,49,0.08),transparent_55%)]" />
-        <div className="relative grid lg:grid-cols-[1.08fr_0.92fr]">
-          <div className="group relative min-h-[24rem] overflow-hidden lg:min-h-[34rem]">
-            <Image
-              src="https://images.pexels.com/photos/17767273/pexels-photo-17767273/free-photo-of-man-sitting-with-laptop-on-wooden-bench-on-meadow-under-tree.jpeg"
-              alt="Remote worker using a laptop outdoors"
-              width={1200}
-              height={900}
-              sizes="(max-width: 1024px) 100vw, 55vw"
-              className="absolute inset-0 h-full w-full origin-center transform-gpu object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-secondary/5 to-transparent" />
-            <div className="absolute bottom-6 left-6 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-white sm:bottom-8 sm:left-8">
-              <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_0_5px_rgba(118,171,174,0.25)]" />
-              Work without borders
-            </div>
-          </div>
+    <section id="standard" className="nh-container scroll-mt-24 pt-24 lg:pt-32">
+      <Folio number="04" label="Overview" />
 
-          <div className="relative flex flex-col justify-between gap-10 bg-nomadGray p-7 sm:p-10 lg:p-12">
-            <div className="absolute right-0 top-0 h-40 w-40 bg-[radial-gradient(circle_at_top_right,rgba(118,171,174,0.45),transparent_68%)]" />
-            <div className="relative">
-              <p className="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-primary">
-                The Nomad Horizon standard
-              </p>
-              <h3 className="max-w-md text-3xl font-bold leading-[1.05] sm:text-5xl">
-                Your workday should travel as well as you do.
-              </h3>
-            </div>
-            <div className="relative space-y-6 text-base leading-relaxed text-neutral sm:text-lg">
-              <p>
-                We keep nomads and remote teams connected, productive, and ready for whatever comes
-                next. From dependable internet to quick device support, the essentials stay within
-                reach.
-              </p>
-              <div className="grid grid-cols-2 gap-4 border-t dark:border-white/15 border-slate-600/20 pt-6">
-                {overviewStats.map((stat) => (
-                  <OverviewStat key={stat.label} {...stat} />
-                ))}
-              </div>
-            </div>
-          </div>
+      <header className="mx-auto max-w-5xl pt-12 text-center lg:pt-16">
+        <p className="font-meta text-[11px] uppercase tracking-[0.26em] text-terracottaInk sm:text-xs">
+          The Nomad Horizon standard
+        </p>
+        <h2 className="nh-soft mt-6 font-display text-[clamp(2.6rem,6.4vw,6rem)] font-light leading-[0.98] tracking-[-0.03em]">
+          Your workday should travel as{' '}
+          <em className="nh-wonk font-extrabold italic text-terracotta">well</em> as you do.
+        </h2>
+        <p className="mx-auto mt-6 max-w-2xl font-display text-xl italic leading-snug text-inkMuted sm:text-2xl">
+          Focus on your adventures and career without the worry of losing connectivity or facing
+          tech issues
+        </p>
+      </header>
+
+      <figure className="mt-12 lg:mt-16">
+        <div className="group relative aspect-[4/3] overflow-hidden bg-paperAlt sm:aspect-[16/9] lg:aspect-[21/9]">
+          <Image
+            src="https://images.pexels.com/photos/17767273/pexels-photo-17767273/free-photo-of-man-sitting-with-laptop-on-wooden-bench-on-meadow-under-tree.jpeg"
+            alt="Remote worker using a laptop outdoors"
+            fill
+            sizes="(min-width: 1440px) 88rem, 100vw"
+            className="object-cover object-[50%_40%] transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
+          />
         </div>
+        <figcaption className="mt-3 flex justify-between border-t border-ink/20 pt-3 font-meta text-[11px] uppercase tracking-[0.2em] text-inkMuted">
+          <span>Work without borders</span>
+          <span className="text-terracottaInk">Fig. 02</span>
+        </figcaption>
+      </figure>
+
+      <div className="mt-12 grid gap-12 lg:grid-cols-12">
+        <p className="nh-dropcap text-lg leading-[1.75] sm:text-xl lg:col-span-7">
+          We keep nomads and remote teams connected, productive, and ready for whatever comes next.
+          From dependable internet to quick device support, the essentials stay within reach.
+        </p>
+
+        <dl className="grid grid-cols-2 gap-8 border-t border-ink pt-6 lg:col-span-4 lg:col-start-9 lg:grid-cols-1 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+          {overviewStats.map((stat) => (
+            <div key={stat.label}>
+              <dt className="font-meta text-[11px] uppercase tracking-[0.2em] text-inkMuted">
+                {stat.label}
+              </dt>
+              <dd className="nh-soft mt-1 font-display text-6xl font-light tracking-tight">{stat.value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
-  );
-}
-
-function OverviewStat({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <p className="text-2xl font-bold text-secondary sm:text-3xl">{value}</p>
-      <p className="mt-1 text-xs font-medium uppercase tracking-widest text-neutral">{label}</p>
-    </div>
   );
 }
 

@@ -1,5 +1,28 @@
-import { Footer } from '@/components/ui/Footer';
-import { Navbar } from '@/components/ui/Navbar';
+import { Fraunces, IBM_Plex_Mono, Instrument_Sans } from 'next/font/google';
+import { HomeFooter } from './_components/HomeFooter';
+import { HomeNavbar } from './_components/HomeNavbar';
+import './home.css';
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  axes: ['SOFT', 'WONK', 'opsz'],
+  variable: '--font-fraunces',
+  display: 'swap',
+});
+
+const instrumentSans = Instrument_Sans({
+  subsets: ['latin'],
+  variable: '--font-instrument-sans',
+  display: 'swap',
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-plex-mono',
+  display: 'swap',
+});
 
 export default function HomeLayout({
   children,
@@ -7,10 +30,13 @@ export default function HomeLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <div className="flex-1 bg-mainBg">{children}</div>
-      <Footer />
+    <div
+      className={`${fraunces.variable} ${instrumentSans.variable} ${plexMono.variable} nh-home relative flex min-h-screen flex-col bg-paper font-text text-ink antialiased`}
+    >
+      <div aria-hidden="true" className="nh-grain" />
+      <HomeNavbar />
+      <main className="flex-1">{children}</main>
+      <HomeFooter />
     </div>
   );
 }

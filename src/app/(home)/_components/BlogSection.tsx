@@ -1,48 +1,69 @@
 'use client';
-import { BlogCard } from '../../../components/ui/Cards';
-import { HeaderText } from '../../../components/ui/Headers';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useGetBlogsQuery } from '@/redux/api/blogApi';
-import LoadingComponent from '../../../components/ui/LoadingComponent';
-import { cn } from '@/lib/utils';
+import { BlogProps } from '@/types/common';
+import { Folio } from './Folio';
 
 export function BlogSection() {
   const { data: allBlogs, isFetching } = useGetBlogsQuery({
     showOnHomepage: true,
   });
 
-  if (isFetching) {
-    return <LoadingComponent />;
-  }
+  const blogs: BlogProps[] = allBlogs?.data?.slice(0, 2) ?? [];
+
+  if (!isFetching && blogs.length === 0) return null;
 
   return (
-    <section className="relative isolate overflow-hidden rounded-2xl border border-nomadGray bg-[radial-gradient(circle_at_0%_100%,rgba(118,171,174,0.18),transparent_35%),rgb(var(--main-bg))] p-5 shadow-main sm:p-8">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-14 -top-14 h-48 w-48 rotate-12 opacity-80"
-      >
-        <div className="absolute inset-0 rounded-full border-[14px] border-nomadGray border-r-transparent transition-transform duration-700" />
-        <div className="absolute inset-6 rounded-full border-[10px] border-nomadGray border-l-transparent" />
-        <span className="absolute bottom-5 left-0 h-3 w-3 rounded-full bg-primary/70 shadow-[0_0_0_7px_rgba(118,171,174,0.12)]" />
-      </div>
-      {allBlogs?.data?.length > 0 && (
-        <>
-          <div className="relative">
-            <HeaderText
-              title="Most Popular Blogs"
-              subtitle="Your Ultimate Resource for Digital Nomads: Practical Tips, Inspiring Stories, and Expert Guides"
-            />
-            <div
-              className={cn(
-                'grid',
-                allBlogs?.data?.length === 1 ? 'grid-cols-1' : 'grid-cols-1 gap-6 xl:grid-cols-2',
-              )}
+    <section className="nh-container pt-24 lg:pt-32">
+      <Folio number="06" label="From the journal" />
+      <header className="flex flex-col gap-4 pt-8 md:flex-row md:items-end md:justify-between">
+        <h2 className="nh-soft font-display text-4xl font-light leading-none tracking-[-0.02em] sm:text-5xl">
+          Most Popular Blogs
+        </h2>
+        <p className="max-w-sm text-sm leading-relaxed text-inkMuted">
+          Your Ultimate Resource for Digital Nomads: Practical Tips, Inspiring Stories, and Expert
+          Guides
+        </p>
+      </header>
+
+      {isFetching ? (
+        <div aria-busy="true" aria-label="Loading blogs" className="mt-10 grid gap-10 md:grid-cols-2">
+          {[0, 1].map((i) => (
+            <div key={i} className="aspect-[3/2] animate-pulse bg-paperAlt motion-reduce:animate-none" />
+          ))}
+        </div>
+      ) : (
+        <div className="mt-10 grid gap-12 md:grid-cols-2 md:gap-10">
+          {blogs.map((blog) => (
+            <Link
+              key={blog.id}
+              href={`/blogs/${blog.id}`}
+              className="group block transition-transform duration-500 ease-out hover:-translate-y-1"
             >
-              {allBlogs?.data?.slice(0, 2).map((data: any) => (
-                <BlogCard key={data.id} data={data} />
-              ))}
-            </div>
-          </div>
-        </>
+              <figure className="relative aspect-[3/2] overflow-hidden bg-paperAlt">
+                <Image
+                  src={blog.image}
+                  alt={blog.title}
+                  fill
+                  sizes="(min-width: 768px) 45vw, 100vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+              </figure>
+              <p className="mt-5 font-meta text-[11px] uppercase tracking-[0.2em] text-inkMuted">
+                By <span className="text-terracottaInk">{blog.author}</span>
+              </p>
+              <h3 className="nh-soft mt-2 font-display text-3xl leading-tight tracking-tight">{blog.title}</h3>
+              <p className="mt-3 line-clamp-3 leading-relaxed text-inkMuted">{blog.content}</p>
+              <span className="mt-4 inline-block text-sm font-medium text-terracottaInk">
+                Read the story{' '}
+                <span aria-hidden="true" className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
+              </span>
+            </Link>
+          ))}
+        </div>
       )}
     </section>
   );

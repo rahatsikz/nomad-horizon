@@ -1,0 +1,184 @@
+/*
+ * Nomad Horizon — editorial home theme.
+ * Every rule is scoped to .nh-home so the rest of the site keeps its current look.
+ * Colors are stored as RGB channels so Tailwind opacity modifiers work (bg-ink/10).
+ */
+
+.nh-home {
+  --nh-paper: 244 239 230; /* #F4EFE6 warm paper */
+  --nh-paper-alt: 236 229 216; /* #ECE5D8 */
+  --nh-ink: 27 26 23; /* #1B1A17 */
+  --nh-ink-muted: 94 87 76; /* #5E574C — 6.2:1 on paper */
+  --nh-terracotta: 196 83 45; /* #C4532D — large type & ornament */
+  --nh-terracotta-ink: 163 64 29; /* #A3401D — small text & fills, 5.5:1 */
+  --nh-grain-opacity: 0.09;
+  --nh-grain-blend: multiply;
+
+  /* Map the legacy tokens so shared UI (dropdowns, modals, loaders) matches here */
+  --main-bg: rgb(var(--nh-paper));
+  --secondary: rgb(var(--nh-ink));
+  --primary: rgb(var(--nh-terracotta-ink));
+  --light-primary: rgb(var(--nh-terracotta) / 0.35);
+  --nomad-gray: rgb(var(--nh-paper-alt));
+  --neutral: rgb(var(--nh-ink-muted));
+  --main-boxShadow: 0 0 0 1px rgb(var(--nh-ink) / 0.14);
+
+  font-feature-settings: 'kern', 'liga';
+}
+
+.dark .nh-home {
+  --nh-paper: 22 19 15; /* #16130F espresso */
+  --nh-paper-alt: 32 28 23; /* #201C17 */
+  --nh-ink: 239 230 214; /* #EFE6D6 cream */
+  --nh-ink-muted: 176 166 150; /* #B0A696 — 7.7:1 on espresso */
+  --nh-terracotta: 196 83 45;
+  --nh-terracotta-ink: 226 116 78; /* #E2744E — 6:1 on espresso */
+  --nh-grain-opacity: 0.06;
+  --nh-grain-blend: screen;
+}
+
+.nh-home ::selection {
+  background: rgb(var(--nh-terracotta) / 0.85);
+  color: rgb(var(--nh-paper));
+}
+
+.nh-container {
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .nh-container {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nh-container {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Fraunces axes */
+.nh-soft {
+  font-variation-settings: 'SOFT' 100, 'WONK' 0;
+}
+
+.nh-wonk {
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+}
+
+/* Paper grain — fixed SVG noise over the whole page */
+.nh-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: var(--nh-grain-opacity);
+  mix-blend-mode: var(--nh-grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.4 0 0 0 0 0.33 0 0 0 1.1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Drop cap */
+.nh-dropcap::first-letter {
+  float: left;
+  margin: 0.08em 0.12em 0 0;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 4.6em;
+  font-weight: 800;
+  line-height: 0.78;
+  color: rgb(var(--nh-terracotta));
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+}
+
+/* ---------- Page-load choreography ---------- */
+
+@keyframes nh-rise {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes nh-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nh-settle {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes nh-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Each headline line is a mask; the inner span rises into it */
+.nh-line {
+  display: block;
+  overflow: hidden;
+  padding: 0 0.12em 0.14em 0;
+  margin-bottom: -0.14em;
+}
+
+.nh-line > span {
+  display: block;
+  animation: nh-rise 1150ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.nh-fade-up {
+  animation: nh-fade-up 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nh-settle {
+  animation: nh-settle 1800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nh-draw-rule {
+  transform-origin: left;
+  animation: nh-rule 1200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Testimonial crossfade */
+.nh-quote {
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nh-home .nh-line > span,
+  .nh-home .nh-fade-up,
+  .nh-home .nh-settle,
+  .nh-home .nh-draw-rule {
+    animation: none;
+  }
+
+  .nh-home *,
+  .nh-home *::before,
+  .nh-home *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
