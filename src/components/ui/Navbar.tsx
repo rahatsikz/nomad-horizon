@@ -23,15 +23,44 @@ import toast from "react-hot-toast";
 import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@/assets/svgs/heroIcons";
 
-export function Navbar() {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
+export function useNavbarSession() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  // useLoggedUser();
 
   const { user } = useAppSelector((state) => state.user);
   const { accessToken } = user;
   const { username, role, user: loggedUser } = useLoggedUserInfo(accessToken);
+
+  const handleLogOut = () => {
+    deleteCookie(["accessToken", "refreshToken"]);
+    dispatch(removeAccessToken());
+    // dispatch(clearCart());
+    router.refresh();
+  };
+
+  const editModal = () => {
+    dispatch(toggleModal({ isModalOpen: true, id: "edit-profile" }));
+  };
+
+  return { accessToken, username, role, loggedUser, handleLogOut, editModal };
+}
+
+export function useCartCount() {
+  const { cart } = useAppSelector((state) => state.cart);
+  const { user } = useAppSelector((state) => state.user);
+  const { user: loggedUser } = useLoggedUserInfo(user.accessToken);
+
+  const userCart = cart?.filter((item) =>
+    item.user ? item.user === loggedUser?.data?.id : !item.user
+  );
+
+  return userCart?.length ?? 0;
+}
+
+export function Navbar() {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const { accessToken, username, role, loggedUser, handleLogOut, editModal } =
+    useNavbarSession();
 
   const myRef = useRef<HTMLDivElement>(null);
 
@@ -48,17 +77,6 @@ export function Navbar() {
 
     window.addEventListener("resize", autoCloseNavbar);
   }, []);
-
-  const handleLogOut = () => {
-    deleteCookie(["accessToken", "refreshToken"]);
-    dispatch(removeAccessToken());
-    // dispatch(clearCart());
-    router.refresh();
-  };
-
-  const editModal = () => {
-    dispatch(toggleModal({ isModalOpen: true, id: "edit-profile" }));
-  };
 
   return (
     <header className='sticky top-0 left-0 z-50' ref={myRef}>
@@ -183,14 +201,7 @@ const NavLink = ({
   onClick?: () => void;
 }) => {
   const pathname = usePathname();
-  const { cart } = useAppSelector((state) => state.cart);
-  const { user } = useAppSelector((state) => state.user);
-  const { accessToken } = user;
-  const { user: loggedUser } = useLoggedUserInfo(accessToken);
-
-  const userCartSize = cart?.filter((item) =>
-    item.user ? item.user === loggedUser?.data?.id : !item.user
-  );
+  const cartCount = useCartCount();
 
   if (label === "Cart") {
     return (
@@ -208,7 +219,7 @@ const NavLink = ({
         >
           <span>{label}</span>
           <span className='text-white bg-primary rounded-full size-4 text-xs flex items-center justify-center absolute bottom-4 -right-4'>
-            {userCartSize?.length}
+            {cartCount}
           </span>
         </Link>
       </li>
@@ -258,7 +269,7 @@ const HamburgerMenu = ({ showMobileMenu }: { showMobileMenu: boolean }) => {
   );
 };
 
-const EditProfileModal = (userData: any) => {
+export const EditProfileModal = (userData: any) => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
 
