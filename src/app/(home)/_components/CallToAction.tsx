@@ -1,34 +1,47 @@
 'use client';
+import Link from 'next/link';
 import { useAppSelector } from '@/redux/hooks';
-import { Button } from '../../../components/ui/Button';
-import { useRouter } from 'next/navigation';
+import { CompassMark } from './HomeNavbar';
+import { Topo } from './Topo';
 
 export function CallToAction() {
   const { user } = useAppSelector((state) => state.user);
-  const { push } = useRouter();
 
   return (
-    <section className="group relative isolate overflow-hidden rounded-2xl border border-nomadGray bg-[radial-gradient(circle_at_15%_0%,rgba(118,171,174,0.3),transparent_35%),radial-gradient(circle_at_100%_100%,rgba(34,40,49,0.14),transparent_45%),rgb(var(--nomad-gray))] px-5 py-14 text-center shadow-main transition duration-500 hover:-translate-y-1 sm:px-8 lg:py-20">
-      <div className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full border-[18px] border-nomadGray transition duration-700 group-hover:rotate-12 group-hover:scale-110" />
-      <div className="pointer-events-none absolute -bottom-24 -left-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
-      <div className="relative mx-auto max-w-3xl">
-        <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-primary">
-          Your next chapter starts here
-        </p>
-        <h2 className="text-3xl font-bold leading-tight text-secondary sm:text-5xl dark:text-white">
-          Ready to Elevate Your Nomadic Lifestyle?
-        </h2>
-        <p className="mx-auto mb-8 mt-4 max-w-2xl text-base leading-relaxed text-neutral sm:text-lg">
-          Join Nomad Horizon today and unlock essential services to stay connected, productive, and
-          on the move wherever your journey takes you.
-        </p>
-        <Button
-          variant="solid"
-          className="px-7 py-2.5 font-semibold shadow-[0_12px_24px_-12px_rgba(118,171,174,0.9)] hover:shadow-none"
-          onClick={() => push(user.accessToken ? '/services' : '/register')}
-        >
-          {user.accessToken ? 'Explore Services' : 'Register Now'}
-        </Button>
+    <section className="nh-container pt-24 lg:pt-32">
+      <div className="relative isolate overflow-hidden rounded-[1.75rem] bg-passport text-passportInk">
+        <Topo variant="band" animate={false} className="absolute inset-0 -z-10 size-full opacity-40" />
+        <div className="grid gap-10 p-8 sm:p-12 lg:grid-cols-12 lg:items-center lg:p-16">
+          <div className="lg:col-span-8">
+            <p className="font-ticket text-[10px] uppercase tracking-[0.2em] opacity-80 sm:text-[11px]">
+              Your next chapter starts here
+            </p>
+            <h2 className="mt-4 font-display text-[clamp(2.5rem,6vw,5rem)] font-extrabold leading-[0.92] tracking-[-0.045em]">
+              Ready to Elevate Your Nomadic Lifestyle?
+            </h2>
+            <p className="mt-5 max-w-2xl font-text text-lg leading-relaxed opacity-90 sm:text-xl">
+              Join Nomad Horizon today and unlock essential services to stay connected, productive, and
+              on the move wherever your journey takes you.
+            </p>
+            <Link
+              href={user.accessToken ? '/services' : '/register'}
+              className="group mt-8 inline-flex items-center gap-3 rounded-full bg-signal px-7 py-4 font-display text-lg font-bold text-onSignal transition-transform hover:-translate-y-0.5"
+            >
+              {user.accessToken ? 'Explore Services' : 'Register Now'}
+              <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+          </div>
+
+          {/* passport cover emblem */}
+          <div aria-hidden="true" className="hidden flex-col items-center gap-4 text-center lg:col-span-4 lg:flex">
+            <p className="font-ticket text-xs uppercase tracking-[0.5em]">Passport</p>
+            <CompassMark className="size-32" />
+            <p className="font-display text-xl font-extrabold uppercase tracking-[0.2em]">Nomad Horizon</p>
+            <span className="mt-2 h-8 w-12 rounded-sm border-2 border-current opacity-80" />
+          </div>
+        </div>
       </div>
     </section>
   );

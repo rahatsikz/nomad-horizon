@@ -6,21 +6,22 @@ import { LatestNews } from "./_components/LatestNews";
 import { Overview } from "./_components/Overview";
 import { TopService, UpcomingService } from "./_components/Services";
 import { Testimonial } from "./_components/Testimonial";
+import { FlightPath } from "./_components/Topo";
 
 const Homepage = () => {
   return (
     <>
       <HeroSection />
-      <div className='container mx-auto px-4 2xl:px-5 space-y-16 mt-16 pb-16 overflow-hidden'>
-        <TopService />
-        <UpcomingService />
-        <Testimonial />
-        <Overview />
-        <CallToAction />
-        <Events />
-        <BlogSection />
-        <LatestNews />
-      </div>
+      <FlightPath className="mt-8" />
+      <TopService />
+      <UpcomingService />
+      <FlightPath flip className="mt-16" />
+      <Testimonial />
+      <Overview />
+      <CallToAction />
+      <Events />
+      <BlogSection />
+      <LatestNews />
     </>
   );
 };
