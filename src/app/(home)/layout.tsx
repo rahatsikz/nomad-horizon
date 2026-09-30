@@ -1,5 +1,29 @@
-import { Footer } from '@/components/ui/Footer';
-import { Navbar } from '@/components/ui/Navbar';
+import { Hanken_Grotesk, Instrument_Serif, Syne } from 'next/font/google';
+import { HomeFooter } from './_components/HomeFooter';
+import { HomeNavbar } from './_components/HomeNavbar';
+import './home.css';
+
+const syne = Syne({
+  subsets: ['latin'],
+  weight: ['700', '800'],
+  variable: '--font-syne',
+  display: 'swap',
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument-serif',
+  display: 'swap',
+});
+
+const hanken = Hanken_Grotesk({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-hanken',
+  display: 'swap',
+});
 
 export default function HomeLayout({
   children,
@@ -7,10 +31,14 @@ export default function HomeLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <div className="flex-1 bg-mainBg">{children}</div>
-      <Footer />
+    <div
+      className={`${syne.variable} ${instrumentSerif.variable} ${hanken.variable} nh-home relative flex min-h-screen flex-col overflow-x-clip bg-canvas font-text font-light text-fg antialiased`}
+    >
+      <div aria-hidden="true" className="nh-curtain" />
+      <div aria-hidden="true" className="nh-grain" />
+      <HomeNavbar />
+      <main className="flex-1">{children}</main>
+      <HomeFooter />
     </div>
   );
 }
