@@ -1,3 +1,8 @@
+export enum ServiceStatus {
+  AVAILABLE = 'available',
+  UPCOMING = 'upcoming',
+}
+
 export type ServiceProps = {
   id: string;
   createdAt: string;
@@ -5,9 +10,34 @@ export type ServiceProps = {
   serviceName: string;
   content: string;
   image: string;
-  status: string;
+  status: ServiceStatus;
   price: number;
   category?: string;
+};
+
+export type ServiceScheduleProps = {
+  daysOfWeek: string;
+  startTime: string;
+  endTime: string;
+  eachSessionDuration?: number;
+};
+
+export type ServiceDetailProps = ServiceProps & {
+  schedules?: ServiceScheduleProps[];
+};
+
+export type ApiResponse<T> = {
+  data: T;
+};
+
+export type ServiceListResponse = {
+  data: ServiceProps[];
+  meta?: {
+    totalPage?: number;
+    page?: number;
+    limit?: number;
+    total?: number;
+  };
 };
 
 export type ReviewProps = {
